@@ -912,7 +912,17 @@
         <p><button class="button button-primary">Save Changes</button></p>
       </form>
       <h2 style="font-size:1.3em;margin:30px 0 0">Administrator account</h2>
-      ${server ? `<p>You are signed in as <b>${esc(server.user)}</b>. The admin password is kept on Cloudflare: Workers &amp; Pages → korapulse → Settings → Variables and Secrets → <code>ADMIN_PASSWORD</code>.</p>` : `
+      ${server ? (server.canChange ? `
+      <form data-form="server-password" autocomplete="off">
+        <table class="form-table"><tbody>
+          <tr><th><label for="spu">Username</label></th><td><input type="text" id="spu" name="user" class="regular-text" value="${esc(server.user)}" required autocomplete="username"></td></tr>
+          <tr><th><label for="spc">Current password</label></th><td><input type="password" id="spc" name="current" class="regular-text" required autocomplete="current-password"></td></tr>
+          <tr><th><label for="spn">New password</label></th><td><input type="password" id="spn" name="pw" class="regular-text" minlength="10" required autocomplete="new-password"><p class="description">At least 10 characters. Mix words, numbers and symbols.</p></td></tr>
+          <tr><th><label for="spn2">Confirm new password</label></th><td><input type="password" id="spn2" name="pw2" class="regular-text" minlength="10" required autocomplete="new-password">
+            <p class="description">${server.changed ? `Password last changed on ${fmtDate(server.changed)}.` : "You are using the password set on Cloudflare."} After changing it, your browser asks you to log in again with the new one.</p></td></tr>
+        </tbody></table>
+        <p><button class="button button-primary">Change password</button></p>
+      </form>` : `<p>You are signed in as <b>${esc(server.user)}</b>. The admin password is the <code>ADMIN_PASSWORD</code> secret on Cloudflare.</p>`) : `
       <form data-form="password">
         <table class="form-table"><tbody>
           <tr><th><label for="pu">Username</label></th><td><input type="text" id="pu" name="user" class="regular-text" value="${esc(currentUser())}" required autocomplete="username"></td></tr>
@@ -1188,6 +1198,18 @@
       ["instagram", "x", "facebook", "youtube", "tiktok", "linkedin"].forEach((k) => { D.site.social[k] = f["so-" + k].value.trim() || "#"; });
       D.topLinks = f.toplinks.value.split("\n").map((l) => l.split("|").map((x) => x.trim())).filter((p) => p[0] && p[1]).map(([label, href]) => ({ label, href }));
       save("Settings saved."); render();
+    },
+    "server-password": async (f) => {
+      if (f.pw.value !== f.pw2.value) { flash = { type: "error", text: "The new passwords do not match." }; render(); return; }
+      const btn = f.querySelector("button");
+      btn.disabled = true; btn.textContent = "Saving…";
+      let res, data = {};
+      try {
+        res = await fetch("api/password", { method: "POST", headers: { "content-type": "application/json" }, credentials: "same-origin", body: JSON.stringify({ user: f.user.value.trim(), current: f.current.value, password: f.pw.value }) });
+        data = await res.json().catch(() => ({}));
+      } catch (e) { data = { error: "Could not reach the server. Check your connection." }; }
+      if (!res || !res.ok) { flash = { type: "error", text: data.error || "The password could not be changed." }; render(); return; }
+      app.innerHTML = `<div class="login"><div class="notice notice-success msg"><p><b>Password changed.</b> Log in again with your new password.</p></div><p><a class="button button-primary button-large" href="./">Log in</a></p></div>`;
     },
     password: async (f) => {
       const user = f.user.value.trim();

@@ -7,6 +7,8 @@
   "name": "korapulse",
   "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
+  // Stores the admin password changed from the dashboard (salted hash) and failed-login counters.
+  "kv_namespaces": [{ "binding": "AUTH", "id": "8b448836c6704bf68b68ade886db1211" }],
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
