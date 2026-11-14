@@ -51,7 +51,7 @@ The site has no server or database. Your changes are saved **in your browser**, 
 Use **Download backup** regularly: clearing your browser data also clears unpublished changes.
 
 ### Limits of this version (important)
-- **The admin password is not real security.** It only locks the dashboard in that browser. Anyone can open `/admin/`, but they can only change *their own browser's* copy, never the live site; only someone who can upload to the repository can publish. To keep `/admin/` private on the live site anyway, protect it with **Cloudflare Access** (free for small teams): Zero Trust → Access → Applications → add `yourdomain.com/admin/*`.
+- **Admin login:** on the live site, `/admin/` is locked by the Worker (`worker/index.js`): the browser asks for a username (`admin`) and password before any admin file is sent. The password is the Cloudflare secret `ADMIN_PASSWORD` (Workers & Pages → korapulse → Settings → Variables and Secrets), never stored in this repository. To change it, edit that secret. When you open the site on your own computer without the Worker, the dashboard falls back to a password kept in that browser. For logins per writer with email codes, you can also turn on Cloudflare Access (Zero Trust) for `/admin/*`.
 - **One editor, one computer at a time.** Several journalists working at once need a shared database.
 - **Visitor comments don't reach you yet.** The comment form works, but without a server a comment stays in the visitor's browser. The moderation screen works for comments that are in `data.js`.
 - **Photos are stored inside `data.js`** (about 5 MB in total, shown in Media). For a big photo library, store images as files in `images/` and use those paths.

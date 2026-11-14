@@ -102,9 +102,11 @@
     return "f" + (h >>> 0).toString(16);
   }
   // Signed in until the stored time: 12 hours, or 14 days with "Remember Me".
-  const loggedIn = () => (+ls.get("kp-admin-session") || 0) > Date.now();
+  // On the live site the Worker checks the password before this page loads (KP_SERVER_AUTH).
+  const server = window.KP_SERVER_AUTH || null;
+  const loggedIn = () => !!server || (+ls.get("kp-admin-session") || 0) > Date.now();
   const startSession = (days) => ls.set("kp-admin-session", String(Date.now() + days * 864e5));
-  const currentUser = () => (getAuth() || {}).user || "admin";
+  const currentUser = () => (server && server.user) || (getAuth() || {}).user || "admin";
 
   function renderLogin(msg) {
     const auth = getAuth();
@@ -910,13 +912,14 @@
         <p><button class="button button-primary">Save Changes</button></p>
       </form>
       <h2 style="font-size:1.3em;margin:30px 0 0">Administrator account</h2>
+      ${server ? `<p>You are signed in as <b>${esc(server.user)}</b>. The admin password is kept on Cloudflare: Workers &amp; Pages → korapulse → Settings → Variables and Secrets → <code>ADMIN_PASSWORD</code>.</p>` : `
       <form data-form="password">
         <table class="form-table"><tbody>
           <tr><th><label for="pu">Username</label></th><td><input type="text" id="pu" name="user" class="regular-text" value="${esc(currentUser())}" required autocomplete="username"></td></tr>
           <tr><th><label for="pn">New password</label></th><td><input type="password" id="pn" name="pw" class="regular-text" minlength="8" required autocomplete="new-password"><p class="description">This password locks the dashboard in this browser. See the README for protecting the admin on the live site.</p></td></tr>
         </tbody></table>
         <p><button class="button">Update account</button></p>
-      </form>`;
+      </form>`}`;
     return { title: "General Settings", menu: "settings", sub: "settings", html };
   }
 
@@ -986,7 +989,7 @@
     "menu-toggle": () => document.body.classList.toggle("menu-open"),
     dismiss: (b) => b.closest(".notice").remove(),
     "hide-welcome": () => { ls.set("kp-welcome-hidden", "1"); render(); },
-    logout: () => { if (!confirmLeave()) return; dirty = false; ls.del("kp-admin-session"); location.hash = ""; renderLogin({ type: "success", text: "You are now logged out." }); },
+    logout: () => { if (!confirmLeave()) return; dirty = false; if (server) { location.href = "logout"; return; } ls.del("kp-admin-session"); location.hash = ""; renderLogin({ type: "success", text: "You are now logged out." }); },
     "c-status": (b) => {
       const c = D.comments.find((x) => x.id === b.dataset.id);
       if (!c) return;
