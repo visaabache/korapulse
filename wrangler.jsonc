@@ -1,0 +1,13 @@
+// Cloudflare Worker for KoraPulse: serves this folder as a static website.
+// Deploy: `npx wrangler deploy`, or connect this GitHub repository in the Cloudflare dashboard
+// (Workers & Pages → Create → Import a repository) to redeploy on every push.
+// Files listed in .assetsignore are not uploaded.
+{
+  "name": "korapulse",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
