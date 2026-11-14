@@ -1,5 +1,7 @@
 # KoraPulse: football news website
 
+Live: **https://korapulse.visa-abache.workers.dev** · Admin: **https://korapulse.visa-abache.workers.dev/admin/**
+
 A football news site (Morocco, Africa, Europe), with a classic news-site layout: a top bar, a large centred logo, a menu bar that stays at the top with dropdowns, a live-score ticker, a featured story with a sidebar (opinion, league table, most read, newsletter), sections for each competition, ad slots and a large footer.
 
 Plain HTML, CSS and JavaScript. No build step. Open `index.html` in a browser, or serve the folder:
@@ -71,4 +73,4 @@ The site runs on Cloudflare Workers (static assets), configured in `wrangler.jso
 npx wrangler deploy
 ```
 
-To redeploy automatically on every push (needed for the admin "Download data.js" publishing flow), connect this repository in the Cloudflare dashboard: Workers & Pages → `korapulse` → Settings → Build → Connect to Git, with the deploy command `npx wrangler deploy` and no build command.
+This repository is connected to the `korapulse` Worker (Workers Builds): every push to `main` deploys automatically, including a new `js/data.js` from the admin.
