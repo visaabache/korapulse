@@ -10,7 +10,10 @@ const DONE = new Set(["FT", "AET", "PEN"]);
 const OFF = new Set(["PST", "CANC", "ABD", "AWD", "WO"]);
 
 // Competitions shown first (API-Football league ids), after Moroccan ones.
-const PRIORITY = [6, 12, 20, 1, 2, 3, 848, 39, 140, 135, 78, 61, 307, 10];
+// AFCON, AFCON qualifiers, CAF CL, CAF Confederation Cup, World Cup, WC qualifiers (Africa, Europe,
+// South America, Asia, CONCACAF), Champions League, Europa League, Conference League, Nations League,
+// Euro, Copa America, Premier League, LaLiga, Serie A, Bundesliga, Ligue 1, Saudi Pro League, friendlies.
+const PRIORITY = [6, 36, 12, 20, 1, 29, 32, 34, 30, 31, 2, 3, 848, 5, 4, 9, 39, 140, 135, 78, 61, 307, 10];
 const REGION_ORDER = ["Morocco", "Africa", "Europe", "Middle East", "Americas", "Asia", "International"];
 const AFRICA = new Set("Algeria Angola Benin Botswana Burkina-Faso Burundi Cameroon Cape-Verde-Islands Central-African-Republic Chad Comoros Congo Congo-DR Djibouti Egypt Equatorial-Guinea Eritrea Eswatini Ethiopia Gabon Gambia Ghana Guinea Guinea-Bissau Ivory-Coast Kenya Lesotho Liberia Libya Madagascar Malawi Mali Mauritania Mauritius Mozambique Namibia Niger Nigeria Rwanda Sao-Tome-and-Principe Senegal Seychelles Sierra-Leone Somalia South-Africa South-Sudan Sudan Tanzania Togo Tunisia Uganda Zambia Zimbabwe".split(" "));
 const MIDEAST = new Set("Saudi-Arabia United-Arab-Emirates Qatar Kuwait Bahrain Oman Jordan Iraq Iran Syria Lebanon Palestine Yemen Israel".split(" "));
