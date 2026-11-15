@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Oswald:wght@600&display=swap" rel="stylesheet">
+<style>*{margin:0}html,body{background:transparent}.a{position:relative;font-family:Inter,sans-serif}</style></head><body>
+<script>
+// Instagram glyph (rounded square, lens, flash)
+const G=(s,c)=>`<svg viewBox="0 0 100 100" width="${s}" height="${s}"><rect x="9" y="9" width="82" height="82" rx="24" fill="none" stroke="${c}" stroke-width="8"/><circle cx="50" cy="50" r="19" fill="none" stroke="${c}" stroke-width="8"/><circle cx="73.5" cy="26.5" r="5.5" fill="${c}"/></svg>`;
+const GRAD=`<defs><radialGradient id="ig" cx="0.3" cy="1.07" r="1.3"><stop offset="0" stop-color="#fdf497"/><stop offset="0.05" stop-color="#fdf497"/><stop offset="0.45" stop-color="#fd5949"/><stop offset="0.6" stop-color="#d6249f"/><stop offset="0.9" stop-color="#285AEB"/></radialGradient></defs>`;
+const APP=(s)=>`<svg viewBox="0 0 100 100" width="${s}" height="${s}">${GRAD}<rect width="100" height="100" rx="23" fill="url(#ig)"/><rect x="21" y="21" width="58" height="58" rx="17" fill="none" stroke="#fff" stroke-width="6"/><circle cx="50" cy="50" r="13.5" fill="none" stroke="#fff" stroke-width="6"/><circle cx="66.5" cy="33.5" r="4" fill="#fff"/></svg>`;
+const BADGE=(bg,fg,glyph,w=1400,h=300)=>`<div class="a" style="width:${w}px;height:${h}px;display:flex;align-items:center;justify-content:center"><div style="display:flex;align-items:center;gap:36px;background:${bg};border-radius:${h/2}px;padding:40px 70px 40px 44px">${glyph}<span style="font:700 110px/1 Inter;color:${fg};letter-spacing:-.01em">@kora_pulse</span></div></div>`;
+const A={
+ 'instagram-color':{w:1024,h:1024,html:`<div class="a" style="width:1024px;height:1024px;display:flex;align-items:center;justify-content:center">${APP(1000)}</div>`},
+ 'instagram-white':{w:1024,h:1024,html:`<div class="a" style="width:1024px;height:1024px;display:flex;align-items:center;justify-content:center">${G(1000,'#fff')}</div>`},
+ 'instagram-black':{w:1024,h:1024,html:`<div class="a" style="width:1024px;height:1024px;display:flex;align-items:center;justify-content:center">${G(1000,'#000')}</div>`},
+ 'instagram-gold':{w:1024,h:1024,html:`<div class="a" style="width:1024px;height:1024px;display:flex;align-items:center;justify-content:center">${G(1000,'#f2b705')}</div>`},
+ 'follow-kora_pulse-green':{w:1400,h:300,html:BADGE('#0d4f34','#fff',APP(170))},
+ 'follow-kora_pulse-white':{w:1400,h:300,html:BADGE('#ffffff','#0d4f34',APP(170))},
+ 'follow-kora_pulse-text-white':{w:1400,h:300,html:BADGE('transparent','#fff',G(170,'#fff'))}
+};
+function show(k){document.body.innerHTML=A[k].html;return A[k];}
+window.KIT=Object.keys(A);
+</script></body></html>
