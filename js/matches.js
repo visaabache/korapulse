@@ -1,14 +1,15 @@
 /* KoraPulse — live scores page (matches.html). Data: /api/matches (see worker/matches.js). */
 (function () {
   const main = document.getElementById("main");
+  const L = window.KP_I18N, t = L.t;
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const pad = (n) => String(n).padStart(2, "0");
   const localDay = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
   const addDays = (day, n) => { const d = new Date(day + "T12:00:00"); d.setDate(d.getDate() + n); return localDay(d); };
   const today = localDay(new Date());
-  const timeOf = (iso) => new Date(iso).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
-  const dayLabel = (day) => day === today ? "Today" : day === addDays(today, -1) ? "Yesterday" : day === addDays(today, 1) ? "Tomorrow"
-    : new Date(day + "T12:00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  const timeOf = (iso) => new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+  const dayLabel = (day) => day === today ? t("Today") : day === addDays(today, -1) ? t("Yesterday") : day === addDays(today, 1) ? t("Tomorrow")
+    : new Date(day + "T12:00:00").toLocaleDateString(L.locale, { weekday: "short", day: "numeric", month: "short" });
 
   const p = new URLSearchParams(location.search);
   const state = {
@@ -27,6 +28,7 @@
     if (state.region) q.set("r", state.region);
     if (state.league) q.set("c", state.league);
     if (state.q) q.set("q", state.q);
+    if (L.lang !== "en") q.set("lang", L.lang);
     history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : ""));
   }
 
@@ -43,22 +45,22 @@
     main.innerHTML = `
       <div class="container ms">
         <header class="ms-head">
-          <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> › Live scores</nav>
-          <h1 class="h-serif">Live scores</h1>
-          <p class="ms-sub">Football from around the world · <span id="ms-updated">loading…</span></p>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="${L.link("index.html")}">${t("Home")}</a> › ${t("Live scores")}</nav>
+          <h1 class="h-serif">${t("Live scores")}</h1>
+          <p class="ms-sub">${t("Football from around the world")} · <span id="ms-updated">${t("loading…")}</span></p>
         </header>
-        <div class="ms-dates" role="group" aria-label="Day">
-          <button class="ms-arrow" data-day="-1" aria-label="Previous day">‹</button>
+        <div class="ms-dates" role="group" aria-label="${t("Day")}">
+          <button class="ms-arrow" data-day="-1" aria-label="${t("Previous day")}">${L.rtl ? "›" : "‹"}</button>
           <div class="ms-daylist" id="ms-days"></div>
-          <button class="ms-arrow" data-day="1" aria-label="Next day">›</button>
-          <label class="ms-pick" title="Choose a date"><input type="date" id="ms-date" aria-label="Choose a date"></label>
+          <button class="ms-arrow" data-day="1" aria-label="${t("Next day")}">${L.rtl ? "‹" : "›"}</button>
+          <label class="ms-pick" title="${t("Choose a date")}"><input type="date" id="ms-date" aria-label="${t("Choose a date")}"></label>
         </div>
         <div class="ms-bar">
           <div class="ms-tabs" role="tablist" id="ms-tabs"></div>
           <div class="ms-filters">
-            <input type="search" id="ms-q" placeholder="Search a team…" aria-label="Search a team">
-            <select id="ms-region" aria-label="Region"></select>
-            <select id="ms-league" aria-label="Competition"></select>
+            <input type="search" id="ms-q" placeholder="${t("Search a team…")}" aria-label="${t("Search a team…")}">
+            <select id="ms-region" aria-label="${t("Region")}"></select>
+            <select id="ms-league" aria-label="${t("Competition")}"></select>
           </div>
         </div>
         <div id="ms-list" aria-live="polite"></div>
@@ -94,16 +96,16 @@
     const regions = [...new Set(all.map((l) => l.region))];
     const inRegion = all.filter((l) => !state.region || l.region === state.region);
     const regionSel = document.getElementById("ms-region");
-    regionSel.innerHTML = `<option value="">All regions</option>` + regions.map((r) => `<option ${r === state.region ? "selected" : ""}>${esc(r)}</option>`).join("");
+    regionSel.innerHTML = `<option value="">${t("All regions")}</option>` + regions.map((r) => `<option value="${esc(r)}" ${r === state.region ? "selected" : ""}>${esc(t(r))}</option>`).join("");
     const leagueSel = document.getElementById("ms-league");
-    leagueSel.innerHTML = `<option value="">All competitions</option>` + inRegion.map((l) => `<option value="${esc(l.id)}" ${l.id === state.league ? "selected" : ""}>${esc(l.country ? `${l.country}: ${l.name}` : l.name)}</option>`).join("");
+    leagueSel.innerHTML = `<option value="">${t("All competitions")}</option>` + inRegion.map((l) => `<option value="${esc(l.id)}" ${l.id === state.league ? "selected" : ""}>${esc(l.country ? `${l.country}: ${l.name}` : l.name)}</option>`).join("");
 
     const q = state.q.toLowerCase();
     const scoped = inRegion.filter((l) => !state.league || l.id === state.league)
       .map((l) => ({ ...l, matches: l.matches.filter((m) => !q || (m.home.name + " " + m.away.name + " " + m.home.short + " " + m.away.short).toLowerCase().includes(q)) }))
       .filter((l) => l.matches.length);
     const count = (f) => scoped.reduce((n, l) => n + l.matches.filter((m) => f === "all" || (f === "live" ? isLive(m) : f === "post" ? m.state === "post" || m.state === "off" : m.state === "pre")).length, 0);
-    document.getElementById("ms-tabs").innerHTML = [["all", "All"], ["live", "Live"], ["post", "Finished"], ["pre", "Upcoming"]].map(([k, l]) =>
+    document.getElementById("ms-tabs").innerHTML = [["all", t("All")], ["live", t("Live")], ["post", t("Finished")], ["pre", t("Upcoming")]].map(([k, l]) =>
       `<button role="tab" aria-selected="${state.filter === k}" class="${state.filter === k ? "on" : ""} ${k === "live" ? "tab-live" : ""}" data-f="${k}">${k === "live" ? '<span class="dot"></span>' : ""}${l} <span class="n">${count(k)}</span></button>`).join("");
     document.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => { state.filter = b.dataset.f; saveUrl(); draw(); }));
 
@@ -111,13 +113,13 @@
     const list = document.getElementById("ms-list");
     if (loading && !data) { list.innerHTML = `<div class="ms-skel">${'<div class="sk"></div>'.repeat(6)}</div>`; return; }
     if (error && !data) {
-      list.innerHTML = `<div class="ms-empty"><p><b>Live scores are not available right now.</b></p><p>The score service did not answer. Please try again in a moment.</p><button class="btn" id="ms-retry">Try again</button></div>`;
+      list.innerHTML = `<div class="ms-empty"><p><b>${t("Live scores are not available right now.")}</b></p><p>${t("The score service did not answer. Please try again in a moment.")}</p><button class="btn" id="ms-retry">${t("Try again")}</button></div>`;
       document.getElementById("ms-retry").onclick = load;
       return;
     }
     if (!shown.length) {
-      const why = state.filter === "live" ? "No matches are being played right now." : "No matches found.";
-      list.innerHTML = `<div class="ms-empty"><p><b>${why}</b></p><p>${state.filter !== "all" || state.q || state.region || state.league ? 'Try <button class="link" id="ms-clear">clearing the filters</button> or another day.' : "Try another day."}</p></div>`;
+      const why = state.filter === "live" ? t("No matches are being played right now.") : t("No matches found.");
+      list.innerHTML = `<div class="ms-empty"><p><b>${why}</b></p><p>${state.filter !== "all" || state.q || state.region || state.league ? `${t("Try")} <button class="link" id="ms-clear">${t("clearing the filters")}</button> ${t("or another day.")}` : t("Try another day.")}</p></div>`;
       const c = document.getElementById("ms-clear");
       if (c) c.onclick = () => { Object.assign(state, { filter: "all", region: "", league: "", q: "" }); document.getElementById("ms-q").value = ""; saveUrl(); draw(); };
       return;
@@ -126,7 +128,7 @@
       const live = l.matches.filter(isLive).length;
       return `<section class="ms-league">
         <header>${l.logo ? `<img src="${esc(l.logo)}" alt="" loading="lazy" width="24" height="24">` : '<span class="ms-nologo"></span>'}
-          <div><h2>${esc(l.name)}</h2><span>${esc(l.country || l.region)}</span></div>${live ? `<span class="ms-livecount"><span class="dot"></span>${live} live</span>` : ""}</header>
+          <div><h2>${esc(l.name)}</h2><span>${esc(l.country || t(l.region))}</span></div>${live ? `<span class="ms-livecount"><span class="dot"></span>${t("{n} live", { n: live })}</span>` : ""}</header>
         ${l.matches.map(row).join("")}
       </section>`;
     }).join("");
@@ -134,7 +136,7 @@
 
   function row(m) {
     const st = m.state;
-    const time = st === "in" ? (m.halftime ? "HT" : esc(m.clock || m.detail || "Live")) : st === "post" ? esc(/AET|Pen/i.test(m.detail) ? m.detail : "FT") : st === "off" ? esc(m.detail || "Postp.") : timeOf(m.start);
+    const time = st === "in" ? (m.halftime ? t("HT") : esc(m.clock || m.detail || t("Live"))) : st === "post" ? esc(/AET|Pen/i.test(m.detail) ? m.detail : t("FT")) : st === "off" ? t("Postp.") : timeOf(m.start);
     const team = (t) => `<div class="ms-team ${t.winner ? "win" : ""}">${t.logo ? `<img src="${esc(t.logo)}" alt="" loading="lazy" width="20" height="20">` : '<span class="ms-nologo sm"></span>'}<span>${esc(t.name)}</span></div>`;
     const score = (t) => `<b>${st === "pre" || st === "off" || t.score == null ? "" : esc(t.score)}</b>`;
     return `<div class="ms-row st-${st}" title="${esc(m.venue)}">
@@ -158,9 +160,9 @@
     }
     loading = false;
     const foot = document.getElementById("ms-foot");
-    if (foot) foot.textContent = data ? `Times are shown in your time zone. ${data.refresh > 1 ? `Scores refresh every ${data.refresh} minutes.` : "Scores update automatically while matches are live."} Source: ${data.source || "ESPN"}.` : "";
+    if (foot) foot.textContent = data ? `${t("Times are shown in your time zone.")} ${data.refresh > 1 ? t("Scores refresh every {n} minutes.", { n: data.refresh }) : t("Scores update automatically while matches are live.")} ${t("Source: {s}.", { s: data.source || "ESPN" })}` : "";
     const up = document.getElementById("ms-updated");
-    if (up) up.textContent = data ? `updated ${new Date(data.updated).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}` : "not available";
+    if (up) up.textContent = data ? t("updated {t}", { t: new Date(data.updated).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false }) }) : t("not available");
     draw();
     // refresh while the chosen day is today (or matches are live)
     const anyLive = leaguesOfDay().some((l) => l.matches.some(isLive));

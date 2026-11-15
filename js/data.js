@@ -17,13 +17,36 @@ window.KP = {
       "linkedin": "#"
     },
     "comments": false,
-    "ticker": "auto"
+    "ticker": "auto",
+    "tr": {
+      "fr": {
+        "tagline": "L'actualité du football au Maroc, en Afrique et dans le monde"
+      },
+      "ar": {
+        "tagline": "أخبار كرة القدم من المغرب وإفريقيا والعالم"
+      }
+    },
+    "languages": [
+      "en",
+      "fr",
+      "ar"
+    ]
   },
   "categories": [
     {
       "slug": "news",
       "name": "News",
-      "subs": []
+      "subs": [],
+      "tr": {
+        "fr": {
+          "name": "Actualités",
+          "subs": []
+        },
+        "ar": {
+          "name": "أخبار",
+          "subs": []
+        }
+      }
     },
     {
       "slug": "botola",
@@ -32,7 +55,25 @@ window.KP = {
         "Results",
         "Clubs",
         "Previews"
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "name": "Botola Pro",
+          "subs": [
+            "Résultats",
+            "Clubs",
+            "Avant-match"
+          ]
+        },
+        "ar": {
+          "name": "البطولة الاحترافية",
+          "subs": [
+            "النتائج",
+            "الأندية",
+            "تقديم المباريات"
+          ]
+        }
+      }
     },
     {
       "slug": "atlas-lions",
@@ -41,7 +82,25 @@ window.KP = {
         "Senior team",
         "U23",
         "Interviews"
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "name": "Lions de l'Atlas",
+          "subs": [
+            "Équipe A",
+            "U23",
+            "Entretiens"
+          ]
+        },
+        "ar": {
+          "name": "أسود الأطلس",
+          "subs": [
+            "المنتخب الأول",
+            "أقل من 23 سنة",
+            "حوارات"
+          ]
+        }
+      }
     },
     {
       "slug": "africa",
@@ -49,7 +108,23 @@ window.KP = {
       "subs": [
         "AFCON",
         "CAF Champions League"
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "name": "Afrique",
+          "subs": [
+            "CAN",
+            "Ligue des champions CAF"
+          ]
+        },
+        "ar": {
+          "name": "إفريقيا",
+          "subs": [
+            "كأس أمم إفريقيا",
+            "دوري أبطال إفريقيا"
+          ]
+        }
+      }
     },
     {
       "slug": "europe",
@@ -58,45 +133,119 @@ window.KP = {
         "Champions League",
         "Premier League",
         "LaLiga"
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "name": "Europe",
+          "subs": [
+            "Ligue des champions",
+            "Premier League",
+            "LaLiga"
+          ]
+        },
+        "ar": {
+          "name": "أوروبا",
+          "subs": [
+            "دوري الأبطال",
+            "الدوري الإنجليزي",
+            "الدوري الإسباني"
+          ]
+        }
+      }
     },
     {
       "slug": "transfers",
       "name": "Transfers",
-      "subs": []
+      "subs": [],
+      "tr": {
+        "fr": {
+          "name": "Transferts",
+          "subs": []
+        },
+        "ar": {
+          "name": "الانتقالات",
+          "subs": []
+        }
+      }
     },
     {
       "slug": "women",
       "name": "Women",
-      "subs": []
+      "subs": [],
+      "tr": {
+        "fr": {
+          "name": "Féminin",
+          "subs": []
+        },
+        "ar": {
+          "name": "الكرة النسوية",
+          "subs": []
+        }
+      }
     },
     {
       "slug": "world-cup-2030",
       "name": "World Cup 2030",
-      "subs": []
+      "subs": [],
+      "tr": {
+        "fr": {
+          "name": "Mondial 2030",
+          "subs": []
+        },
+        "ar": {
+          "name": "مونديال 2030",
+          "subs": []
+        }
+      }
     },
     {
       "slug": "opinion",
       "name": "Opinion",
-      "subs": []
+      "subs": [],
+      "tr": {
+        "fr": {
+          "name": "Opinion",
+          "subs": []
+        },
+        "ar": {
+          "name": "رأي",
+          "subs": []
+        }
+      }
     }
   ],
   "topLinks": [
     {
       "label": "Botola Pro",
-      "href": "category.html?c=botola"
+      "href": "category.html?c=botola",
+      "tr": {
+        "fr": "Botola Pro",
+        "ar": "البطولة الاحترافية"
+      }
     },
     {
       "label": "Atlas Lions",
-      "href": "category.html?c=atlas-lions"
+      "href": "category.html?c=atlas-lions",
+      "tr": {
+        "fr": "Lions de l'Atlas",
+        "ar": "أسود الأطلس"
+      }
     },
     {
       "label": "Champions League",
-      "href": "category.html?c=europe&t=Champions%20League"
+      "href": "category.html?c=europe&t=Champions%20League",
+      "tr": {
+        "fr": "Ligue des champions",
+        "ar": "دوري الأبطال"
+      }
     },
     {
       "label": "World Cup 2030",
-      "href": "category.html?c=world-cup-2030"
+      "href": "category.html?c=world-cup-2030",
+      "tr": {
+        "fr": "Mondial 2030",
+        "ar": "مونديال 2030"
+      }
     }
   ],
   "scores": [
@@ -232,7 +381,15 @@ window.KP = {
         "gd": -6,
         "pts": 9
       }
-    ]
+    ],
+    "tr": {
+      "fr": {
+        "title": "Classement Botola Pro"
+      },
+      "ar": {
+        "title": "ترتيب البطولة الاحترافية"
+      }
+    }
   },
   "users": [
     {
@@ -379,7 +536,29 @@ window.KP = {
         "Three of the newcomers play in the Botola Pro, a deliberate signal that domestic form is being watched closely. Rabat Stars midfielder Ilyas Benali, 21, has started every league game this season and leads the division for passes into the final third.",
         "The other two arrive from Europe: a left-back who came through a Dutch academy and a 19-year-old striker who chose Morocco over two other eligible nations in the summer. Both took part in the U-23 camp in October.",
         "The squad gathers in Salé on Monday before two matches in eight days. Staff said minutes would be shared across the group, with the second fixture used to test the newcomers in a competitive setting."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Les Lions de l'Atlas convoquent cinq joueurs sans sélection pour la double confrontation de novembre",
+          "excerpt": "La nouvelle liste s'appuie sur la forme en Botola et sur une vague de jeunes évoluant en Europe : cinq noms vont découvrir le football international.",
+          "body": [
+            "Le staff technique des Lions de l'Atlas a dévoilé vendredi une liste de 26 joueurs pour la fenêtre internationale de novembre, avec un fait marquant : cinq joueurs reçoivent leur première convocation en équipe A après un excellent début de saison.",
+            "Trois des nouveaux venus évoluent en Botola Pro, un signal clair que la forme en championnat national est suivie de près. Le milieu des Rabat Stars Ilyas Benali, 21 ans, a été titulaire à chaque match et mène le championnat pour les passes dans le dernier tiers.",
+            "Les deux autres arrivent d'Europe : un latéral gauche formé dans un centre néerlandais et un attaquant de 19 ans qui a choisi le Maroc plutôt que deux autres sélections cet été. Tous deux ont participé au stage des U23 en octobre.",
+            "Le groupe se réunira lundi à Salé avant deux matchs en huit jours. Le staff a indiqué que le temps de jeu serait partagé, le second match servant à tester les nouveaux dans un contexte compétitif."
+          ]
+        },
+        "ar": {
+          "title": "أسود الأطلس يستدعون خمسة لاعبين جدد لمواجهتي نوفمبر",
+          "excerpt": "تعتمد اللائحة الجديدة على مستوى لاعبي البطولة وموجة من الشباب المحترفين في أوروبا، مع خمسة أسماء ستخوض أول تجربة دولية.",
+          "body": [
+            "كشف الطاقم التقني لأسود الأطلس يوم الجمعة عن لائحة من 26 لاعبا لفترة التوقف الدولي في نونبر، وأبرز ما فيها استدعاء خمسة لاعبين لأول مرة إلى المنتخب الأول بعد بداية موسم قوية.",
+            "ثلاثة من الوافدين الجدد يلعبون في البطولة الاحترافية، في إشارة واضحة إلى أن مستوى الدوري المحلي يحظى بمتابعة دقيقة. فقد شارك لاعب وسط رابط ستارز إلياس بنعلي، 21 عاما، أساسيا في كل المباريات ويتصدر الدوري في التمريرات نحو الثلث الأخير.",
+            "أما الاثنان الآخران فقادمان من أوروبا: ظهير أيسر تكوّن في أكاديمية هولندية، ومهاجم في التاسعة عشرة اختار المغرب على منتخبين آخرين خلال الصيف. وقد شارك كلاهما في معسكر منتخب أقل من 23 سنة في أكتوبر.",
+            "يتجمع المنتخب يوم الإثنين في سلا قبل مباراتين خلال ثمانية أيام، وأكد الطاقم أن الدقائق ستوزع على المجموعة، مع استغلال المباراة الثانية لاختبار الوجوه الجديدة في أجواء تنافسية."
+          ]
+        }
+      }
     },
     {
       "id": "botola-title-race-tightens",
@@ -397,7 +576,29 @@ window.KP = {
         "The visitors went ahead before the break through a well-worked set piece, but Fès pushed high after half-time and levelled with twenty minutes left, a low finish that crept in at the near post.",
         "Rabat Stars took advantage with a 2-1 home win over Union Marrakech, coming from behind for the second time in three matches. Their coach praised the bench, which provided both goals.",
         "Next weekend's fixture list pits the top two against each other's nearest rivals, and the northern trip to Tanger looks like the toughest test of the round."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Botola Pro : la course au titre se resserre, le leader cale à Fès",
+          "excerpt": "Le Racing Anfa ne compte plus qu'un point d'avance après le nul arraché par un Fès Sporting accrocheur devant un stade comble.",
+          "body": [
+            "L'avance du Racing Anfa en tête de la Botola Pro n'est plus que d'un point après un nul 1-1 sur la pelouse du Fès Sporting, un résultat qui laisse trois clubs dans un mouchoir de trois points après dix journées.",
+            "Les visiteurs ont ouvert le score avant la pause sur un coup de pied arrêté bien travaillé, mais Fès a pressé haut après la mi-temps et égalisé à vingt minutes de la fin d'une frappe basse au premier poteau.",
+            "Les Rabat Stars en ont profité avec une victoire 2-1 face à l'Union Marrakech, après avoir été menés pour la deuxième fois en trois matchs. Leur entraîneur a salué le banc, auteur des deux buts.",
+            "Le prochain week-end oppose les deux premiers aux poursuivants directs de l'autre, et le déplacement dans le nord à Tanger s'annonce comme le test le plus difficile de la journée."
+          ]
+        },
+        "ar": {
+          "title": "البطولة الاحترافية: المنافسة على اللقب تشتد بعد تعثر المتصدر في فاس",
+          "excerpt": "تقلص فارق راسينغ أنفا إلى نقطة واحدة بعدما فرض فاس سبورتينغ التعادل أمام مدرجات ممتلئة عن آخرها.",
+          "body": [
+            "أصبح فارق راسينغ أنفا في صدارة البطولة الاحترافية نقطة واحدة فقط بعد التعادل 1-1 خارج ملعبه أمام فاس سبورتينغ، وهي نتيجة تُبقي ثلاثة أندية في حدود ثلاث نقاط بعد عشر دورات.",
+            "تقدم الضيوف قبل نهاية الشوط الأول من كرة ثابتة متقنة، لكن فاس ضغط عاليا بعد الاستراحة وعادل النتيجة قبل عشرين دقيقة من النهاية بتسديدة أرضية في القائم القريب.",
+            "واستغل رابط ستارز الفرصة بفوزه 2-1 على اتحاد مراكش، بعد أن كان متأخرا للمرة الثانية في ثلاث مباريات، وأشاد مدربه بالبدلاء الذين سجلوا الهدفين.",
+            "وتضع مباريات نهاية الأسبوع المقبل المتصدرَين في مواجهة أقرب ملاحقي كل منهما، ويبدو التنقل شمالا إلى طنجة الاختبار الأصعب في الدورة."
+          ]
+        }
+      }
     },
     {
       "id": "rabat-stars-academy",
@@ -415,7 +616,29 @@ window.KP = {
         "Academy director Hicham Alaoui says the approach is borrowed from education rather than football. Every player has a written plan for the season, reviewed every six weeks with the player and a parent.",
         "The results are now visible in the first team. Four of the ten youngest players to start regularly in the Botola Pro this season came through these pitches, and two of them have been called up by the national U-23 side.",
         "The club is now expanding its scouting to smaller towns in the region, with free trial days held every school holiday."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Au cœur de l'académie des Rabat Stars, la fabrique des plus jeunes titulaires de la Botola",
+          "excerpt": "Quatre des dix plus jeunes titulaires réguliers du championnat sont passés par la même académie. Nous avons passé une semaine avec ceux qui l'ont construite.",
+          "body": [
+            "La première chose qui frappe au centre d'entraînement des Rabat Stars, c'est le calme. Les séances suivent un horaire strict et les éducateurs parlent aux joueurs par phrases courtes et précises plutôt que de crier depuis la ligne de touche.",
+            "Le directeur de l'académie, Hicham Alaoui, explique que la méthode est empruntée à l'éducation plus qu'au football. Chaque joueur dispose d'un plan écrit pour la saison, revu toutes les six semaines avec lui et un parent.",
+            "Les résultats se voient désormais en équipe première. Quatre des dix plus jeunes titulaires réguliers de la Botola Pro cette saison sont passés par ces terrains, et deux d'entre eux ont été appelés en sélection U23.",
+            "Le club élargit désormais sa détection aux petites villes de la région, avec des journées d'essai gratuites à chaque vacance scolaire."
+          ]
+        },
+        "ar": {
+          "title": "داخل أكاديمية رابط ستارز، مصنع أصغر الأساسيين في البطولة",
+          "excerpt": "أربعة من بين أصغر عشرة لاعبين أساسيين في الدوري تخرجوا من الأكاديمية نفسها. قضينا أسبوعا مع المدربين الذين بنوها.",
+          "body": [
+            "أول ما يلفت الانتباه في مركز تدريب رابط ستارز هو الهدوء. فالحصص تسير وفق جدول صارم، ويخاطب المؤطرون اللاعبين بجمل قصيرة ودقيقة بدل الصراخ من خط التماس.",
+            "يقول مدير الأكاديمية هشام العلوي إن المنهج مستوحى من التعليم أكثر من كرة القدم، إذ يتوفر كل لاعب على خطة مكتوبة للموسم تُراجَع كل ستة أسابيع معه ومع أحد والديه.",
+            "وباتت النتائج واضحة في الفريق الأول، فأربعة من بين أصغر عشرة لاعبين أساسيين في البطولة الاحترافية هذا الموسم تخرجوا من هذه الملاعب، واستُدعي اثنان منهم إلى منتخب أقل من 23 سنة.",
+            "ويوسع النادي حاليا عمليات التنقيب لتشمل المدن الصغيرة في الجهة، مع أيام اختبار مجانية في كل عطلة مدرسية."
+          ]
+        }
+      }
     },
     {
       "id": "caf-champions-league-groups",
@@ -433,7 +656,29 @@ window.KP = {
         "Racing Anfa, fresh from a 3-0 win in the second leg of their qualifying tie, were drawn alongside opponents from Egypt, Tanzania and Angola. Their sporting director called it 'a group that rewards squad depth'.",
         "The second Moroccan side face a group that includes the reigning runners-up, along with clubs from Tunisia and Côte d'Ivoire. Travel and climate are expected to be key factors.",
         "The top two from each group advance to the quarter-finals, which are scheduled for the spring."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Tirage de la Ligue des champions CAF : les clubs marocains connaissent leurs adversaires",
+          "excerpt": "Deux formations marocaines devront composer avec de longs déplacements et des rivaux bien connus lors de la phase de groupes.",
+          "body": [
+            "Le tirage de la phase de groupes de la Ligue des champions de la CAF réserve aux clubs marocains un mélange d'adversaires familiers et de longs voyages, avec une première journée prévue en fin de mois.",
+            "Le Racing Anfa, tout juste vainqueur 3-0 au match retour de son tour qualificatif, retrouvera des adversaires venus d'Égypte, de Tanzanie et d'Angola. Son directeur sportif parle d'un « groupe qui récompense la profondeur d'effectif ».",
+            "Le second club marocain affrontera notamment le finaliste de la dernière édition, ainsi que des clubs de Tunisie et de Côte d'Ivoire. Les voyages et le climat devraient peser lourd.",
+            "Les deux premiers de chaque groupe se qualifient pour les quarts de finale, programmés au printemps."
+          ]
+        },
+        "ar": {
+          "title": "قرعة دوري أبطال إفريقيا: الأندية المغربية تتعرف على منافسيها",
+          "excerpt": "سيواجه ناديان مغربيان رحلات طويلة ومنافسين مألوفين في دور المجموعات.",
+          "body": [
+            "منحت قرعة دور المجموعات لدوري أبطال إفريقيا الأندية المغربية مزيجا من المنافسين المألوفين والرحلات الطويلة، على أن تُلعب الجولة الأولى في أواخر هذا الشهر.",
+            "ووقع راسينغ أنفا، الذي فاز 3-0 في إياب الدور التمهيدي، إلى جانب أندية من مصر وتنزانيا وأنغولا، ووصف مديره الرياضي المجموعة بأنها «مجموعة تكافئ عمق التشكيلة».",
+            "أما النادي المغربي الثاني فيواجه وصيف النسخة الماضية إضافة إلى ناديين من تونس وكوت ديفوار، ومن المنتظر أن يلعب السفر والمناخ دورا حاسما.",
+            "ويتأهل صاحبا المركزين الأول والثاني في كل مجموعة إلى ربع النهائي المقرر في فصل الربيع."
+          ]
+        }
+      }
     },
     {
       "id": "afcon-qualifiers-recap",
@@ -451,7 +696,29 @@ window.KP = {
         "First, the gap is closing. Several sides ranked outside the continent's top twenty took points from established teams, and the margins in most groups are now down to one or two results.",
         "Second, goalkeepers decided more matches than strikers. Three of the round's man-of-the-match awards went to keepers, two of them playing their club football in North Africa.",
         "Third, late goals are everywhere: almost a third of all goals in this round arrived after the 80th minute, a sign of how much fitness and bench depth now matter in qualifying."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Éliminatoires de la CAN : cinq enseignements de la dernière journée",
+          "excerpt": "Résultats surprises, gardiens révélés et beaucoup de suspense en fin de match : ce qu'il faut retenir des derniers éliminatoires continentaux.",
+          "body": [
+            "La dernière journée des éliminatoires de la CAN a offert le mélange habituel de victoires tranquilles pour les favoris et de soirées tendues pour les équipes en ballottage. Voici ce qui a marqué.",
+            "D'abord, l'écart se réduit. Plusieurs sélections classées hors du top 20 continental ont pris des points à des équipes établies, et les écarts dans la plupart des groupes se jouent désormais à un ou deux résultats.",
+            "Ensuite, les gardiens ont décidé plus de matchs que les attaquants. Trois des titres d'homme du match de la journée sont revenus à des portiers, dont deux évoluent en Afrique du Nord.",
+            "Enfin, les buts tardifs sont partout : près d'un tiers des buts de cette journée sont tombés après la 80e minute, signe de l'importance de la condition physique et du banc en éliminatoires."
+          ]
+        },
+        "ar": {
+          "title": "تصفيات كأس أمم إفريقيا: خمس خلاصات من الجولة الأخيرة",
+          "excerpt": "نتائج مفاجئة وحراس مرمى متألقون وإثارة كبيرة في الدقائق الأخيرة: أبرز ما حملته الجولة الأخيرة من التصفيات القارية.",
+          "body": [
+            "حملت الجولة الأخيرة من تصفيات كأس أمم إفريقيا المزيج المعتاد من الانتصارات المريحة للمرشحين والأمسيات المتوترة للمنتخبات المهددة. وهذه أبرز الملاحظات.",
+            "أولا، الفوارق تتقلص. فقد انتزعت عدة منتخبات مصنفة خارج أفضل عشرين منتخبا قاريا نقاطا من منتخبات عريقة، وأصبحت الفوارق في أغلب المجموعات تُحسم بنتيجة أو نتيجتين.",
+            "ثانيا، حسم حراس المرمى مباريات أكثر من المهاجمين، إذ عادت ثلاث جوائز لأفضل لاعب في المباراة إلى حراس، اثنان منهم يلعبان في شمال إفريقيا.",
+            "ثالثا، الأهداف المتأخرة في كل مكان: نحو ثلث أهداف هذه الجولة سُجل بعد الدقيقة الثمانين، ما يؤكد أهمية اللياقة البدنية ودكة البدلاء في التصفيات."
+          ]
+        }
+      }
     },
     {
       "id": "winter-window-moroccan-targets",
@@ -467,7 +734,29 @@ window.KP = {
         "Top of most lists is Fès Sporting's central defender, whose reading of the game and passing range have stood out in a side that has conceded only eight goals.",
         "Rabat Stars' Ilyas Benali, freshly called up by the national team, is the second name. His club is understood to prefer keeping him until the summer.",
         "The third is a pacey Agadir Sporting winger who is already in advanced talks over a loan with an option to buy."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Mercato d'hiver : trois stars de la Botola dans le viseur des recruteurs européens",
+          "excerpt": "Les recruteurs belges, français et portugais ont multiplié les visites dans les stades de Botola cet automne. Voici les noms sur leurs listes.",
+          "body": [
+            "À sept semaines de l'ouverture du mercato de janvier, les tribunes de presse de la Botola Pro sont plus fréquentées que d'habitude. Des clubs belges, français et portugais ont envoyé des recruteurs cet automne.",
+            "En tête de la plupart des listes figure le défenseur central du Fès Sporting, dont la lecture du jeu et la qualité de passe ont marqué dans une équipe qui n'a encaissé que huit buts.",
+            "Ilyas Benali, des Rabat Stars, tout juste appelé en sélection, est le deuxième nom. Son club préférerait le garder jusqu'à l'été.",
+            "Le troisième est un ailier rapide de l'Agadir Sporting, déjà en discussions avancées pour un prêt avec option d'achat."
+          ]
+        },
+        "ar": {
+          "title": "الميركاتو الشتوي: ثلاثة نجوم من البطولة تحت أعين الكشافين الأوروبيين",
+          "excerpt": "تردد كشافون من بلجيكا وفرنسا والبرتغال على ملاعب البطولة هذا الخريف. هذه هي الأسماء المدرجة في قوائمهم.",
+          "body": [
+            "قبل سبعة أسابيع من افتتاح سوق انتقالات يناير، تشهد منصات الصحافة في ملاعب البطولة الاحترافية حضورا أكبر من المعتاد، إذ أرسلت أندية من بلجيكا وفرنسا والبرتغال كشافيها هذا الخريف.",
+            "ويتصدر معظم القوائم قلب دفاع فاس سبورتينغ، الذي لفت الأنظار بقراءته للعب وجودة تمريراته في فريق لم تستقبل شباكه سوى ثمانية أهداف.",
+            "أما الاسم الثاني فهو إلياس بنعلي لاعب رابط ستارز، الذي استُدعي حديثا للمنتخب، ويفضل ناديه الاحتفاظ به حتى الصيف.",
+            "والثالث جناح سريع في أكادير سبورتينغ دخل بالفعل في مفاوضات متقدمة بشأن إعارة مع خيار الشراء."
+          ]
+        }
+      }
     },
     {
       "id": "loan-move-agadir",
@@ -482,7 +771,27 @@ window.KP = {
         "Agadir Sporting are close to agreeing an 18-month loan for their 22-year-old winger, with a Belgian Pro League side set to hold an option to make the move permanent.",
         "The player has four goals and three assists in ten league matches, and his club have accepted that a move abroad could come sooner than planned.",
         "Agadir would receive a loan fee and a significant share of any future sale. The deal is expected to be completed when the window opens in January."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "L'ailier de l'Agadir Sporting proche d'un prêt en Belgique",
+          "excerpt": "Le joueur de 22 ans, auteur de quatre buts cette saison, rejoindrait un club de première moitié de tableau en Pro League belge pour 18 mois.",
+          "body": [
+            "L'Agadir Sporting est sur le point de conclure le prêt de 18 mois de son ailier de 22 ans, avec une option d'achat pour un club de Pro League belge.",
+            "Le joueur compte quatre buts et trois passes décisives en dix matchs de championnat, et son club a accepté qu'un départ à l'étranger puisse arriver plus tôt que prévu.",
+            "Agadir percevrait des frais de prêt et un pourcentage important sur une future vente. L'opération devrait être finalisée à l'ouverture du mercato en janvier."
+          ]
+        },
+        "ar": {
+          "title": "جناح أكادير سبورتينغ يقترب من الانتقال معارا إلى بلجيكا",
+          "excerpt": "سجل اللاعب البالغ 22 عاما أربعة أهداف هذا الموسم، وسينضم إلى نادٍ من النصف الأول في الدوري البلجيكي لمدة 18 شهرا.",
+          "body": [
+            "يقترب أكادير سبورتينغ من الاتفاق على إعارة جناحه البالغ 22 عاما لمدة 18 شهرا، مع خيار شراء لصالح نادٍ في الدوري البلجيكي الممتاز.",
+            "سجل اللاعب أربعة أهداف وقدم ثلاث تمريرات حاسمة في عشر مباريات بالدوري، وقبل ناديه بأن يأتي رحيله إلى الخارج في وقت أبكر من المتوقع.",
+            "وسيحصل أكادير على مقابل الإعارة ونسبة مهمة من أي بيع مستقبلي، ومن المنتظر إتمام الصفقة مع افتتاح سوق الانتقالات في يناير."
+          ]
+        }
+      }
     },
     {
       "id": "women-league-record-crowd",
@@ -498,7 +807,29 @@ window.KP = {
         "Free entry for under-16s and a double-header with a men's youth fixture helped fill the stands, and organisers say they will repeat the format for the return game.",
         "On the pitch, the hosts twice came from behind, with their 17-year-old forward scoring the equaliser in stoppage time to send the home end into celebration.",
         "League officials said attendances are up by more than half on last season, driven by school partnerships and live streaming of every match."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Affluence record pour le derby du championnat féminin à Casablanca",
+          "excerpt": "Plus de 11 000 spectateurs ont assisté à un 2-2 spectaculaire, la plus grosse affluence de l'histoire pour un match de club féminin au Maroc.",
+          "body": [
+            "Plus de 11 000 spectateurs ont assisté mercredi soir au nul 2-2 entre Casablanca Ladies et les Rabat Stars, la plus grande affluence jamais enregistrée pour un match de club féminin au Maroc.",
+            "L'entrée gratuite pour les moins de 16 ans et un plateau double avec un match de jeunes garçons ont rempli les tribunes, et les organisateurs comptent reprendre la formule pour le match retour.",
+            "Sur le terrain, les locales sont revenues deux fois au score, leur attaquante de 17 ans égalisant dans le temps additionnel pour faire exploser la tribune.",
+            "La ligue indique que les affluences ont progressé de plus de moitié par rapport à la saison dernière, grâce aux partenariats avec les écoles et à la diffusion en direct de chaque match."
+          ]
+        },
+        "ar": {
+          "title": "حضور جماهيري قياسي في ديربي البطولة النسوية بالدار البيضاء",
+          "excerpt": "تابع أكثر من 11 ألف متفرج تعادلا مثيرا 2-2، وهو أكبر حضور جماهيري في تاريخ مباريات الأندية النسوية بالمغرب.",
+          "body": [
+            "تابع أكثر من 11 ألف متفرج مساء الأربعاء تعادل كازابلانكا ليديز ورابط ستارز 2-2، في أكبر حضور جماهيري يُسجل لمباراة أندية نسوية في المغرب.",
+            "وساهم الدخول المجاني لمن هم دون 16 سنة وتنظيم مباراتين متتاليتين مع مباراة للفتيان في ملء المدرجات، ويعتزم المنظمون تكرار الصيغة في مباراة الإياب.",
+            "وعلى أرض الملعب، عادت صاحبات الأرض في النتيجة مرتين، وسجلت مهاجمتهن البالغة 17 عاما هدف التعادل في الوقت بدل الضائع لتشتعل المدرجات.",
+            "وأكد مسؤولو الدوري أن الحضور ارتفع بأكثر من النصف مقارنة بالموسم الماضي بفضل الشراكات مع المدارس والبث المباشر لكل المباريات."
+          ]
+        }
+      }
     },
     {
       "id": "lionesses-u20",
@@ -513,7 +844,27 @@ window.KP = {
         "Morocco's U-20 women's team have qualified for next year's continental finals after a 2-0 aggregate win, the third consecutive qualification for the age group.",
         "The second leg finished goalless, but the side never looked troubled, limiting their hosts to two shots on target across ninety minutes.",
         "The coaching staff now have six months to prepare, with a training camp and friendlies planned for the spring."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Les Lionnes U20 qualifiées pour la phase finale continentale",
+          "excerpt": "Une victoire maîtrisée 2-0 sur l'ensemble des deux matchs envoie les U20 marocaines à la phase finale de l'an prochain, troisième qualification consécutive pour cette catégorie.",
+          "body": [
+            "La sélection marocaine féminine des moins de 20 ans s'est qualifiée pour la phase finale continentale de l'an prochain après une victoire 2-0 sur l'ensemble des deux matchs, la troisième qualification consécutive pour cette catégorie.",
+            "Le match retour s'est terminé sur un score vierge, mais l'équipe n'a jamais semblé en difficulté, limitant ses hôtes à deux tirs cadrés en quatre-vingt-dix minutes.",
+            "Le staff dispose désormais de six mois de préparation, avec un stage et des matchs amicaux prévus au printemps."
+          ]
+        },
+        "ar": {
+          "title": "لبؤات أقل من 20 سنة يحجزن مكانهن في النهائيات القارية",
+          "excerpt": "فوز متحكم فيه بمجموع 2-0 يقود المنتخب المغربي النسوي لأقل من 20 سنة إلى نهائيات العام المقبل، في ثالث تأهل متتالٍ لهذه الفئة.",
+          "body": [
+            "تأهل المنتخب المغربي النسوي لأقل من 20 سنة إلى النهائيات القارية للعام المقبل بعد فوزه بمجموع المباراتين 2-0، في ثالث تأهل متتالٍ لهذه الفئة العمرية.",
+            "وانتهت مباراة الإياب بالتعادل السلبي، لكن المنتخب لم يبدُ في أي لحظة في خطر، إذ لم يسمح لمضيفاته سوى بتسديدتين على المرمى طيلة تسعين دقيقة.",
+            "وأمام الطاقم التقني الآن ستة أشهر للتحضير، مع معسكر ومباريات ودية مبرمجة في فصل الربيع."
+          ]
+        }
+      }
     },
     {
       "id": "wc2030-grassroots",
@@ -529,7 +880,29 @@ window.KP = {
         "Previous hosts show both sides of the story. Some built lasting youth programmes around the event; others saw interest spike and fade within a couple of years.",
         "Grassroots coaches we spoke to point to three needs: more qualified coaches, safe all-weather pitches within walking distance of schools, and competitions that keep teenagers playing.",
         "With four years to go, there is still time to make sure the tournament leaves more than concrete behind."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Ce que le Mondial 2030 pourrait changer pour le football amateur",
+          "excerpt": "Les stades font les gros titres. Le véritable héritage pourrait se jouer sur les terrains scolaires et de quartier.",
+          "body": [
+            "L'essentiel du débat sur 2030 porte sur les stades, les aéroports et les lignes ferroviaires. Mais les éducateurs qui travaillent avec les enfants estiment que le véritable héritage se mesurera sur des terrains bien plus modestes.",
+            "Les précédents pays hôtes montrent les deux faces de l'histoire : certains ont bâti des programmes jeunes durables autour de l'événement, d'autres ont vu l'engouement retomber en deux ans.",
+            "Les éducateurs interrogés évoquent trois besoins : davantage d'entraîneurs diplômés, des terrains sûrs et praticables par tous les temps à distance de marche des écoles, et des compétitions qui retiennent les adolescents.",
+            "À quatre ans de l'échéance, il reste du temps pour que le tournoi laisse plus que du béton."
+          ]
+        },
+        "ar": {
+          "title": "ما الذي قد يغيره مونديال 2030 في كرة القدم القاعدية",
+          "excerpt": "الملاعب تتصدر العناوين، لكن الإرث الحقيقي قد يُحسم في ملاعب المدارس والأحياء.",
+          "body": [
+            "يتمحور معظم النقاش حول مونديال 2030 حول الملاعب والمطارات وخطوط السكك الحديدية، لكن المؤطرين العاملين مع الأطفال يرون أن الإرث الحقيقي للبطولة سيُقاس في ملاعب أصغر بكثير.",
+            "وتُظهر تجارب الدول المضيفة السابقة وجهي القصة: بعضها بنى برامج دائمة للشباب حول الحدث، وبعضها شهد ارتفاع الحماس ثم تراجعه في غضون عامين.",
+            "ويشير المؤطرون الذين تحدثنا إليهم إلى ثلاث حاجات: مزيد من المدربين المؤهلين، وملاعب آمنة صالحة في كل الأحوال الجوية قريبة من المدارس، ومسابقات تحافظ على استمرار المراهقين في اللعب.",
+            "ومع بقاء أربع سنوات، ما زال هناك وقت لضمان أن تترك البطولة أكثر من الإسمنت."
+          ]
+        }
+      }
     },
     {
       "id": "wc2030-fan-zones",
@@ -544,7 +917,27 @@ window.KP = {
         "Planning teams in several host cities have started mapping possible fan-zone sites and match-day transport routes, four years before a ball is kicked.",
         "Officials say recent tournaments showed that fan zones work best close to existing public transport and away from residential streets.",
         "Consultations with residents and local businesses are expected over the next year."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Les villes hôtes commencent à préparer fan zones et transports pour 2030",
+          "excerpt": "Les urbanistes recensent déjà les sites de fan zones et les transports les jours de match, en tirant les leçons des derniers tournois.",
+          "body": [
+            "Dans plusieurs villes hôtes, des équipes ont commencé à recenser les sites possibles de fan zones et les itinéraires de transport les jours de match, quatre ans avant le coup d'envoi.",
+            "Les responsables expliquent que les derniers tournois ont montré que les fan zones fonctionnent mieux près des transports en commun existants et loin des rues résidentielles.",
+            "Des consultations avec les habitants et les commerçants sont attendues au cours de l'année prochaine."
+          ]
+        },
+        "ar": {
+          "title": "المدن المستضيفة تبدأ التخطيط لمناطق المشجعين والنقل في 2030",
+          "excerpt": "يعمل المخططون المحليون منذ الآن على تحديد مواقع مناطق المشجعين ووسائل النقل في أيام المباريات، مستفيدين من دروس البطولات الأخيرة.",
+          "body": [
+            "بدأت فرق التخطيط في عدد من المدن المستضيفة تحديد المواقع المحتملة لمناطق المشجعين ومسارات النقل في أيام المباريات، قبل أربع سنوات من انطلاق البطولة.",
+            "ويقول المسؤولون إن البطولات الأخيرة أظهرت أن مناطق المشجعين تنجح أكثر عندما تكون قريبة من وسائل النقل العمومي القائمة وبعيدة عن الأحياء السكنية.",
+            "ومن المنتظر تنظيم مشاورات مع السكان والتجار المحليين خلال العام المقبل."
+          ]
+        }
+      }
     },
     {
       "id": "opinion-var",
@@ -560,7 +953,29 @@ window.KP = {
         "But football is also an experience, and the experience in the stands has suffered. Long reviews with no explanation leave fans guessing, and celebrations now come with a nervous pause.",
         "Two changes would help: announcing decisions over the stadium speakers, as some competitions already do, and setting a firm target time for every review.",
         "Accuracy matters. So does the reason people buy a ticket in the first place."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "La VAR a rendu le championnat plus juste. Elle l'a aussi rendu plus lent.",
+          "excerpt": "Moins d'erreurs flagrantes, c'est une victoire. Quatre minutes de vérification dans un stade à moitié vide, non. Il y a un meilleur équilibre à trouver.",
+          "body": [
+            "Personne ne veut revenir à l'époque où les hors-jeu évidents restaient impunis. Sur ce point, l'assistance vidéo a fait son travail : le nombre d'erreurs claires et évidentes a nettement diminué.",
+            "Mais le football est aussi une expérience, et l'expérience en tribune en a souffert. Les longues vérifications sans explication laissent les supporters dans le flou, et chaque célébration s'accompagne désormais d'une pause inquiète.",
+            "Deux changements aideraient : annoncer les décisions au micro du stade, comme le font déjà certaines compétitions, et fixer une durée cible pour chaque vérification.",
+            "La justesse compte. Tout comme la raison pour laquelle on achète un billet."
+          ]
+        },
+        "ar": {
+          "title": "جعلت تقنية الفيديو الدوري أكثر عدلا، لكنها جعلته أبطأ أيضا",
+          "excerpt": "تراجع الأخطاء الواضحة مكسب، لكن أربع دقائق من المراجعة في ملعب نصف فارغ ليست كذلك. هناك توازن أفضل يجب إيجاده.",
+          "body": [
+            "لا أحد يرغب في العودة إلى زمن كانت فيه حالات التسلل الواضحة تمر دون عقاب، وفي هذا الجانب أدت تقنية الفيديو دورها، إذ انخفض عدد الأخطاء الواضحة بشكل كبير.",
+            "لكن كرة القدم تجربة أيضا، وتجربة المدرجات تضررت. فالمراجعات الطويلة دون تفسير تترك الجماهير في حيرة، وصار كل احتفال مصحوبا بلحظة ترقب قلقة.",
+            "ومن شأن تغييرين أن يساعدا: إعلان القرارات عبر مكبرات صوت الملعب كما تفعل بعض المسابقات، وتحديد مدة قصوى لكل مراجعة.",
+            "الدقة مهمة، لكن السبب الذي يدفع الناس إلى شراء التذكرة مهم أيضا."
+          ]
+        }
+      }
     },
     {
       "id": "opinion-coaches",
@@ -575,7 +990,27 @@ window.KP = {
         "Look at the dugouts of the top division and you will find plenty of experience from abroad. Look one level down and you will find a generation of Moroccan coaches doing remarkable work with small budgets.",
         "Many hold the highest coaching licences and have years of youth football behind them. What they lack is a first chance at a big club.",
         "Clubs do not need to choose one or the other. Pairing a foreign head coach with a Moroccan assistant who is being prepared for the top job would be a start."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Les entraîneurs marocains méritent plus d'opportunités au plus haut niveau",
+          "excerpt": "Nos clubs continuent de recruter à l'étranger pendant que des techniciens formés ici se font un nom chez les jeunes et dans les divisions inférieures.",
+          "body": [
+            "Regardez les bancs de l'élite et vous y trouverez beaucoup d'expérience venue de l'étranger. Regardez un échelon plus bas et vous découvrirez une génération d'entraîneurs marocains qui font un travail remarquable avec des budgets modestes.",
+            "Beaucoup possèdent les plus hauts diplômes d'entraîneur et des années de football de jeunes derrière eux. Ce qui leur manque, c'est une première chance dans un grand club.",
+            "Les clubs n'ont pas à choisir l'un ou l'autre. Associer un entraîneur principal étranger à un adjoint marocain préparé pour le poste serait un début."
+          ]
+        },
+        "ar": {
+          "title": "المدربون المغاربة يستحقون فرصا أكبر في أعلى مستوى",
+          "excerpt": "تواصل أنديتنا التعاقد مع مدربين من الخارج، بينما يصنع مدربون مغاربة أسماءهم في فئات الشباب والأقسام السفلى.",
+          "body": [
+            "انظر إلى دكات البدلاء في القسم الأول وستجد خبرات أجنبية كثيرة، وانظر درجة إلى الأسفل وستكتشف جيلا من المدربين المغاربة يقدمون عملا لافتا بميزانيات متواضعة.",
+            "كثير منهم يحملون أعلى شهادات التدريب ولديهم سنوات من العمل مع الفئات السنية، وما ينقصهم هو فرصة أولى في نادٍ كبير.",
+            "ولا تحتاج الأندية إلى الاختيار بين هذا وذاك، فإسناد منصب المدرب الرئيسي لأجنبي مع مساعد مغربي يجري إعداده لتولي المهمة سيكون بداية جيدة."
+          ]
+        }
+      }
     },
     {
       "id": "opinion-tickets",
@@ -590,7 +1025,27 @@ window.KP = {
         "This week's record crowd for a women's derby should be studied by every club in the country. Free entry for children and a double-header did more than any advertising campaign.",
         "Empty seats cost clubs more than lost ticket sales. They make the broadcast look worse, the atmosphere flatter and the sponsors less interested.",
         "A family ticket priced for the families who live near the stadium would be a good place to start."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Des stades pleins, ça commence par des billets à prix justes",
+          "excerpt": "L'affluence record du derby féminin n'était pas un hasard. Des billets bon marché et une programmation intelligente ont rempli les tribunes.",
+          "body": [
+            "L'affluence record de cette semaine pour un derby féminin devrait être étudiée par tous les clubs du pays. L'entrée gratuite pour les enfants et un plateau double ont fait plus que n'importe quelle campagne publicitaire.",
+            "Les sièges vides coûtent aux clubs plus que des recettes perdues : ils rendent la retransmission moins belle, l'ambiance plus terne et les sponsors moins intéressés.",
+            "Un billet famille pensé pour les familles qui vivent près du stade serait un bon point de départ."
+          ]
+        },
+        "ar": {
+          "title": "الملاعب الممتلئة تبدأ بأسعار تذاكر عادلة",
+          "excerpt": "لم يكن الحضور القياسي في ديربي الكرة النسوية صدفة، فالتذاكر الرخيصة والبرمجة الذكية ملأت المدرجات.",
+          "body": [
+            "يجب أن تدرس كل أندية البلاد الحضور القياسي الذي شهده ديربي الكرة النسوية هذا الأسبوع، فقد فعل الدخول المجاني للأطفال وتنظيم مباراتين متتاليتين أكثر مما تفعله أي حملة إعلانية.",
+            "المقاعد الفارغة تكلف الأندية أكثر من خسارة مداخيل التذاكر، فهي تجعل النقل التلفزيوني أقل جاذبية والأجواء أكثر فتورا والمستشهرين أقل اهتماما.",
+            "وتذكرة عائلية بسعر يناسب الأسر القاطنة قرب الملعب ستكون نقطة انطلاق جيدة."
+          ]
+        }
+      }
     },
     {
       "id": "europe-heritage-players",
@@ -607,7 +1062,27 @@ window.KP = {
         "This week's round of Champions League matches featured Moroccan-heritage players in almost every corner of the competition, from established starters to teenagers making their debut.",
         "Several are already part of the national team set-up, while others remain eligible for more than one country and will be watched closely by federation scouts.",
         "The trend is not new, but the numbers are growing, a result of academies across Europe producing more players from diaspora communities."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Les joueurs d'origine marocaine marquent la semaine de Ligue des champions",
+          "excerpt": "Des latéraux titulaires aux remplaçants de fin de match, les joueurs d'origine marocaine ont été présents dans toute la dernière journée européenne.",
+          "body": [
+            "La dernière journée de Ligue des champions a vu des joueurs d'origine marocaine dans presque tous les recoins de la compétition, des titulaires confirmés aux adolescents qui faisaient leurs débuts.",
+            "Plusieurs font déjà partie du dispositif de la sélection nationale, tandis que d'autres restent éligibles pour plusieurs pays et seront suivis de près par les recruteurs de la fédération.",
+            "La tendance n'est pas nouvelle, mais les chiffres augmentent, fruit d'académies européennes qui forment davantage de joueurs issus de la diaspora."
+          ]
+        },
+        "ar": {
+          "title": "لاعبون من أصول مغربية يتركون بصمتهم في أسبوع دوري أبطال أوروبا",
+          "excerpt": "من الأظهرة الأساسيين إلى البدلاء في الدقائق الأخيرة، حضر اللاعبون ذوو الأصول المغربية في مختلف مباريات الجولة الأوروبية الأخيرة.",
+          "body": [
+            "شهدت الجولة الأخيرة من دوري أبطال أوروبا حضور لاعبين من أصول مغربية في كل أركان المسابقة تقريبا، من الأساسيين المعتادين إلى مراهقين يخوضون ظهورهم الأول.",
+            "وينتمي عدد منهم بالفعل إلى منظومة المنتخب الوطني، بينما يظل آخرون مؤهلين لتمثيل أكثر من بلد وسيحظون بمتابعة دقيقة من كشافي الجامعة.",
+            "والظاهرة ليست جديدة، لكن الأعداد في تزايد، بفضل أكاديميات أوروبية تكوّن عددا أكبر من لاعبي الجالية."
+          ]
+        }
+      }
     },
     {
       "id": "europe-fixture-pileup",
@@ -624,7 +1099,27 @@ window.KP = {
         "December is the busiest month of the English season, with some clubs playing every three days. Sports scientists say the key is planning weeks in advance.",
         "Most clubs now track every player's load with GPS vests and decide on rotation days before the match, rather than reacting to visible tiredness.",
         "Recovery has changed too: sleep coaching, nutrition plans and cold-water therapy are standard at the top level."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Embouteillage de fin d'année : comment les clubs gèrent la fatigue",
+          "excerpt": "Rotation, données GPS et récupération : les méthodes des clubs pour traverser les semaines les plus chargées de la saison.",
+          "body": [
+            "Décembre est le mois le plus chargé de la saison anglaise, certains clubs jouant tous les trois jours. Les préparateurs physiques assurent que la clé est d'anticiper plusieurs semaines à l'avance.",
+            "La plupart des clubs suivent désormais la charge de chaque joueur grâce à des gilets GPS et décident des rotations avant le match, plutôt que de réagir à une fatigue visible.",
+            "La récupération a changé elle aussi : coaching du sommeil, plans nutritionnels et bains froids sont la norme au plus haut niveau."
+          ]
+        },
+        "ar": {
+          "title": "ازدحام مباريات نهاية العام: كيف تتعامل الأندية مع الإرهاق",
+          "excerpt": "المداورة وبيانات تحديد المواقع والاسترجاع: أساليب الأندية لاجتياز أكثر أسابيع الموسم ازدحاما.",
+          "body": [
+            "دجنبر هو أكثر شهور الموسم الإنجليزي ازدحاما، إذ تلعب بعض الأندية كل ثلاثة أيام، ويؤكد المعدون البدنيون أن المفتاح هو التخطيط قبل أسابيع.",
+            "وتتابع معظم الأندية اليوم حِمل كل لاعب بواسطة سترات تحديد المواقع، وتقرر المداورة قبل المباراة بدل انتظار ظهور علامات التعب.",
+            "كما تغيّر الاسترجاع، فتدريب النوم وبرامج التغذية والعلاج بالماء البارد أصبحت معيارا في أعلى مستوى."
+          ]
+        }
+      }
     },
     {
       "id": "laliga-north-africa-scouting",
@@ -641,7 +1136,27 @@ window.KP = {
         "Spanish clubs have long looked south for talent, and the number of scouting trips to North Africa has grown in recent seasons.",
         "Short travel times, a similar style of play and fees that are modest by European standards all make the region attractive.",
         "For players, Spain offers a familiar climate and a large Moroccan community, which helps them settle quickly."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Pourquoi les clubs espagnols continuent de prospecter en Afrique du Nord",
+          "excerpt": "Vols courts, culture footballistique commune et bon rapport qualité-prix font de la région un terrain de chasse naturel pour les clubs de l'autre côté du détroit.",
+          "body": [
+            "Les clubs espagnols regardent depuis longtemps vers le sud pour trouver des talents, et les missions de détection en Afrique du Nord se sont multipliées ces dernières saisons.",
+            "Des temps de trajet courts, un style de jeu proche et des indemnités modestes au regard des standards européens rendent la région attractive.",
+            "Pour les joueurs, l'Espagne offre un climat familier et une importante communauté marocaine, ce qui facilite leur adaptation."
+          ]
+        },
+        "ar": {
+          "title": "لماذا تواصل الأندية الإسبانية التنقيب في شمال إفريقيا",
+          "excerpt": "الرحلات القصيرة والثقافة الكروية المشتركة والكلفة المناسبة تجعل المنطقة وجهة طبيعية لأندية الضفة الأخرى من المضيق.",
+          "body": [
+            "لطالما بحثت الأندية الإسبانية عن المواهب في الجنوب، وتزايدت رحلات التنقيب إلى شمال إفريقيا في المواسم الأخيرة.",
+            "فقِصر مدة السفر وتشابه أسلوب اللعب وانخفاض قيمة الصفقات مقارنة بالمعايير الأوروبية كلها عوامل تجعل المنطقة جذابة.",
+            "أما بالنسبة للاعبين، فإسبانيا توفر مناخا مألوفا وجالية مغربية كبيرة تسهل عليهم الاندماج بسرعة."
+          ]
+        }
+      }
     },
     {
       "id": "referee-academy",
@@ -656,7 +1171,27 @@ window.KP = {
         "A new referee academy has opened in Rabat with forty trainees in its first intake, twelve of them women.",
         "The two-year programme covers the laws of the game, physical preparation and video review, with trainees officiating youth matches from their first month.",
         "Organisers hope the academy will raise standards across all divisions and produce officials for international tournaments."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Une nouvelle académie d'arbitrage ouvre à Rabat pour former la relève",
+          "excerpt": "Quarante stagiaires, dont douze femmes, forment la première promotion d'un programme de deux ans mêlant condition physique, lois du jeu et vidéo.",
+          "body": [
+            "Une nouvelle académie d'arbitrage a ouvert ses portes à Rabat avec quarante stagiaires pour sa première promotion, dont douze femmes.",
+            "Le programme de deux ans couvre les lois du jeu, la préparation physique et l'assistance vidéo, les stagiaires arbitrant des matchs de jeunes dès le premier mois.",
+            "Les organisateurs espèrent que l'académie élèvera le niveau dans toutes les divisions et formera des arbitres pour les tournois internationaux."
+          ]
+        },
+        "ar": {
+          "title": "افتتاح أكاديمية جديدة للتحكيم في الرباط لتكوين جيل جديد من الحكام",
+          "excerpt": "أربعون متدربا، بينهم اثنتا عشرة امرأة، يشكلون الفوج الأول لبرنامج يمتد سنتين يجمع اللياقة البدنية وقوانين اللعبة وتقنية الفيديو.",
+          "body": [
+            "فتحت أكاديمية جديدة للتحكيم أبوابها في الرباط بفوج أول يضم أربعين متدربا، من بينهم اثنتا عشرة امرأة.",
+            "ويغطي البرنامج الممتد على سنتين قوانين اللعبة والإعداد البدني وتقنية الفيديو، على أن يدير المتدربون مباريات الفئات الصغرى منذ الشهر الأول.",
+            "ويأمل المنظمون أن ترفع الأكاديمية المستوى في جميع الأقسام وأن تكوّن حكاما للبطولات الدولية."
+          ]
+        }
+      }
     },
     {
       "id": "u23-friendly",
@@ -673,7 +1208,27 @@ window.KP = {
         "Morocco's U-23 team will play a friendly against a European opponent next month, the first of three preparation matches before Olympic qualifying.",
         "The coaching staff plan to use the game to test players who have broken into first teams at their clubs this season.",
         "A squad is expected to be named in two weeks."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Les U23 confirment un match amical avant les qualifications olympiques",
+          "excerpt": "Les jeunes affronteront un adversaire européen le mois prochain, premier de trois matchs de préparation prévus.",
+          "body": [
+            "La sélection marocaine des moins de 23 ans disputera le mois prochain un match amical contre un adversaire européen, le premier de trois matchs de préparation avant les qualifications olympiques.",
+            "Le staff compte utiliser ce match pour tester les joueurs qui se sont imposés en équipe première dans leurs clubs cette saison.",
+            "La liste devrait être dévoilée dans deux semaines."
+          ]
+        },
+        "ar": {
+          "title": "منتخب أقل من 23 سنة يؤكد مباراة ودية قبل التصفيات الأولمبية",
+          "excerpt": "سيواجه الشبان منافسا أوروبيا الشهر المقبل في أولى ثلاث مباريات إعدادية مبرمجة.",
+          "body": [
+            "يخوض المنتخب المغربي لأقل من 23 سنة الشهر المقبل مباراة ودية أمام منافس أوروبي، وهي الأولى ضمن ثلاث مباريات إعدادية قبل التصفيات الأولمبية.",
+            "ويعتزم الطاقم التقني استغلال المباراة لاختبار اللاعبين الذين فرضوا أنفسهم في الفرق الأولى لأنديتهم هذا الموسم.",
+            "ومن المنتظر الكشف عن اللائحة في غضون أسبوعين."
+          ]
+        }
+      }
     },
     {
       "id": "neighbourhood-pitches",
@@ -688,7 +1243,27 @@ window.KP = {
         "A programme building small-sided artificial pitches in urban neighbourhoods has opened its 100th site.",
         "Each pitch hosts free coaching sessions on weekends, run by volunteers who have completed a short training course.",
         "The organisers say the next phase will focus on towns and rural areas with no floodlit pitches at all."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Le programme des terrains de proximité atteint son 100e site",
+          "excerpt": "Des terrains synthétiques de petite taille sont désormais ouverts dans cent quartiers, avec des séances d'entraînement gratuites le week-end.",
+          "body": [
+            "Un programme de construction de terrains synthétiques de proximité dans les quartiers urbains vient d'inaugurer son 100e site.",
+            "Chaque terrain accueille des séances gratuites le week-end, encadrées par des bénévoles ayant suivi une courte formation.",
+            "Les organisateurs indiquent que la prochaine phase ciblera les petites villes et les zones rurales dépourvues de terrains éclairés."
+          ]
+        },
+        "ar": {
+          "title": "برنامج ملاعب القرب يبلغ موقعه المائة",
+          "excerpt": "أصبحت ملاعب اصطناعية صغيرة مفتوحة في مائة حي، مع حصص تأطير مجانية في نهاية الأسبوع.",
+          "body": [
+            "دشن برنامج لبناء ملاعب اصطناعية صغيرة في الأحياء الحضرية موقعه المائة.",
+            "ويحتضن كل ملعب حصصا مجانية في نهاية الأسبوع يؤطرها متطوعون تابعوا تكوينا قصيرا.",
+            "ويقول المنظمون إن المرحلة المقبلة ستركز على المدن الصغيرة والمناطق القروية التي لا تتوفر على ملاعب مضاءة."
+          ]
+        }
+      }
     },
     {
       "id": "matchday-11-preview",
@@ -705,7 +1280,27 @@ window.KP = {
         "The pick of this weekend's Botola Pro fixtures takes the league leaders north to face an Étoile de Tanger side unbeaten at home since March.",
         "Racing Anfa will be without their suspended captain, and their coach has hinted at a more cautious set-up than usual.",
         "Elsewhere, Rabat Stars travel to Meknès, while Fès Sporting host Oujda Athletic on Sunday evening."
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "Avant-match de la 11e journée : Tanger reçoit le leader dans un choc du Nord",
+          "excerpt": "L'Étoile de Tanger n'a plus perdu à domicile depuis mars. Le Racing Anfa n'a plus perdu nulle part depuis septembre. Quelque chose doit céder.",
+          "body": [
+            "L'affiche de ce week-end en Botola Pro emmène le leader dans le nord face à une Étoile de Tanger invaincue à domicile depuis mars.",
+            "Le Racing Anfa sera privé de son capitaine suspendu, et son entraîneur a laissé entendre une approche plus prudente que d'habitude.",
+            "Ailleurs, les Rabat Stars se déplacent à Meknès, tandis que le Fès Sporting reçoit l'Oujda Athletic dimanche soir."
+          ]
+        },
+        "ar": {
+          "title": "تقديم الدورة 11: طنجة يستقبل المتصدر في قمة الشمال",
+          "excerpt": "لم يخسر نجم طنجة على أرضه منذ مارس، ولم يخسر راسينغ أنفا في أي مكان منذ شتنبر. لا بد أن يتنازل أحدهما.",
+          "body": [
+            "تقود أبرز مباريات البطولة الاحترافية هذا الأسبوع المتصدرَ شمالا لمواجهة نجم طنجة الذي لم يُهزم على أرضه منذ مارس.",
+            "وسيفتقد راسينغ أنفا قائده الموقوف، وألمح مدربه إلى نهج أكثر حذرا من المعتاد.",
+            "وفي باقي المباريات، يتنقل رابط ستارز إلى مكناس، بينما يستقبل فاس سبورتينغ وجدة أتلتيك مساء الأحد."
+          ]
+        }
+      }
     },
     {
       "id": "goalkeeper-interview",
@@ -723,7 +1318,30 @@ window.KP = {
         "“People think you are just there to make up the numbers,” he says. “But in training you face the best strikers in the country every day. You learn more in a week than in a month at your club.”",
         "He spends camps studying the two goalkeepers ahead of him, filling notebooks with details on positioning and distribution.",
         "Asked about his goal, he does not hesitate: “One cap. After that, we will see.”"
-      ]
+      ],
+      "tr": {
+        "fr": {
+          "title": "« Le maillot pèse plus lourd que n'importe quel trophée » : rencontre avec le troisième gardien des Lions de l'Atlas",
+          "excerpt": "Il n'a pas encore joué une minute en sélection. Il considère pourtant chaque rassemblement comme la meilleure semaine de son année.",
+          "body": [
+            "Les troisièmes gardiens donnent rarement des interviews. Hamza El Idrissi, 24 ans, dit que c'est justement pour cela qu'il voulait parler.",
+            "« Les gens pensent qu'on est là pour faire le nombre, dit-il. Mais à l'entraînement, tu affrontes chaque jour les meilleurs attaquants du pays. Tu apprends plus en une semaine qu'en un mois en club. »",
+            "Pendant les stages, il étudie les deux gardiens devant lui et remplit des carnets de détails sur le placement et la relance.",
+            "Interrogé sur son objectif, il ne marque pas d'hésitation : « Une sélection. Après, on verra. »"
+          ]
+        },
+        "ar": {
+          "title": "«القميص أثقل من أي لقب»: لقاء مع الحارس الثالث لأسود الأطلس",
+          "excerpt": "لم يلعب بعد أي دقيقة مع المنتخب، ومع ذلك يعتبر كل تجمع أفضل أسبوع في سنته.",
+          "body": [
+            "نادرا ما يجري الحراس الثالثون مقابلات صحفية، ويقول حمزة الإدريسي، 24 عاما، إن هذا بالضبط ما دفعه إلى الحديث.",
+            "«يظن الناس أنك موجود فقط لإكمال العدد»، يقول. «لكن في التدريبات تواجه كل يوم أفضل مهاجمي البلاد، وتتعلم في أسبوع أكثر مما تتعلمه في شهر مع ناديك».",
+            "ويقضي فترات التجمع في دراسة الحارسين اللذين يتقدمانه، ويملأ دفاتر بتفاصيل التمركز وإعادة اللعب.",
+            "وعندما سُئل عن هدفه لم يتردد: «مباراة دولية واحدة، وبعدها سنرى»."
+          ]
+        }
+      }
     }
-  ]
+  ],
+  "updated": "2026-11-15T00:48:50.000Z"
 };

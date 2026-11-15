@@ -18,6 +18,13 @@ python3 -m http.server 8000
 | `category.html?c=<category>` | A category, with sub-category chips (`&t=Results`) and "Load more" |
 | `category.html?q=<words>` | Search results (search icon in the menu, or press `/`) |
 
+## Languages: English, Français, العربية
+- **Public site:** visitors switch language with **EN · FR · ع** in the top bar. The first visit follows the browser's language. Links carry the language (`?lang=fr`, `?lang=ar`) so shared links open in the right language, and link previews (Facebook, WhatsApp, X) use the translated title and summary. Arabic is shown right to left with Arabic fonts (Cairo, Noto Naskh Arabic).
+- **Articles:** each article can have a French and an Arabic version (`tr.fr`, `tr.ar` in `js/data.js`). In the admin editor, use the **English (original) / Français / العربية** tabs above the title. Without a translation, the original is shown with a short notice. The posts list shows **FR** and **AR** badges in green when a translation exists.
+- **Categories, tagline, top bar links, league table title:** translated in Admin → Categories, Settings and League Table.
+- **Admin dashboard:** switch with **EN · FR · ع** in the admin bar (remembered on that browser). Arabic uses a right-to-left layout. The translations live in `admin/admin-i18n.js`; the public site's in `js/i18n.js`.
+- Team and competition names in live scores come from the score provider and are not translated.
+
 ## Reading and sharing
 Readers don't need an account: they read, and share articles with the buttons at the top and bottom of each article: **Facebook, X, WhatsApp, Instagram** and **copy link**. Instagram has no "share a link" address on the web, so on phones its button opens the phone's share menu (Instagram is in it), and on computers it copies the link to paste into a story or message.
 

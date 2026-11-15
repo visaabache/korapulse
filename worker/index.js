@@ -79,25 +79,33 @@ async function withPreview(request, env, url) {
   const data = await siteData(env, url.origin);
   if (!data) return res;
   const site = data.site || {};
+  const lang = ["fr", "ar"].includes(url.searchParams.get("lang")) ? url.searchParams.get("lang") : "en";
+  const T = (obj, f) => (obj && obj.tr && obj.tr[lang] && obj.tr[lang][f]) || (obj ? obj[f] : "");
+  const UI = {
+    fr: { live: "Scores en direct du monde entier", liveDesc: "Scores, résultats et programme du football : Botola Pro, CAF, Ligue des champions, Premier League, LaLiga et plus." },
+    ar: { live: "النتائج المباشرة من كل أنحاء العالم", liveDesc: "نتائج ومواعيد مباريات كرة القدم: البطولة الاحترافية وإفريقيا ودوري الأبطال والدوري الإنجليزي والإسباني وغيرها." }
+  }[lang];
   const isArticle = /^\/article(\.html)?$/.test(url.pathname);
   const a = isArticle ? (data.articles || []).find((x) => x.id === url.searchParams.get("id") && (x.status || "publish") === "publish") : null;
   const cat = !a && /^\/category/.test(url.pathname) ? (data.categories || []).find((c) => c.slug === url.searchParams.get("c")) : null;
   const isMatches = /^\/matches/.test(url.pathname);
-  const title = a ? a.title : isMatches ? `Live scores from around the world | ${site.name}` : cat ? `${cat.name} | ${site.name}` : `${site.name} | ${site.tagline || "Football news"}`;
-  const desc = a ? a.excerpt : isMatches ? "Live football scores, results and fixtures: Botola Pro, CAF, Champions League, Premier League, LaLiga and more." : site.tagline || "";
-  const page = a ? `${url.origin}/article?id=${encodeURIComponent(a.id)}` : url.origin + url.pathname + url.search;
+  const tagline = T(site, "tagline") || "Football news";
+  const title = a ? T(a, "title") : isMatches ? `${UI ? UI.live : "Live scores from around the world"} | ${site.name}` : cat ? `${T(cat, "name")} | ${site.name}` : `${site.name} | ${tagline}`;
+  const desc = a ? T(a, "excerpt") : isMatches ? (UI ? UI.liveDesc : "Live football scores, results and fixtures: Botola Pro, CAF, Champions League, Premier League, LaLiga and more.") : tagline;
+  const page = a ? `${url.origin}/article?id=${encodeURIComponent(a.id)}${lang !== "en" ? "&lang=" + lang : ""}` : url.origin + url.pathname + url.search;
   const img = imageOf(data, a);
   const image = img ? (img.startsWith("data:") ? `${url.origin}/og/${encodeURIComponent(a.id)}` : new URL(img, url.origin).href) : `${url.origin}/og-image.png`;
   const tags = `
     <meta name="description" content="${attr(desc)}">
     <link rel="canonical" href="${attr(page)}">
     <meta property="og:site_name" content="${attr(site.name)}">
+    <meta property="og:locale" content="${{ en: "en_GB", fr: "fr_FR", ar: "ar_MA" }[lang]}">
     <meta property="og:type" content="${a ? "article" : "website"}">
     <meta property="og:title" content="${attr(title)}">
     <meta property="og:description" content="${attr(desc)}">
     <meta property="og:url" content="${attr(page)}">
     <meta property="og:image" content="${attr(image)}">
-    <meta property="og:image:alt" content="${attr(a ? a.title : site.name)}">
+    <meta property="og:image:alt" content="${attr(a ? T(a, "title") : site.name)}">
     ${img ? "" : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}
     ${a ? `<meta property="article:published_time" content="${attr(a.date)}"><meta property="article:author" content="${attr(a.author)}">` : ""}
     <meta name="twitter:card" content="summary_large_image">
@@ -105,7 +113,8 @@ async function withPreview(request, env, url) {
     <meta name="twitter:description" content="${attr(desc)}">
     <meta name="twitter:image" content="${attr(image)}">`;
   return new HTMLRewriter()
-    .on("title", { element(el) { el.setInnerContent(a ? `${a.title} | ${site.name}` : title); } })
+    .on("html", { element(el) { el.setAttribute("lang", lang); el.setAttribute("dir", lang === "ar" ? "rtl" : "ltr"); } })
+    .on("title", { element(el) { el.setInnerContent(a ? `${T(a, "title")} | ${site.name}` : title); } })
     .on('meta[name="description"]', { element(el) { el.remove(); } })
     .on("head", { element(el) { el.append(tags, { html: true }); } })
     .transform(res);

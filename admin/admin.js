@@ -12,9 +12,12 @@
   const today = () => new Date().toISOString().slice(0, 10);
   const nowIso = () => { const d = new Date(); return new Date(d - d.getTimezoneOffset() * 60000).toISOString().slice(0, 19); };
   const slugify = (s) => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-  const fmtDate = (d) => d ? new Date(d.length <= 10 ? d + "T12:00:00" : d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "";
+  const AL = (window.KP_ADMIN_I18N && window.KP_ADMIN_I18N.lang) || "en";
+  const ALOC = { en: "en-US", fr: "fr-FR", ar: "ar-MA" }[AL];
+  const fmtDate = (d) => d ? new Date(d.length <= 10 ? d + "T12:00:00" : d).toLocaleDateString(ALOC, { month: "short", day: "numeric", year: "numeric" }) : "";
   const fmtSlash = (d) => d ? d.slice(0, 10).replace(/-/g, "/") : "";
-  const fmtTime = (d) => d && d.length > 10 ? new Date(d).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).toLowerCase() : "";
+  const fmtTime = (d) => d && d.length > 10 ? new Date(d).toLocaleTimeString(AL === "en" ? "en-US" : "en-GB", { hour: "numeric", minute: "2-digit", hour12: AL === "en" }).toLowerCase() : "";
+  const LANGS = { fr: "Français", ar: "العربية" };
   const ls = {
     get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } },
     set: (k, v) => { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } },
@@ -129,7 +132,7 @@
           <label for="sp2">Confirm password</label><input type="password" id="sp2" name="pw2" autocomplete="new-password" required minlength="8">
           <div class="login-submit"><span class="description">At least 8 characters.</span><button class="button button-primary button-large">Create account</button></div>
         </form>`}
-        <p class="nav"><a href="../index.html">← Go to ${esc(D.site.name)}</a></p>
+        <p class="nav"><a href="../index.html">← Go to ${esc(D.site.name)}</a> <span class="ab-lang login-lang">${["en", "fr", "ar"].map((l) => `<button data-act="admin-lang" data-v="${l}" class="${l === AL ? "on" : ""}">${{ en: "EN", fr: "FR", ar: "ع" }[l]}</button>`).join("")}</span></p>
       </div>`;
   }
 
@@ -176,6 +179,7 @@
         ${commentsOn() ? `<a href="#/comments?status=pending" aria-label="${p} comments in moderation">${icons.comment}<span class="ab-count ${p ? "hot" : ""}">${p}</span></a>` : ""}
         <a href="#/post/new">${icons.plus}<span class="ab-hide-sm">New</span></a>
         <div class="ab-right">
+          <span class="ab-lang" role="group" aria-label="Language">${["en", "fr", "ar"].map((l) => `<button data-act="admin-lang" data-v="${l}" class="${l === AL ? "on" : ""}" lang="${l}">${{ en: "EN", fr: "FR", ar: "ع" }[l]}</button>`).join("")}</span>
           <a href="#/settings" class="ab-hide-sm">Howdy, ${esc(currentUser())} <span class="avatar-sm">${esc(currentUser()[0].toUpperCase())}</span></a>
           <button data-act="logout">Log Out</button>
         </div>
@@ -210,7 +214,7 @@
     if (!loggedIn()) { renderLogin(); return; }
     const r = route();
     const key = r.parts.join("/");
-    if (key !== lastRoute) { work = null; replyTo = null; editCat = null; editUser = null; }
+    if (key !== lastRoute) { work = null; replyTo = null; editCat = null; editUser = null; if (!/^post\//.test(key) || !/^post\//.test(lastRoute)) editLang = "en"; }
     const pages = { dashboard, posts, post: postEditor, categories, media, comments, scores, table: leagueTable, users, settings, tools };
     const pg = (pages[r.name] || dashboard)(r);
     document.title = `${pg.title} ‹ ${D.site.name} — Admin`;
@@ -362,6 +366,7 @@
               <th class="check-column"><input type="checkbox" name="ids" value="${esc(a.id)}" aria-label="Select ${esc(a.title)}"></th>
               <td class="thumb hide-sm"><div class="tmb">${thumb(a)}</div></td>
               <td><strong><a class="row-title" href="#/post/${esc(a.id)}">${esc(a.title)}</a>${a.status === "draft" ? ' — <span class="post-state">Draft</span>' : ""}${a.featured ? ' — <span class="post-state">Headline</span>' : ""}</strong>
+                <span class="lang-badges">${["fr", "ar"].map((l) => `<span class="lb ${a.tr && a.tr[l] && a.tr[l].title ? "ok" : ""}" title="${LANGS[l]}">${l.toUpperCase()}</span>`).join("")}</span>
                 <div class="row-actions">${actions}</div></td>
               <td class="hide-sm"><a href="${qs("#/posts", { author: a.author })}">${esc(a.author)}</a></td>
               <td class="hide-sm"><a href="${qs("#/posts", { cat: a.cat })}">${esc(catName(a.cat))}</a></td>
@@ -386,15 +391,24 @@
       ? { id: "", title: "", cat: D.categories[0] ? D.categories[0].slug : "news", tags: [], motif: "", author: (D.users[0] || {}).name || currentUser(), date: today(), excerpt: "", body: [], status: "draft", featured: false, image: "" }
       : clone(orig);
     const E = work;
-    const words = E.body.join(" ").split(/\s+/).filter(Boolean).length;
+    E.tr = E.tr || {};
+    const EL = editLang;
+    const F = EL === "en" ? E : (E.tr[EL] = E.tr[EL] || { title: "", excerpt: "", body: [] });
+    F.body = F.body || [];
+    const dirAttr = EL === "ar" ? 'dir="rtl" lang="ar"' : "";
+    const words = F.body.join(" ").split(/\s+/).filter(Boolean).length;
     const statusLabel = { publish: "Published", draft: "Draft", trash: "In Trash" }[E.status] || "Draft";
 
     const html = `
       ${pageHead(isNew ? "Add New Post" : "Edit Post", isNew ? "" : `<a class="page-title-action" href="#/post/new">Add New Post</a>`)}
       <form class="edit-cols" data-form="post" autocomplete="off">
         <div>
-          <input type="text" class="title-input" name="title" value="${esc(E.title)}" placeholder="Add title" aria-label="Title" required>
-          <div class="permalink"><b>Permalink:</b> <span>article.html?id=</span><input type="text" name="slug" value="${esc(E.id)}" placeholder="generated from the title" aria-label="Slug">
+          <div class="ed-langs" role="tablist" aria-label="Language">
+            ${[["en", "English (original)"], ["fr", "Français"], ["ar", "العربية"]].map(([l, name]) => `<button type="button" role="tab" aria-selected="${l === EL}" class="${l === EL ? "on" : ""}" data-act="ed-lang" data-v="${l}" lang="${l}">${esc(name)}${l !== "en" ? ` <span class="lb ${E.tr[l] && E.tr[l].title ? "ok" : ""}">${E.tr[l] && E.tr[l].title ? "✓" : "–"}</span>` : ""}</button>`).join("")}
+          </div>
+          ${EL !== "en" ? `<p class="ed-lang-note"><span class="tr-note">Translation</span> <span class="no-tr">${esc(E.title || "")}</span></p>` : ""}
+          <input type="text" class="title-input" name="title" value="${esc(F.title)}" placeholder="Add title" aria-label="Title" ${EL === "en" ? "required" : ""} ${dirAttr}>
+          <div class="permalink" ${EL === "en" ? "" : "hidden"}><b>Permalink:</b> <span>article.html?id=</span><input type="text" name="slug" value="${esc(E.id)}" placeholder="generated from the title" aria-label="Slug">
             ${!isNew && E.status === "publish" ? `<a class="button" href="../article.html?id=${encodeURIComponent(E.id)}" target="_blank" rel="noopener">View Post</a>` : ""}</div>
           <div class="editor">
             <div class="editor-tools" role="toolbar" aria-label="Formatting">
@@ -407,11 +421,11 @@
               <button type="button" class="ed-btn" data-fmt="link" title="Insert link">${icons.link.replace('width="20" height="20"', 'width="16" height="16"')}</button>
               <span class="editor-help">Leave an empty line between paragraphs.</span>
             </div>
-            <textarea name="body" aria-label="Post content" placeholder="Start writing…">${esc(E.body.join("\n\n"))}</textarea>
+            <textarea name="body" aria-label="Post content" placeholder="Start writing…" ${dirAttr}>${esc(F.body.join("\n\n"))}</textarea>
             <div class="editor-status"><span id="wc">Word count: ${words}</span><span>${E.modified ? "Last edited on " + fmtDate(E.modified) + " at " + fmtTime(E.modified) : ""}</span></div>
           </div>
           <section class="postbox"><h2>Excerpt</h2><div class="inside">
-            <textarea name="excerpt" rows="3" class="large-text" aria-label="Excerpt">${esc(E.excerpt)}</textarea>
+            <textarea name="excerpt" rows="3" class="large-text" aria-label="Excerpt" ${dirAttr}>${esc(F.excerpt)}</textarea>
             <p class="description">The summary shown on the homepage and category pages. Leave empty to use the first sentences of the post.</p>
           </div></section>
         </div>
@@ -503,7 +517,7 @@
       function featBox() {
         const has = E.image && mediaUrl(E.image);
         $("#featbox").innerHTML = `
-          <div class="feat-preview" data-act="set-featured" title="Set featured image">${thumb({ ...E, title: form.title.value || "New post" })}</div>
+          <div class="feat-preview" data-act="set-featured" title="Set featured image">${thumb({ ...E, title: E.title || form.title.value || "New post" })}</div>
           ${has ? `<p style="margin:0"><button type="button" class="button-link" data-act="set-featured">Replace image</button> · <button type="button" class="button-link delete" id="rm-feat">Remove featured image</button></p>`
             : `<p style="margin:0 0 8px"><button type="button" class="button-link" data-act="set-featured">Set featured image</button></p>
                <label class="block" for="motif">Or use an illustration</label>
@@ -519,6 +533,21 @@
     return { title: isNew ? "Add New Post" : "Edit Post", menu: "posts", sub: isNew ? "new" : "posts", html, after };
   }
   let editorApi = null;
+  let editLang = "en";
+  function captureEditor() {
+    const form = $('form[data-form="post"]');
+    if (!form || !work) return;
+    const E = work;
+    E.tr = E.tr || {};
+    const body = form.body.value.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+    if (editLang === "en") { E.title = form.title.value.trim(); E.body = body; E.excerpt = form.excerpt.value.trim(); work._slug = form.slug.value; }
+    else E.tr[editLang] = { title: form.title.value.trim(), excerpt: form.excerpt.value.trim(), body };
+    const c = form.querySelector('input[name="cat"]:checked');
+    if (c) E.cat = c.value;
+    E.author = form.author.value;
+    E.date = form.date.value || E.date;
+    E.featured = form.featured.checked;
+  }
   let skipHash = false, prevHash = "";
 
   function savePost(mode, opts = {}) {
@@ -526,20 +555,17 @@
     const E = work;
     const isNew = route().parts[1] === "new";
     const origId = isNew ? null : route().parts[1];
-    E.title = form.title.value.trim();
-    if (!E.title) { alert("Please add a title first."); form.title.focus(); return null; }
-    E.body = form.body.value.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
-    const first = (E.body.find((p) => !/^(##|>|!\[)/.test(p)) || "").replace(/\*|\[|\]\([^)]*\)/g, "").trim();
-    E.excerpt = form.excerpt.value.trim() || (first.length > 180 ? first.slice(0, 180).replace(/\s+\S*$/, "") + "…" : first);
-    const c = form.querySelector('input[name="cat"]:checked');
-    E.cat = c ? c.value : E.cat;
-    E.author = form.author.value;
-    E.date = form.date.value || today();
-    E.featured = form.featured.checked;
+    captureEditor();
+    if (!E.title) { alert("Please add a title first."); if (editLang !== "en") { editLang = "en"; render(); } else form.title.focus(); return null; }
+    const autoExcerpt = (body) => { const first = (body.find((p) => !/^(##|>|!\[)/.test(p)) || "").replace(/\*|\[|\]\([^)]*\)/g, "").trim(); return first.length > 180 ? first.slice(0, 180).replace(/\s+\S*$/, "") + "…" : first; };
+    E.excerpt = E.excerpt || autoExcerpt(E.body);
+    Object.keys(E.tr || {}).forEach((l) => { const x = E.tr[l]; if (!x.title && !(x.body || []).length) delete E.tr[l]; else if (!x.excerpt) x.excerpt = autoExcerpt(x.body || []); });
+    E.date = E.date || today();
     E.modified = nowIso();
     if (mode === "publish") E.status = "publish";
     else if (mode === "draft") E.status = "draft";
-    let slug = slugify(form.slug.value || E.title) || "post";
+    let slug = slugify(work._slug || form.slug.value || E.title) || "post";
+    delete E._slug;
     let n = 2; const base = slug;
     while (D.articles.some((a) => a.id === slug && a.id !== origId)) slug = base + "-" + n++;
     E.id = slug;
@@ -574,6 +600,10 @@
             <div class="form-field"><label for="cn">Name</label><input type="text" id="cn" name="name" required value="${esc(ed ? ed.name : "")}"><p class="description">The name shown in the site menu.</p></div>
             <div class="form-field"><label for="cs">Slug</label><input type="text" id="cs" name="slug" value="${esc(ed ? ed.slug : "")}"><p class="description">The web address version of the name: lowercase letters, numbers and hyphens.</p></div>
             <div class="form-field"><label for="cu">Sub-sections</label><input type="text" id="cu" name="subs" value="${esc(ed ? ed.subs.join(", ") : "")}"><p class="description">Optional, separated by commas (e.g. Results, Clubs). They appear in the menu dropdown and filter posts by tag.</p></div>
+            ${["fr", "ar"].map((l) => `<fieldset class="tr-fields" ${l === "ar" ? 'dir="rtl"' : ""}><legend>${LANGS[l]}</legend>
+              <div class="form-field"><label for="cn-${l}">Name</label><input type="text" id="cn-${l}" name="name_${l}" value="${esc(ed && ed.tr && ed.tr[l] ? ed.tr[l].name : "")}"></div>
+              <div class="form-field"><label for="cu-${l}">Sub-sections</label><input type="text" id="cu-${l}" name="subs_${l}" value="${esc(ed && ed.tr && ed.tr[l] && ed.tr[l].subs ? ed.tr[l].subs.join(", ") : "")}"><p class="description">In the same order as above.</p></div>
+            </fieldset>`).join("")}
             <button class="button button-primary">${ed ? "Update" : "Add New Category"}</button>
             ${ed ? `<button type="button" class="button" data-act="cat-cancel">Cancel</button>` : ""}
           </form>
@@ -583,6 +613,7 @@
             <thead><tr><th>Name</th><th class="hide-sm">Slug</th><th class="hide-sm">Sub-sections</th><th class="num">Count</th><th class="num">Menu order</th></tr></thead>
             <tbody>${D.categories.map((c, i) => `<tr>
               <td><strong><a class="row-title" href="#" data-act="cat-edit" data-id="${esc(c.slug)}">${esc(c.name)}</a></strong>
+                <div class="tr-names no-tr">${["fr", "ar"].map((l) => c.tr && c.tr[l] && c.tr[l].name ? `<span lang="${l}">${esc(c.tr[l].name)}</span>` : "").join(" · ")}</div>
                 <div class="row-actions"><span><button data-act="cat-edit" data-id="${esc(c.slug)}">Edit</button></span><span class="delete"><button data-act="cat-delete" data-id="${esc(c.slug)}">Delete</button></span><span><a href="../category.html?c=${encodeURIComponent(c.slug)}" target="_blank" rel="noopener">View</a></span></div></td>
               <td class="hide-sm">${esc(c.slug)}</td>
               <td class="hide-sm">${c.subs.map((t) => `<span class="tag-chip">${esc(t)}</span>`).join("") || "—"}</td>
@@ -834,7 +865,8 @@
     const html = `
       ${pageHead("League Table")}
       <form data-form="table">
-        <p><label for="tt"><b>Table title</b></label><br><input type="text" id="tt" name="title" class="regular-text" value="${esc(T.title)}"></p>
+        <p><label for="tt"><b>Table title</b></label><br><input type="text" id="tt" name="title" class="regular-text" value="${esc(T.title)}">
+          ${["fr", "ar"].map((l) => `<input type="text" name="title_${l}" class="regular-text" aria-label="${LANGS[l]}" placeholder="${LANGS[l]}" ${l === "ar" ? 'dir="rtl"' : ""} value="${esc(T.tr && T.tr[l] ? T.tr[l].title : "")}">`).join(" ")}</p>
         <table class="list-table edit-table">
           <thead><tr><th>#</th><th>Club</th><th>W</th><th>D</th><th>L</th><th>Played</th><th>Goal diff.</th><th>Points</th><th></th></tr></thead>
           <tbody>${T.rows.map((r, i) => `<tr>
@@ -868,6 +900,7 @@
   }
   const readTable = (form) => ({
     title: form.title.value.trim() || "League table",
+    tr: { fr: { title: form.title_fr.value.trim() }, ar: { title: form.title_ar.value.trim() } },
     rows: readRows(form, ["club", "w", "d", "l", "gd"]).map((r) => {
       const w = parseInt(r.w, 10) || 0, d = parseInt(r.d, 10) || 0, l = parseInt(r.l, 10) || 0;
       return { club: r.club.trim(), p: w + d + l, w, d, l, gd: parseInt(r.gd, 10) || 0, pts: 3 * w + d };
@@ -914,11 +947,12 @@
       <form data-form="settings">
         <table class="form-table"><tbody>
           <tr><th><label for="st">Site Title</label></th><td><input type="text" id="st" name="name" class="regular-text" value="${esc(s.name)}" required></td></tr>
-          <tr><th><label for="sg">Tagline</label></th><td><input type="text" id="sg" name="tagline" class="regular-text" value="${esc(s.tagline)}"><p class="description">In a few words, explain what this site is about. Shown under the logo.</p></td></tr>
+          <tr><th><label for="sg">Tagline</label></th><td><input type="text" id="sg" name="tagline" class="regular-text" value="${esc(s.tagline)}"><p class="description">In a few words, explain what this site is about. Shown under the logo.</p>
+            ${["fr", "ar"].map((l) => `<p style="margin:8px 0 0"><label style="display:inline-block;width:90px" for="sg-${l}">${LANGS[l]}</label><input type="text" id="sg-${l}" name="tagline_${l}" class="regular-text" ${l === "ar" ? 'dir="rtl"' : ""} value="${esc(s.tr && s.tr[l] ? s.tr[l].tagline || "" : "")}"></p>`).join("")}</td></tr>
           <tr><th><label for="se">Contact email</label></th><td><input type="email" id="se" name="email" class="regular-text" value="${esc(s.email || "")}"></td></tr>
           <tr><th>Social media</th><td>${["instagram", "x", "facebook", "youtube", "tiktok", "linkedin"].map((k) => `<p style="margin:0 0 8px"><label style="display:inline-block;width:90px" for="so-${k}">${k === "x" ? "X" : k[0].toUpperCase() + k.slice(1)}</label><input type="url" id="so-${k}" name="so-${k}" class="regular-text" value="${esc(so[k] && so[k] !== "#" ? so[k] : "")}" placeholder="https://"></p>`).join("")}</td></tr>
           <tr><th>Comments</th><td><label><input type="checkbox" name="comments" ${commentsOn() ? "checked" : ""}> Allow readers to comment on articles</label><p class="description">When off, readers can only read and share. Comments then need moderation in the Comments menu.</p></td></tr>
-          <tr><th><label for="tl">Top bar links</label></th><td><textarea id="tl" name="toplinks" rows="5" class="large-text" style="max-width:560px">${esc(D.topLinks.map((l) => `${l.label} | ${l.href}`).join("\n"))}</textarea><p class="description">One link per line: <code>Label | address</code>, e.g. <code>Botola Pro | category.html?c=botola</code></p></td></tr>
+          <tr><th><label for="tl">Top bar links</label></th><td><textarea id="tl" name="toplinks" rows="5" class="large-text" style="max-width:560px">${esc(D.topLinks.map((l) => [l.label, l.href, (l.tr && l.tr.fr) || "", (l.tr && l.tr.ar) || ""].join(" | ").replace(/( \| )+$/, "")).join("\n"))}</textarea><p class="description">One link per line: <code>Label | address | French label | Arabic label</code>, e.g. <code>Botola Pro | category.html?c=botola | Botola Pro | البطولة الاحترافية</code></p></td></tr>
         </tbody></table>
         <p><button class="button button-primary">Save Changes</button></p>
       </form>
@@ -1043,6 +1077,7 @@
 
   const ACT = {
     "menu-toggle": () => document.body.classList.toggle("menu-open"),
+    "admin-lang": (b) => { if (!confirmLeave()) return; dirty = false; ls.set("kp-admin-lang", b.dataset.v); location.reload(); },
     dismiss: (b) => b.closest(".notice").remove(),
     "hide-welcome": () => { ls.set("kp-welcome-hidden", "1"); render(); },
     logout: () => { if (!confirmLeave()) return; dirty = false; if (server) { location.href = "logout"; return; } ls.del("kp-admin-session"); location.hash = ""; renderLogin({ type: "success", text: "You are now logged out." }); },
@@ -1070,6 +1105,7 @@
     "post-feature": (b) => { D.articles.forEach((a) => (a.featured = a.id === b.dataset.id)); save("Homepage headline changed."); render(); },
     "empty-trash": () => { const n = D.articles.filter((a) => a.status === "trash").length; if (!confirm(`Permanently delete ${n} post(s) in the Trash?`)) return; const ids = new Set(D.articles.filter((a) => a.status === "trash").map((a) => a.id)); D.articles = D.articles.filter((a) => !ids.has(a.id)); D.comments = D.comments.filter((c) => !ids.has(c.post)); save(`${n} posts permanently deleted.`); render(); },
     "filter-posts": (b) => { const r = route(); const f = b.form; go(qs("#/posts", { status: r.q.get("status"), cat: f.cat.value, s: r.q.get("s") })); },
+    "ed-lang": (b) => { captureEditor(); editLang = b.dataset.v; const keep = dirty; render(); dirty = keep; },
     "save-post": (b) => savePost(b.dataset.v, { wasDraft: work && work.status !== "publish" }),
     "preview-post": () => {
       const w = window.open("about:blank", "_blank");
@@ -1208,17 +1244,22 @@
       const name = f.name.value.trim();
       const slug = slugify(f.slug.value || name);
       const subs = f.subs.value.split(",").map((s) => s.trim()).filter(Boolean);
+      const trc = {};
+      ["fr", "ar"].forEach((l) => {
+        const nm = f["name_" + l].value.trim(), sb = f["subs_" + l].value.split(/[,،]/).map((x) => x.trim()).filter(Boolean);
+        if (nm || sb.length) trc[l] = { name: nm, subs: sb };
+      });
       if (!slug) return;
       const clash = D.categories.find((c) => c.slug === slug && c.slug !== editCat);
       if (clash) { flash = { type: "error", text: `A category with the slug "${slug}" already exists.` }; render(); return; }
       if (editCat) {
         const c = D.categories.find((x) => x.slug === editCat);
         D.articles.forEach((a) => { if (a.cat === editCat) a.cat = slug; });
-        Object.assign(c, { name, slug, subs });
+        Object.assign(c, { name, slug, subs, tr: trc });
         editCat = null;
         save("Category updated.");
       } else {
-        D.categories.push({ slug, name, subs });
+        D.categories.push({ slug, name, subs, tr: trc });
         save("Category added.");
       }
       render();
@@ -1257,7 +1298,9 @@
       D.site.email = f.email.value.trim();
       D.site.comments = f.comments.checked;
       ["instagram", "x", "facebook", "youtube", "tiktok", "linkedin"].forEach((k) => { D.site.social[k] = f["so-" + k].value.trim() || "#"; });
-      D.topLinks = f.toplinks.value.split("\n").map((l) => l.split("|").map((x) => x.trim())).filter((p) => p[0] && p[1]).map(([label, href]) => ({ label, href }));
+      D.topLinks = f.toplinks.value.split("\n").map((l) => l.split("|").map((x) => x.trim())).filter((p) => p[0] && p[1]).map(([label, href, fr, ar]) => ({ label, href, tr: { fr: fr || label, ar: ar || label } }));
+      D.site.tr = D.site.tr || {};
+      ["fr", "ar"].forEach((l) => { D.site.tr[l] = { ...(D.site.tr[l] || {}), tagline: f["tagline_" + l].value.trim() }; });
       save("Settings saved."); render();
     },
     "server-password": async (f) => {
