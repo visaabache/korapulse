@@ -208,7 +208,7 @@
           <div class="footer-brand">
             ${logo("logo-footer")}
             <div class="socials">
-              ${["instagram", "x", "linkedin", "facebook", "youtube", "tiktok"].map((k) => `<a href="${esc(s[k] || "#")}" aria-label="${k}">${icon[k]}</a>`).join("")}
+              ${["instagram", "x", "linkedin", "facebook", "youtube", "tiktok"].filter((k) => s[k] && s[k] !== "#").map((k) => `<a href="${esc(s[k])}" target="_blank" rel="noopener" aria-label="${k}">${icon[k]}</a>`).join("")}
             </div>
             <p class="app-title">${t("Download our app")}</p>
             <div class="stores">

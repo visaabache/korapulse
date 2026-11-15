@@ -9,7 +9,7 @@ window.KP = {
     "tagline": "Football news from Morocco, Africa and the world",
     "email": "contact@korapulse.com",
     "social": {
-      "instagram": "#",
+      "instagram": "https://www.instagram.com/kora_pulsee/",
       "x": "#",
       "facebook": "#",
       "youtube": "#",
@@ -1230,7 +1230,7 @@ window.KP = {
       }
     }
   ],
-  "updated": "2026-11-15T01:16:28.000Z",
+  "updated": "2026-11-15T05:19:01.000Z",
   "pages": [
     {
       "slug": "about",
