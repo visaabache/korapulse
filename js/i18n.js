@@ -15,6 +15,11 @@
 
   const S = {
     fr: {
+      "Soon": "Bientôt", "Coming soon": "Bientôt disponible", "Your name": "Votre nom", "Email or phone (optional, to get a reply)": "E-mail ou téléphone (facultatif, pour recevoir une réponse)",
+      "Subject": "Objet", "General question": "Question générale", "Correction": "Correction", "Story idea": "Idée de sujet", "Partnership or advertising": "Partenariat ou publicité", "Other": "Autre",
+      "Message": "Message", "Send message": "Envoyer", "Please write a message of at least 10 characters.": "Écrivez un message d'au moins 10 caractères.",
+      "Thank you! Your message has been sent to the KoraPulse team.": "Merci ! Votre message a été envoyé à l'équipe KoraPulse.", "Too many messages. Please try again later.": "Trop de messages. Réessayez plus tard.",
+      "Your message could not be sent. Please try again later.": "Votre message n'a pas pu être envoyé. Réessayez plus tard.",
       "Skip to content": "Aller au contenu", "Live Scores": "Scores en direct", "Live": "Direct", "SCORES": "SCORES",
       "Open menu": "Ouvrir le menu", "Toggle dark mode": "Mode sombre", "Search": "Rechercher", "Close search": "Fermer la recherche",
       "Search players, clubs, competitions…": "Joueurs, clubs, compétitions…", "Home": "Accueil", "Language": "Langue",
@@ -46,6 +51,11 @@
       "HT": "MT", "FT": "Fin", "Postp.": "Reporté"
     },
     ar: {
+      "Soon": "قريبا", "Coming soon": "قريبا", "Your name": "اسمك", "Email or phone (optional, to get a reply)": "البريد الإلكتروني أو الهاتف (اختياري، لتلقي الرد)",
+      "Subject": "الموضوع", "General question": "سؤال عام", "Correction": "تصحيح", "Story idea": "فكرة موضوع", "Partnership or advertising": "شراكة أو إعلان", "Other": "أخرى",
+      "Message": "الرسالة", "Send message": "إرسال", "Please write a message of at least 10 characters.": "اكتب رسالة من 10 أحرف على الأقل.",
+      "Thank you! Your message has been sent to the KoraPulse team.": "شكرا! تم إرسال رسالتك إلى فريق كورابولس.", "Too many messages. Please try again later.": "رسائل كثيرة. حاول لاحقا.",
+      "Your message could not be sent. Please try again later.": "تعذر إرسال رسالتك. حاول لاحقا.",
       "Skip to content": "انتقل إلى المحتوى", "Live Scores": "النتائج المباشرة", "Live": "مباشر", "SCORES": "النتائج",
       "Open menu": "فتح القائمة", "Toggle dark mode": "الوضع الداكن", "Search": "بحث", "Close search": "إغلاق البحث",
       "Search players, clubs, competitions…": "ابحث عن لاعبين وأندية ومسابقات…", "Home": "الرئيسية", "Language": "اللغة",

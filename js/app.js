@@ -31,7 +31,7 @@
   const inline = (t) => esc(t)
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/\[(.+?)\]\((.+?)\)/g, (m, txt, u) => `<a href="${safeUrl(u.replace(/&amp;/g, "&"))}" target="_blank" rel="noopener">${txt}</a>`);
+    .replace(/\[(.+?)\]\((.+?)\)/g, (m, txt, u) => { u = u.replace(/&amp;/g, "&"); return /^https?:/i.test(u) ? `<a href="${esc(safeUrl(u))}" target="_blank" rel="noopener">${txt}</a>` : `<a href="${esc(safeUrl(/lang=/.test(u) ? u : L.link(u)))}">${txt}</a>`; });
   const block = (p) => {
     const img = p.match(/^!\[(.*?)\]\((.+?)\)$/);
     if (img) return `<figure><img src="${esc(safeUrl(src(img[2])))}" alt="${esc(img[1])}" loading="lazy">${img[1] ? `<figcaption>${esc(img[1])}</figcaption>` : ""}</figure>`;
@@ -44,6 +44,7 @@
   const url = (a) => L.link(`article.html?id=${encodeURIComponent(a.id)}`);
   const catUrl = (slug, tag) => L.link(`category.html?c=${slug}` + (tag ? `&t=${encodeURIComponent(tag)}` : ""));
   const home = L.link("index.html"), liveUrl = L.link("matches.html");
+  const pageUrl = (slug) => L.link(`page.html?p=${slug}`);
   const readTime = (a) => Math.max(1, Math.round((a.body || []).join(" ").split(/\s+/).length / 200));
 
   // ---------- icons ----------
@@ -194,7 +195,7 @@
         <div class="container footer-grid">
           <div>
             <h3>${t("Useful links")}</h3>
-            <ul>${["About", "Contact", "Advertise", "Careers", "Privacy Policy", "Terms of Use"].map((x) => `<li><a href="#">${t(x)}</a></li>`).join("")}</ul>
+            <ul>${[["about", "About"], ["contact", "Contact"], ["advertise", "Advertise"], ["careers", "Careers"], ["privacy", "Privacy Policy"], ["terms", "Terms of Use"]].map(([slug, x]) => `<li><a href="${pageUrl(slug)}">${t(x)}</a>${(D.pages || []).some((pg) => pg.slug === slug && pg.status === "soon") ? ` <span class="soon-badge">${t("Soon")}</span>` : ""}</li>`).join("")}</ul>
           </div>
           <div>
             <h3>${t("Topics")}</h3>
@@ -456,6 +457,68 @@
     draw();
   }
 
+  // static pages (About, Contact, Privacy…), edited in Admin → Pages
+  function renderPage() {
+    const slug = params.get("p") || "about";
+    const pg = (D.pages || []).find((x) => x.slug === slug && (x.status !== "draft" || preview));
+    if (!pg) { location.replace(home); return; }
+    const title = L.tr(pg, "title") || pg.title, body = L.tr(pg, "body") || pg.body || [];
+    document.title = `${title} | ${D.site.name}`;
+    const soon = pg.status === "soon";
+    $("#main").innerHTML = `
+      <div class="container layout page-layout">
+        <article class="col-main static-page">
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="${home}">${t("Home")}</a> › ${esc(title)}</nav>
+          ${soon ? `<span class="tag soon-tag">${t("Coming soon")}</span>` : ""}
+          <h1 class="h-serif article-title">${esc(title)}</h1>
+          ${!L.has(pg) ? `<p class="preview-note">${t("Not yet translated: showing the original article.")}</p>` : ""}
+          <div class="article-body page-body">${body.map(block).join("")}</div>
+          ${slug === "contact" ? contactForm() : ""}
+        </article>
+        <aside class="col-side">${sidebar()}</aside>
+      </div>`;
+    if (slug === "contact") wireContact();
+  }
+
+  function contactForm() {
+    return `
+      <form class="contact-form" novalidate>
+        <div class="cf-grid">
+          <label>${t("Your name")}<input name="name" maxlength="100" autocomplete="name"></label>
+          <label>${t("Email or phone (optional, to get a reply)")}<input name="reply" maxlength="150" autocomplete="email"></label>
+        </div>
+        <label>${t("Subject")}<select name="topic">
+          ${[["general", "General question"], ["correction", "Correction"], ["story", "Story idea"], ["partnership", "Partnership or advertising"], ["other", "Other"]].map(([v, l]) => `<option value="${v}">${t(l)}</option>`).join("")}
+        </select></label>
+        <label>${t("Message")} *<textarea name="message" rows="6" required minlength="10" maxlength="4000"></textarea></label>
+        <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+        <button class="btn">${t("Send message")}</button>
+        <p class="cf-status" role="status" hidden></p>
+      </form>`;
+  }
+
+  function wireContact() {
+    const f = $(".contact-form"), st = f.querySelector(".cf-status"), btn = f.querySelector("button");
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = f.message.value.trim();
+      const show = (txt, ok) => { st.hidden = false; st.textContent = txt; st.className = "cf-status " + (ok ? "ok" : "err"); };
+      if (msg.length < 10) { show(t("Please write a message of at least 10 characters."), false); f.message.focus(); return; }
+      btn.disabled = true;
+      try {
+        const r = await fetch("/api/contact", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: f.name.value.trim(), reply: f.reply.value.trim(), topic: f.topic.value, message: msg, website: f.website.value, lang }) });
+        if (r.status === 429) throw new Error("limit");
+        if (!r.ok) throw new Error("fail");
+        f.querySelectorAll("input, textarea, select").forEach((x) => (x.disabled = true));
+        btn.hidden = true;
+        show(t("Thank you! Your message has been sent to the KoraPulse team."), true);
+      } catch (err) {
+        btn.disabled = false;
+        show(err.message === "limit" ? t("Too many messages. Please try again later.") : t("Your message could not be sent. Please try again later."), false);
+      }
+    });
+  }
+
   function toast(text) {
     let t = document.querySelector(".toast");
     if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
@@ -496,7 +559,7 @@
     });
     menu.querySelectorAll(".has-sub > a").forEach((a) => {
       a.addEventListener("click", (e) => {
-        if (matchMedia("(max-width: 960px)").matches) {
+        if (matchMedia("(max-width: 1100px)").matches) {
           e.preventDefault();
           a.parentElement.classList.toggle("expanded");
         }
@@ -539,6 +602,7 @@
   renderHeader();
   if (page === "home") renderHome();
   else if (page === "article") renderArticle();
+  else if (page === "page") renderPage();
   else if (page !== "matches") renderCategory();
   renderFooter();
   wire();

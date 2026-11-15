@@ -8,6 +8,7 @@
 // (Storage & Databases → KV) and log in with ADMIN_PASSWORD again.
 import { handleMatches, scoresConfig } from "./matches.js";
 import { status as apiFootballStatus } from "./apifootball.js";
+import { handleContact, handleMessages } from "./contact.js";
 
 const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
@@ -89,9 +90,10 @@ async function withPreview(request, env, url) {
   const a = isArticle ? (data.articles || []).find((x) => x.id === url.searchParams.get("id") && (x.status || "publish") === "publish") : null;
   const cat = !a && /^\/category/.test(url.pathname) ? (data.categories || []).find((c) => c.slug === url.searchParams.get("c")) : null;
   const isMatches = /^\/matches/.test(url.pathname);
+  const pg = /^\/page/.test(url.pathname) ? (data.pages || []).find((x) => x.slug === url.searchParams.get("p")) : null;
   const tagline = T(site, "tagline") || "Football news";
-  const title = a ? T(a, "title") : isMatches ? `${UI ? UI.live : "Live scores from around the world"} | ${site.name}` : cat ? `${T(cat, "name")} | ${site.name}` : `${site.name} | ${tagline}`;
-  const desc = a ? T(a, "excerpt") : isMatches ? (UI ? UI.liveDesc : "Live football scores, results and fixtures: Botola Pro, CAF, Champions League, Premier League, LaLiga and more.") : tagline;
+  const title = a ? T(a, "title") : pg ? `${T(pg, "title")} | ${site.name}` : isMatches ? `${UI ? UI.live : "Live scores from around the world"} | ${site.name}` : cat ? `${T(cat, "name")} | ${site.name}` : `${site.name} | ${tagline}`;
+  const desc = a ? T(a, "excerpt") : pg ? String((T(pg, "body") || [])[0] || tagline).replace(/[#*\[\]]|\(page\.html[^)]*\)/g, "").slice(0, 200) : isMatches ? (UI ? UI.liveDesc : "Live football scores, results and fixtures: Botola Pro, CAF, Champions League, Premier League, LaLiga and more.") : tagline;
   const page = a ? `${url.origin}/article?id=${encodeURIComponent(a.id)}${lang !== "en" ? "&lang=" + lang : ""}` : url.origin + url.pathname + url.search;
   const img = imageOf(data, a);
   const image = img ? (img.startsWith("data:") ? `${url.origin}/og/${encodeURIComponent(a.id)}` : new URL(img, url.origin).href) : `${url.origin}/og-image.png`;
@@ -136,10 +138,11 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/matches") return handleMatches(request, env, ctx);
+    if (url.pathname === "/api/contact") return handleContact(request, env);
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
     if (!url.pathname.startsWith("/admin/")) {
-      if (/^\/(index\.html|article(\.html)?|category(\.html)?|matches(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url);
+      if (/^\/(index\.html|article(\.html)?|category(\.html)?|matches(\.html)?|page(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url);
       return env.ASSETS.fetch(request);
     }
 
@@ -166,6 +169,8 @@ export default {
       const info = { user: acc.user, canChange: !!env.AUTH, changed: acc.secret == null ? acc.changed || null : null };
       return new Response(`window.KP_SERVER_AUTH = ${JSON.stringify(info)};`, { headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "no-store" } });
     }
+
+    if (url.pathname === "/admin/api/messages") return handleMessages(request, env, url);
 
     // live scores provider (Admin → Settings → Live scores)
     if (url.pathname === "/admin/api/scores") {

@@ -1230,5 +1230,247 @@ window.KP = {
       }
     }
   ],
-  "updated": "2026-11-15T01:08:08.000Z"
+  "updated": "2026-11-15T01:16:28.000Z",
+  "pages": [
+    {
+      "slug": "about",
+      "status": "publish",
+      "title": "About KoraPulse",
+      "body": [
+        "KoraPulse is an independent football news website covering Moroccan football, the Atlas Lions, African competitions and the biggest leagues in the world, in English, French and Arabic.",
+        "## What we cover",
+        "News, match previews and reports from the Botola Pro, the national teams (men's, women's and youth), the CAF competitions, the road to the 2030 World Cup, transfers, opinion pieces and live scores from around the world.",
+        "## How we work",
+        "Our articles are written and checked by the KoraPulse editorial team. We separate news from opinion: opinion pieces are always labelled as such. When we make a mistake, we correct it and say so.",
+        "Live scores come from specialised data providers and update automatically. They may occasionally be delayed or differ from the official result; the official result is always the one published by the competition organiser.",
+        "## Follow us",
+        "Share our articles on Facebook, X, WhatsApp and Instagram with the buttons on each article. To reach the team, use our [contact page](page.html?p=contact)."
+      ],
+      "tr": {
+        "fr": {
+          "title": "À propos de KoraPulse",
+          "body": [
+            "KoraPulse est un site d'information indépendant consacré au football marocain, aux Lions de l'Atlas, aux compétitions africaines et aux plus grands championnats du monde, en anglais, en français et en arabe.",
+            "## Ce que nous couvrons",
+            "L'actualité, les avant-matchs et les comptes rendus de la Botola Pro, les sélections nationales (masculines, féminines et de jeunes), les compétitions de la CAF, la route vers le Mondial 2030, le mercato, des tribunes et les scores en direct du monde entier.",
+            "## Notre façon de travailler",
+            "Nos articles sont rédigés et vérifiés par la rédaction de KoraPulse. Nous séparons l'information de l'opinion : les tribunes sont toujours signalées comme telles. Quand nous nous trompons, nous corrigeons et nous le disons.",
+            "Les scores en direct proviennent de fournisseurs de données spécialisés et se mettent à jour automatiquement. Ils peuvent parfois être retardés ou différer du résultat officiel ; le résultat officiel reste celui publié par l'organisateur de la compétition.",
+            "## Nous suivre",
+            "Partagez nos articles sur Facebook, X, WhatsApp et Instagram grâce aux boutons de chaque article. Pour joindre l'équipe, utilisez notre [page contact](page.html?p=contact&lang=fr)."
+          ]
+        },
+        "ar": {
+          "title": "من نحن",
+          "body": [
+            "كورابولس موقع إخباري مستقل متخصص في كرة القدم المغربية وأسود الأطلس والمسابقات الإفريقية وأكبر الدوريات في العالم، باللغات الإنجليزية والفرنسية والعربية.",
+            "## ما نغطيه",
+            "أخبار البطولة الاحترافية وتقديم المباريات وتقاريرها، والمنتخبات الوطنية (الرجال والسيدات والفئات السنية)، ومسابقات الاتحاد الإفريقي، والطريق إلى مونديال 2030، وسوق الانتقالات، ومقالات الرأي، والنتائج المباشرة من كل أنحاء العالم.",
+            "## طريقة عملنا",
+            "يكتب مقالاتنا ويراجعها فريق تحرير كورابولس. نفصل بين الخبر والرأي، ونشير دائما إلى مقالات الرأي. وعندما نخطئ نصحح الخطأ ونعلن ذلك.",
+            "تأتي النتائج المباشرة من مزودي بيانات متخصصين وتُحدَّث تلقائيا، وقد تتأخر أحيانا أو تختلف عن النتيجة الرسمية، والنتيجة الرسمية هي التي تنشرها الجهة المنظمة للمسابقة.",
+            "## تابعنا",
+            "شارك مقالاتنا على فيسبوك وإكس وواتساب وإنستغرام عبر الأزرار الموجودة في كل مقال. وللتواصل مع الفريق استعمل [صفحة الاتصال](page.html?p=contact&lang=ar)."
+          ]
+        }
+      }
+    },
+    {
+      "slug": "contact",
+      "status": "publish",
+      "title": "Contact us",
+      "body": [
+        "Have a question, a correction, a story idea or a partnership proposal? Send us a message with the form below and the KoraPulse team will get back to you if you leave a way to reach you.",
+        "Please do not send sensitive personal information. See our [privacy policy](page.html?p=privacy) to learn how we handle your message."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Nous contacter",
+          "body": [
+            "Une question, une correction, une idée de sujet ou une proposition de partenariat ? Envoyez-nous un message avec le formulaire ci-dessous ; l'équipe KoraPulse vous répondra si vous laissez un moyen de vous joindre.",
+            "Merci de ne pas envoyer d'informations personnelles sensibles. Consultez notre [politique de confidentialité](page.html?p=privacy&lang=fr) pour savoir comment nous traitons votre message."
+          ]
+        },
+        "ar": {
+          "title": "اتصل بنا",
+          "body": [
+            "لديك سؤال أو تصحيح أو فكرة موضوع أو مقترح شراكة؟ أرسل لنا رسالة عبر النموذج أدناه، وسيرد عليك فريق كورابولس إذا تركت وسيلة للتواصل معك.",
+            "نرجو عدم إرسال معلومات شخصية حساسة. اطلع على [سياسة الخصوصية](page.html?p=privacy&lang=ar) لمعرفة كيفية تعاملنا مع رسالتك."
+          ]
+        }
+      }
+    },
+    {
+      "slug": "advertise",
+      "status": "soon",
+      "title": "Advertise with KoraPulse",
+      "body": [
+        "Advertising and sponsorship opportunities on KoraPulse are coming soon. In the meantime, you can reach us through our [contact page](page.html?p=contact)."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Annoncer sur KoraPulse",
+          "body": [
+            "Les offres de publicité et de sponsoring sur KoraPulse arrivent bientôt. En attendant, vous pouvez nous écrire via notre [page contact](page.html?p=contact&lang=fr)."
+          ]
+        },
+        "ar": {
+          "title": "أعلن مع كورابولس",
+          "body": [
+            "فرص الإعلان والرعاية على كورابولس قريبا. وفي الأثناء يمكنك مراسلتنا عبر [صفحة الاتصال](page.html?p=contact&lang=ar)."
+          ]
+        }
+      }
+    },
+    {
+      "slug": "careers",
+      "status": "soon",
+      "title": "Careers",
+      "body": [
+        "We will soon be looking for writers, translators and football lovers to join the KoraPulse team. Openings will be posted on this page."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Carrières",
+          "body": [
+            "Nous recruterons bientôt des rédacteurs, des traducteurs et des passionnés de football pour rejoindre l'équipe KoraPulse. Les offres seront publiées sur cette page."
+          ]
+        },
+        "ar": {
+          "title": "وظائف",
+          "body": [
+            "سنبحث قريبا عن محررين ومترجمين وعشاق لكرة القدم للانضمام إلى فريق كورابولس، وستُنشر العروض في هذه الصفحة."
+          ]
+        }
+      }
+    },
+    {
+      "slug": "privacy",
+      "status": "publish",
+      "title": "Privacy Policy",
+      "body": [
+        "This policy explains what information KoraPulse handles when you visit the site, and why. Last updated: 15 November 2026.",
+        "## No account needed",
+        "You can read and share everything on KoraPulse without creating an account. We do not ask for your name or email to read the site.",
+        "## Information stored on your device",
+        "The site remembers your choice of language and of light or dark mode in your browser (local storage). This stays on your device, is not sent to us and is not used to track you. You can clear it at any time in your browser settings.",
+        "## Contact form",
+        "If you write to us, we receive the name, the contact details and the message you choose to send, together with the date. We use them only to read and answer your message, keep them no longer than necessary (at most 12 months), and do not sell or share them.",
+        "## Hosting and technical data",
+        "The site is hosted by Cloudflare, which processes technical data such as your IP address to deliver the pages and protect the site against attacks. To limit spam, we temporarily keep a count of messages sent from the same connection.",
+        "## Sharing buttons and live scores",
+        "The share buttons only open Facebook, X, WhatsApp or Instagram when you tap them; these services then apply their own privacy policies. Live scores are loaded from our own server, so your browser does not contact the score providers directly.",
+        "## Advertising",
+        "The site does not currently show third-party ads or use advertising trackers. If this changes, this policy will be updated and, where required, your consent will be requested first.",
+        "## Your rights",
+        "In line with Moroccan law 09-08 on the protection of personal data, you can ask to access, correct or delete the information you sent us, or object to its use, through our [contact page](page.html?p=contact)."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Politique de confidentialité",
+          "body": [
+            "Cette politique explique quelles informations KoraPulse traite lors de votre visite, et pourquoi. Dernière mise à jour : 15 novembre 2026.",
+            "## Aucun compte nécessaire",
+            "Vous pouvez lire et partager l'ensemble du site sans créer de compte. Nous ne demandons ni votre nom ni votre e-mail pour lire le site.",
+            "## Informations enregistrées sur votre appareil",
+            "Le site mémorise dans votre navigateur (stockage local) votre choix de langue et de mode clair ou sombre. Ces informations restent sur votre appareil, ne nous sont pas envoyées et ne servent pas à vous suivre. Vous pouvez les effacer à tout moment dans les réglages de votre navigateur.",
+            "## Formulaire de contact",
+            "Si vous nous écrivez, nous recevons le nom, les coordonnées et le message que vous choisissez d'envoyer, ainsi que la date. Nous les utilisons uniquement pour lire votre message et y répondre, les conservons au maximum 12 mois, et ne les vendons ni ne les partageons.",
+            "## Hébergement et données techniques",
+            "Le site est hébergé par Cloudflare, qui traite des données techniques comme votre adresse IP pour afficher les pages et protéger le site contre les attaques. Pour limiter le spam, nous conservons temporairement le nombre de messages envoyés depuis une même connexion.",
+            "## Boutons de partage et scores en direct",
+            "Les boutons de partage n'ouvrent Facebook, X, WhatsApp ou Instagram que lorsque vous appuyez dessus ; ces services appliquent alors leur propre politique de confidentialité. Les scores en direct sont chargés depuis notre propre serveur : votre navigateur ne contacte pas directement les fournisseurs de scores.",
+            "## Publicité",
+            "Le site n'affiche actuellement aucune publicité tierce et n'utilise aucun traceur publicitaire. Si cela change, cette politique sera mise à jour et, lorsque la loi l'exige, votre consentement sera demandé au préalable.",
+            "## Vos droits",
+            "Conformément à la loi marocaine 09-08 relative à la protection des données à caractère personnel, vous pouvez demander l'accès, la rectification ou la suppression des informations que vous nous avez envoyées, ou vous opposer à leur utilisation, via notre [page contact](page.html?p=contact&lang=fr)."
+          ]
+        },
+        "ar": {
+          "title": "سياسة الخصوصية",
+          "body": [
+            "توضح هذه السياسة المعلومات التي يتعامل معها كورابولس عند زيارتك للموقع وسبب ذلك. آخر تحديث: 15 نونبر 2026.",
+            "## لا حاجة إلى حساب",
+            "يمكنك قراءة كل محتوى كورابولس ومشاركته دون إنشاء حساب، ولا نطلب اسمك أو بريدك الإلكتروني لقراءة الموقع.",
+            "## المعلومات المحفوظة على جهازك",
+            "يحفظ الموقع في متصفحك (التخزين المحلي) اختيارك للغة وللوضع الفاتح أو الداكن. تبقى هذه المعلومات على جهازك ولا تُرسل إلينا ولا تُستعمل لتتبعك، ويمكنك حذفها في أي وقت من إعدادات المتصفح.",
+            "## نموذج الاتصال",
+            "عندما تراسلنا نتلقى الاسم ووسيلة التواصل والرسالة التي تختار إرسالها مع تاريخها. نستعملها فقط لقراءة رسالتك والرد عليها، ونحتفظ بها مدة لا تتجاوز 12 شهرا، ولا نبيعها ولا نشاركها.",
+            "## الاستضافة والبيانات التقنية",
+            "يستضيف الموقعَ Cloudflare، الذي يعالج بيانات تقنية مثل عنوان IP لعرض الصفحات وحماية الموقع من الهجمات. وللحد من الرسائل المزعجة نحتفظ مؤقتا بعدد الرسائل المرسلة من نفس الاتصال.",
+            "## أزرار المشاركة والنتائج المباشرة",
+            "لا تفتح أزرار المشاركة فيسبوك أو إكس أو واتساب أو إنستغرام إلا عند الضغط عليها، وتطبق هذه الخدمات حينها سياسات الخصوصية الخاصة بها. أما النتائج المباشرة فتُحمَّل من خادمنا، فلا يتصل متصفحك مباشرة بمزودي النتائج.",
+            "## الإعلانات",
+            "لا يعرض الموقع حاليا إعلانات لأطراف أخرى ولا يستعمل أدوات تتبع إعلانية. وإذا تغير ذلك فسنحدّث هذه السياسة، ونطلب موافقتك مسبقا حين يفرض القانون ذلك.",
+            "## حقوقك",
+            "وفقا للقانون المغربي 09-08 المتعلق بحماية الأشخاص الذاتيين تجاه معالجة المعطيات ذات الطابع الشخصي، يمكنك طلب الاطلاع على المعلومات التي أرسلتها إلينا أو تصحيحها أو حذفها أو الاعتراض على استعمالها عبر [صفحة الاتصال](page.html?p=contact&lang=ar)."
+          ]
+        }
+      }
+    },
+    {
+      "slug": "terms",
+      "status": "publish",
+      "title": "Terms of Use",
+      "body": [
+        "By using KoraPulse, you accept these terms. Last updated: 15 November 2026.",
+        "## Our content",
+        "Articles, photos, illustrations and the KoraPulse name and logo belong to KoraPulse or their respective owners. You may share links to our articles freely. Copying or republishing our content in full requires our written permission; short quotes with a link to the original article are welcome.",
+        "## Accuracy",
+        "We work hard to publish accurate information, but news changes quickly and mistakes can happen. The content is provided for information only. Live scores, fixtures and tables come from third-party data providers and may be delayed or incomplete; official results are those published by the competition organisers.",
+        "## Opinion pieces",
+        "Opinion pieces reflect the views of their authors and are labelled as opinion.",
+        "## External links",
+        "We may link to other websites. We are not responsible for their content or their privacy practices.",
+        "## Acceptable use",
+        "Do not use the site or the contact form to send spam, unlawful, offensive or misleading content, or to try to disrupt or attack the service.",
+        "## Changes",
+        "We may update these terms; the date above shows the latest version. These terms are governed by Moroccan law.",
+        "## Contact",
+        "Questions about these terms? Write to us through our [contact page](page.html?p=contact)."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Conditions d'utilisation",
+          "body": [
+            "En utilisant KoraPulse, vous acceptez les présentes conditions. Dernière mise à jour : 15 novembre 2026.",
+            "## Nos contenus",
+            "Les articles, photos, illustrations ainsi que le nom et le logo KoraPulse appartiennent à KoraPulse ou à leurs propriétaires respectifs. Vous pouvez librement partager les liens vers nos articles. La copie ou la republication intégrale de nos contenus nécessite notre autorisation écrite ; les courtes citations accompagnées d'un lien vers l'article original sont les bienvenues.",
+            "## Exactitude",
+            "Nous faisons tout pour publier des informations exactes, mais l'actualité évolue vite et des erreurs peuvent arriver. Les contenus sont fournis à titre informatif. Les scores, calendriers et classements proviennent de fournisseurs de données tiers et peuvent être retardés ou incomplets ; les résultats officiels sont ceux publiés par les organisateurs des compétitions.",
+            "## Tribunes",
+            "Les tribunes reflètent l'avis de leurs auteurs et sont signalées comme opinions.",
+            "## Liens externes",
+            "Nous pouvons renvoyer vers d'autres sites. Nous ne sommes pas responsables de leur contenu ni de leurs pratiques en matière de confidentialité.",
+            "## Utilisation acceptable",
+            "N'utilisez pas le site ni le formulaire de contact pour envoyer du spam ou des contenus illicites, offensants ou trompeurs, ni pour tenter de perturber ou d'attaquer le service.",
+            "## Modifications",
+            "Nous pouvons mettre à jour ces conditions ; la date ci-dessus indique la dernière version. Ces conditions sont régies par le droit marocain.",
+            "## Contact",
+            "Une question sur ces conditions ? Écrivez-nous via notre [page contact](page.html?p=contact&lang=fr)."
+          ]
+        },
+        "ar": {
+          "title": "شروط الاستخدام",
+          "body": [
+            "باستعمالك لكورابولس فإنك توافق على هذه الشروط. آخر تحديث: 15 نونبر 2026.",
+            "## محتوانا",
+            "المقالات والصور والرسوم واسم كورابولس وشعاره ملك لكورابولس أو لأصحابها. يمكنك مشاركة روابط مقالاتنا بحرية، أما نسخ محتوانا أو إعادة نشره كاملا فيتطلب إذنا كتابيا منا، ونرحب بالاقتباسات القصيرة المرفقة برابط المقال الأصلي.",
+            "## دقة المعلومات",
+            "نحرص على نشر معلومات دقيقة، لكن الأخبار تتغير بسرعة وقد تقع أخطاء. يُقدَّم المحتوى لأغراض إخبارية فقط. وتأتي النتائج والمواعيد وجداول الترتيب من مزودي بيانات خارجيين وقد تتأخر أو تكون ناقصة، والنتائج الرسمية هي التي تنشرها الجهات المنظمة للمسابقات.",
+            "## مقالات الرأي",
+            "تعبر مقالات الرأي عن آراء كتابها، ويُشار إليها دائما بأنها رأي.",
+            "## الروابط الخارجية",
+            "قد نضع روابط لمواقع أخرى، ولسنا مسؤولين عن محتواها أو عن ممارساتها في مجال الخصوصية.",
+            "## الاستعمال المقبول",
+            "لا تستعمل الموقع أو نموذج الاتصال لإرسال رسائل مزعجة أو محتوى غير قانوني أو مسيء أو مضلل، أو لمحاولة تعطيل الخدمة أو مهاجمتها.",
+            "## التعديلات",
+            "قد نحدّث هذه الشروط، ويشير التاريخ أعلاه إلى آخر نسخة. وتخضع هذه الشروط للقانون المغربي.",
+            "## اتصل بنا",
+            "لديك سؤال حول هذه الشروط؟ راسلنا عبر [صفحة الاتصال](page.html?p=contact&lang=ar)."
+          ]
+        }
+      }
+    }
+  ]
 };

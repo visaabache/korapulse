@@ -378,3 +378,10 @@ tr:hover .row-actions, tr:focus-within .row-actions { visibility: visible; }
   [dir="rtl"] .sidemenu .submenu a { padding: 9px 40px 9px 12px; }
   .ab-lang { padding: 0 2px; }
 }
+
+.page-status { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 12px; background: #dcdcde; }
+.page-status.st-publish { background: #d1f0d8; color: #00691d; }
+.page-status.st-soon { background: #fcf0c3; color: #6b4e00; }
+.msg-detail p { margin: 0 0 8px; }
+.msg-text { margin-top: 14px; padding: 14px; background: #f6f7f7; border: 1px solid var(--border-soft); white-space: normal; font-size: 14px; line-height: 1.6; }
+.msg-table tr { cursor: default; }

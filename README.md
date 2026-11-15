@@ -25,6 +25,11 @@ python3 -m http.server 8000
 - **Admin dashboard:** switch with **EN · FR · ع** in the admin bar (remembered on that browser). Arabic uses a right-to-left layout. The translations live in `admin/admin-i18n.js`; the public site's in `js/i18n.js`.
 - Team and competition names in live scores come from the score provider and are not translated.
 
+## Pages and contact form
+- **Pages** (Admin → Pages): About, Contact, Advertise, Careers, Privacy Policy and Terms of Use, in English, French and Arabic, at `page.html?p=<name>`. Each page is **Published**, **Coming soon** (a short notice and a "Soon" badge in the footer; Advertise and Careers start like this) or **Draft**. You can add your own pages.
+- **Contact form** (on the Contact page): name, a way to reply (optional), subject and message. Messages are stored on Cloudflare (KV) for 12 months and read in **Admin → Messages**, with buttons to reply by email or WhatsApp. Spam protection: a hidden field that bots fill in, and at most 5 messages per hour from the same connection.
+- The Privacy Policy and Terms of Use describe how this site actually works (no accounts, browser storage for language and theme, contact form, Cloudflare hosting, live score providers, Moroccan law 09-08). They are a starting point, not legal advice: have them checked before relying on them, and update them if you add advertising or analytics.
+
 ## Reading and sharing
 Readers don't need an account: they read, and share articles with the buttons at the top and bottom of each article: **Facebook, X, WhatsApp, Instagram** and **copy link**. Instagram has no "share a link" address on the web, so on phones its button opens the phone's share menu (Instagram is in it), and on computers it copies the link to paste into a story or message.
 

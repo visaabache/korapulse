@@ -28,7 +28,7 @@
   function normalize(d) {
     d.site = d.site || { name: "KoraPulse", tagline: "" };
     d.site.social = d.site.social || {};
-    ["categories", "articles", "comments", "media", "users", "scores", "topLinks"].forEach((k) => { d[k] = d[k] || []; });
+    ["categories", "articles", "comments", "media", "users", "scores", "topLinks", "pages"].forEach((k) => { d[k] = d[k] || []; });
     d.standings = d.standings || { title: "League table", rows: [] };
     d.articles.forEach((a) => { a.status = a.status || "publish"; a.tags = a.tags || []; a.body = a.body || []; });
     const names = new Set(d.users.map((u) => u.name));
@@ -89,6 +89,8 @@
     upload: I('<path d="M10 13V3M6 7l4-4 4 4M3 13v4h14v-4"/>'),
     download: I('<path d="M10 3v10M6 9l4 4 4-4M3 13v4h14v-4"/>'),
     star: I('<path d="M10 3l2.2 4.5 4.8.7-3.5 3.4.8 4.9L10 14.2l-4.3 2.3.8-4.9L3 8.2l4.8-.7z"/>'),
+    page: I('<path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4M8 10h5M8 13h5"/>'),
+    mail: I('<rect x="2.5" y="4.5" width="15" height="11" rx="1.5"/><path d="M3 5.5l7 5.5 7-5.5"/>'),
     pen: I('<path d="M4 16l1-4 8-8 3 3-8 8z"/><path d="M11 6l3 3"/>')
   };
 
@@ -160,6 +162,8 @@
     { sep: 1 },
     { id: "posts", label: "Posts", icon: "pin", href: "#/posts", subs: [["All Posts", "#/posts", "posts"], ["Add New Post", "#/post/new", "new"], ["Categories", "#/categories", "categories"]] },
     { id: "media", label: "Media", icon: "media", href: "#/media", subs: [["Library", "#/media", "media"]] },
+    { id: "pages", label: "Pages", icon: "page", href: "#/pages", subs: [["All Pages", "#/pages", "pages"], ["Add New Page", "#/page/new", "newpage"]] },
+    { id: "messages", label: "Messages", icon: "mail", href: "#/messages", badge: () => msgUnread },
     { id: "comments", label: "Comments", icon: "comment", href: "#/comments", badge: () => pendingCount(), when: commentsOn },
     { sep: 1 },
     { id: "scores", label: "Live Scores", icon: "ball", href: "#/scores" },
@@ -214,8 +218,8 @@
     if (!loggedIn()) { renderLogin(); return; }
     const r = route();
     const key = r.parts.join("/");
-    if (key !== lastRoute) { work = null; replyTo = null; editCat = null; editUser = null; if (!/^post\//.test(key) || !/^post\//.test(lastRoute)) editLang = "en"; }
-    const pages = { dashboard, posts, post: postEditor, categories, media, comments, scores, table: leagueTable, users, settings, tools };
+    if (key !== lastRoute) { work = null; replyTo = null; editCat = null; editUser = null; if (!/^(post|page)\//.test(key) || key.split("/")[0] !== lastRoute.split("/")[0]) editLang = "en"; }
+    const pages = { pages: pagesList, page: pageEditor, messages,  dashboard, posts, post: postEditor, categories, media, comments, scores, table: leagueTable, users, settings, tools };
     const pg = (pages[r.name] || dashboard)(r);
     document.title = `${pg.title} ‹ ${D.site.name} — Admin`;
     app.innerHTML = adminbar() + sidemenu(pg.menu, pg.sub) + `
@@ -1014,6 +1018,125 @@
       </form>`;
   }
 
+  // ---------------- pages (About, Contact, Privacy…) ----------------
+  const PAGE_STATUS = { publish: "Published", soon: "Coming soon", draft: "Draft" };
+  function pagesList() {
+    const html = `
+      ${pageHead("Pages", `<a class="page-title-action" href="#/page/new">Add New Page</a>`)}
+      <table class="list-table">
+        <thead><tr><th>Title</th><th>Status</th><th class="hide-sm">Address</th></tr></thead>
+        <tbody>${D.pages.map((pg) => `<tr>
+          <td><strong><a class="row-title" href="#/page/${esc(pg.slug)}">${esc(pg.title)}</a></strong>
+            <span class="lang-badges">${["fr", "ar"].map((l) => `<span class="lb ${pg.tr && pg.tr[l] && pg.tr[l].title ? "ok" : ""}" title="${LANGS[l]}">${l.toUpperCase()}</span>`).join("")}</span>
+            <div class="row-actions"><span><a href="#/page/${esc(pg.slug)}">Edit</a></span><span><a href="../page.html?p=${encodeURIComponent(pg.slug)}${pg.status === "draft" ? "&preview=1" : ""}" target="_blank" rel="noopener">View</a></span>${["about", "contact", "advertise", "careers", "privacy", "terms"].includes(pg.slug) ? "" : `<span class="delete"><button type="button" data-act="page-delete" data-id="${esc(pg.slug)}">Delete</button></span>`}</div></td>
+          <td><span class="page-status st-${esc(pg.status)}">${PAGE_STATUS[pg.status] || pg.status}</span></td>
+          <td class="hide-sm"><code>page.html?p=${esc(pg.slug)}</code></td>
+        </tr>`).join("") || `<tr class="empty"><td colspan="3">No pages yet.</td></tr>`}</tbody>
+      </table>
+      <p class="description">The footer links to About, Contact, Advertise, Careers, Privacy Policy and Terms of Use. "Coming soon" pages show a short notice and a "Soon" badge in the footer.</p>`;
+    return { title: "Pages", menu: "pages", sub: "pages", html };
+  }
+
+  function pageEditor(r) {
+    const slug = r.parts[1] || "new";
+    const isNew = slug === "new";
+    const orig = isNew ? null : D.pages.find((x) => x.slug === slug);
+    if (!isNew && !orig) return { title: "Page not found", menu: "pages", sub: "pages", html: pageHead("Page not found") + `<p><a href="#/pages">Back to Pages</a></p>` };
+    if (!work) work = isNew ? { slug: "", title: "", status: "draft", body: [], tr: {} } : clone(orig);
+    const P = work; P.tr = P.tr || {};
+    const EL = editLang;
+    const F = EL === "en" ? P : (P.tr[EL] = P.tr[EL] || { title: "", body: [] });
+    const dirAttr = EL === "ar" ? 'dir="rtl" lang="ar"' : "";
+    const html = `
+      ${pageHead(isNew ? "Add New Page" : "Edit Page", `<a class="page-title-action" href="#/pages">All Pages</a>`)}
+      <form class="edit-cols" data-form="page" autocomplete="off">
+        <div>
+          <div class="ed-langs" role="tablist" aria-label="Language">
+            ${[["en", "English (original)"], ["fr", "Français"], ["ar", "العربية"]].map(([l, name]) => `<button type="button" role="tab" aria-selected="${l === EL}" class="${l === EL ? "on" : ""}" data-act="pg-lang" data-v="${l}" lang="${l}">${esc(name)}${l !== "en" ? ` <span class="lb ${P.tr[l] && P.tr[l].title ? "ok" : ""}">${P.tr[l] && P.tr[l].title ? "✓" : "–"}</span>` : ""}</button>`).join("")}
+          </div>
+          <input type="text" class="title-input" name="title" value="${esc(F.title)}" placeholder="Add title" aria-label="Title" ${dirAttr}>
+          <div class="editor">
+            <div class="editor-tools"><span class="editor-help">Leave an empty line between paragraphs. **bold**, *italic*, [link](address), "## " for a heading.</span></div>
+            <textarea name="body" aria-label="Page content" placeholder="Start writing…" ${dirAttr}>${esc((F.body || []).join("\n\n"))}</textarea>
+          </div>
+          ${slug === "contact" ? `<p class="description">The contact form is added below this text automatically. Messages arrive in Messages.</p>` : ""}
+        </div>
+        <div>
+          <section class="postbox"><h2>Publish</h2>
+            <div class="misc">
+              <div class="misc-row"><label for="pg-st">Status:</label> <select id="pg-st" name="status">${Object.entries(PAGE_STATUS).map(([k, v]) => `<option value="${k}" ${P.status === k ? "selected" : ""}>${v}</option>`).join("")}</select></div>
+              ${isNew ? "" : `<div class="misc-row">Address: <code>page.html?p=${esc(P.slug)}</code></div>`}
+            </div>
+            <div class="major"><span></span><button type="button" class="button button-primary button-large" data-act="save-page">${isNew ? "Publish" : "Update"}</button></div>
+          </section>
+        </div>
+      </form>`;
+    const after = () => $('form[data-form="page"]').addEventListener("input", () => (dirty = true));
+    return { title: isNew ? "Add New Page" : "Edit Page", menu: "pages", sub: isNew ? "newpage" : "pages", html, after };
+  }
+  function capturePage() {
+    const f = $('form[data-form="page"]');
+    if (!f || !work) return;
+    const body = f.body.value.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+    if (editLang === "en") { work.title = f.title.value.trim(); work.body = body; }
+    else work.tr[editLang] = { title: f.title.value.trim(), body };
+    work.status = f.status.value;
+  }
+
+  // ---------------- messages from the contact form ----------------
+  let msgUnread = 0, msgOpen = null;
+  const TOPICS = { general: "General question", correction: "Correction", story: "Story idea", partnership: "Partnership or advertising", other: "Other" };
+  function messages() {
+    const html = `
+      ${pageHead("Messages")}
+      ${server ? `<div id="msg-box"><p class="description">Loading…</p></div>` : `<div class="notice notice-warning"><p>Messages from the contact form are stored on Cloudflare and can be read on the live site's admin.</p></div>`}
+      <p class="description">Messages are kept for 12 months, as stated in the privacy policy.</p>`;
+    const after = async () => {
+      const box = $("#msg-box");
+      if (!box) return;
+      let list = [];
+      try { const r = await fetch("api/messages", { cache: "no-store" }); list = (await r.json()).messages || []; }
+      catch (e) { box.innerHTML = `<div class="notice notice-error"><p>Could not load the messages.</p></div>`; return; }
+      msgUnread = list.filter((m) => !m.read).length;
+      const badge = $('.menu-top a[href="#/messages"] .menu-badge');
+      if (badge) { if (msgUnread) badge.textContent = msgUnread; else badge.remove(); }
+      if (!list.length) { box.innerHTML = `<p>No messages yet. Messages sent from the <a href="../page.html?p=contact" target="_blank" rel="noopener">contact page</a> appear here.</p>`; return; }
+      box.innerHTML = `
+        <table class="list-table msg-table">
+          <thead><tr><th>From</th><th>Message</th><th class="hide-sm">Date</th></tr></thead>
+          <tbody>${list.map((m) => `<tr class="${m.read ? "" : "unapproved"}" data-msg="${esc(m.id)}">
+            <td style="width:24%"><strong class="no-tr">${esc(m.name || "—")}</strong><br><span class="description">${esc(TOPICS[m.topic] || m.topic || "")}</span></td>
+            <td><p class="no-tr" style="margin:0 0 4px">${esc(m.preview || "")}${(m.preview || "").length >= 140 ? "…" : ""}</p>
+              <div class="row-actions"><span><button type="button" data-act="msg-open" data-id="${esc(m.id)}">Open</button></span><span><button type="button" data-act="msg-read" data-id="${esc(m.id)}" data-v="${m.read ? "unread" : "read"}">${m.read ? "Mark as unread" : "Mark as read"}</button></span><span class="delete"><button type="button" data-act="msg-delete" data-id="${esc(m.id)}">Delete</button></span></div></td>
+            <td class="hide-sm date-col">${fmtDate(m.date)}<b>${fmtTime(m.date.slice(0, 19))}</b></td>
+          </tr>`).join("")}</tbody>
+        </table>`;
+    };
+    return { title: "Messages", menu: "messages", html, after };
+  }
+  async function msgAction(id, action) {
+    await fetch("api/messages", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id, action }) });
+  }
+  async function openMessage(id) {
+    let m;
+    try { const r = await fetch("api/messages?id=" + encodeURIComponent(id), { cache: "no-store" }); m = await r.json(); if (!r.ok) throw new Error(); }
+    catch (e) { alert("Could not open the message."); return; }
+    const reply = m.reply || "";
+    const isMail = /@/.test(reply), digits = reply.replace(/[^\d+]/g, "");
+    const wa = digits.length >= 9 ? "https://wa.me/" + digits.replace(/^\+/, "").replace(/^0(\d{9})$/, "212$1") : "";
+    const md = modal("Message", `
+      <div class="msg-detail">
+        <p><b>From:</b> <span class="no-tr">${esc(m.name || "—")}</span></p>
+        <p><b>Reply to:</b> <span class="no-tr">${reply ? esc(reply) : "—"}</span></p>
+        <p><b>Subject:</b> ${esc(TOPICS[m.topic] || m.topic)}</p>
+        <p><b>Date:</b> ${fmtDate(m.date)} ${fmtTime(m.date.slice(0, 19))} · ${esc((m.lang || "en").toUpperCase())}</p>
+        <div class="msg-text no-tr" dir="auto">${esc(m.message).replace(/\n/g, "<br>")}</div>
+      </div>`,
+      `${isMail ? `<a class="button" href="mailto:${esc(reply)}?subject=${encodeURIComponent("KoraPulse")}">Reply by email</a>` : ""}${wa ? `<a class="button" href="${esc(wa)}" target="_blank" rel="noopener">Reply on WhatsApp</a>` : ""}<span style="flex:1"></span><button class="button-link delete" data-del>Delete</button><button class="button button-primary" data-done>Done</button>`);
+    $("[data-done]", md.el).onclick = () => { md.close(); render(); };
+    $("[data-del]", md.el).onclick = async () => { if (!confirm("Delete this message permanently?")) return; await msgAction(id, "delete"); md.close(); flash = { type: "success", text: "Message deleted." }; render(); };
+  }
+
   function tools() {
     const pend = unpublished();
     const html = `
@@ -1106,6 +1229,27 @@
     "post-feature": (b) => { D.articles.forEach((a) => (a.featured = a.id === b.dataset.id)); save("Homepage headline changed."); render(); },
     "empty-trash": () => { const n = D.articles.filter((a) => a.status === "trash").length; if (!confirm(`Permanently delete ${n} post(s) in the Trash?`)) return; const ids = new Set(D.articles.filter((a) => a.status === "trash").map((a) => a.id)); D.articles = D.articles.filter((a) => !ids.has(a.id)); D.comments = D.comments.filter((c) => !ids.has(c.post)); save(`${n} posts permanently deleted.`); render(); },
     "filter-posts": (b) => { const r = route(); const f = b.form; go(qs("#/posts", { status: r.q.get("status"), cat: f.cat.value, s: r.q.get("s") })); },
+    "pg-lang": (b) => { capturePage(); editLang = b.dataset.v; const keep = dirty; render(); dirty = keep; },
+    "save-page": () => {
+      capturePage();
+      const P = work, isNew = route().parts[1] === "new";
+      if (!P.title) { alert("Please add a title first."); if (editLang !== "en") { editLang = "en"; render(); } return; }
+      Object.keys(P.tr).forEach((l) => { if (!P.tr[l].title && !(P.tr[l].body || []).length) delete P.tr[l]; });
+      if (isNew) {
+        let slug = slugify(P.title) || "page", n = 2; const base = slug;
+        while (D.pages.some((x) => x.slug === slug)) slug = base + "-" + n++;
+        P.slug = slug; D.pages.push(P);
+      } else D.pages[D.pages.findIndex((x) => x.slug === P.slug)] = P;
+      dirty = false;
+      if (!save()) { render(); return; }
+      flash = { type: "success", html: `Page saved. <a href="../page.html?p=${encodeURIComponent(P.slug)}" target="_blank" rel="noopener">View page</a>` };
+      work = clone(P); lastRoute = "page/" + P.slug;
+      go("#/page/" + P.slug);
+    },
+    "page-delete": (b) => { if (!confirm("Delete this page?")) return; D.pages = D.pages.filter((x) => x.slug !== b.dataset.id); save("Page deleted."); render(); },
+    "msg-open": (b) => openMessage(b.dataset.id),
+    "msg-read": async (b) => { await msgAction(b.dataset.id, b.dataset.v); render(); },
+    "msg-delete": async (b) => { if (!confirm("Delete this message permanently?")) return; await msgAction(b.dataset.id, "delete"); flash = { type: "success", text: "Message deleted." }; render(); },
     "ed-lang": (b) => { captureEditor(); editLang = b.dataset.v; const keep = dirty; render(); dirty = keep; },
     "save-post": (b) => savePost(b.dataset.v, { wasDraft: work && work.status !== "publish" }),
     "preview-post": () => {
@@ -1356,4 +1500,5 @@
   });
 
   render();
+  if (server) fetch("api/messages", { cache: "no-store" }).then((r) => r.json()).then((d) => { msgUnread = (d.messages || []).filter((m) => !m.read).length; if (msgUnread && loggedIn()) render(); }).catch(() => {});
 })();
