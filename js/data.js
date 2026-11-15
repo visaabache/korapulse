@@ -16,7 +16,8 @@ window.KP = {
       "tiktok": "#",
       "linkedin": "#"
     },
-    "comments": false
+    "comments": false,
+    "ticker": "auto"
   },
   "categories": [
     {

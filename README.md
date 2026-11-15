@@ -25,6 +25,14 @@ When a link is shared, the Worker adds the article's title, summary and picture 
 
 Comments are switched off. To turn them on: Admin → Settings → "Allow readers to comment".
 
+## Live scores from around the world
+`matches.html` ("Live" in the menu) lists today's matches, with **All / Live / Finished / Upcoming** tabs, a region and a competition filter, team search, and days before and after. It refreshes every 30 seconds while matches are live. Times are in the visitor's time zone.
+
+- The data comes from `/api/matches?date=YYYYMMDD`, served by the Worker (`worker/matches.js`). It reads **ESPN's public scoreboard feed** (free, no key) for the 40 competitions listed in `LEAGUES`, including Botola Pro, CAF, the Champions League and the big European leagues, and caches the answer for 30 seconds so ESPN is called at most twice a minute whatever the traffic.
+- **Add or remove competitions** in the `LEAGUES` list (ESPN league codes, e.g. `eng.1`, `mar.1`). Keep the list under 45 (Cloudflare's free plan allows 50 outgoing requests per visit).
+- The feed is free but **unofficial**: ESPN can change or limit it at any time. If it stops working, the page says scores are unavailable and the ticker falls back to the matches entered in the admin. To use an official provider instead (e.g. API-Football, free plan with a key), only `fetchLeague` and `normalize` in `worker/matches.js` need changing.
+- The score ticker under the menu shows today's live matches automatically (Botola Pro and CAF first). Switch it to your own list in Admin → Live Scores.
+
 ## Editing content
 Everything is in **`js/data.js`**: site name, menu, top links, live scores, the league table and the articles.
 To add an article, copy one object in `articles` and change `id`, `cat`, `title`, `author`, `date`, `excerpt` and `body`.

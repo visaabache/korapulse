@@ -103,7 +103,7 @@ main { outline: none; }
 .ticker-row { display: flex; width: max-content; animation: ticker 60s linear infinite; height: 100%; }
 .ticker:hover .ticker-row { animation-play-state: paused; }
 @keyframes ticker { to { transform: translateX(-50%); } }
-.match { display: flex; align-items: center; gap: 8px; padding: 0 22px; border-right: 1px solid rgba(255,255,255,.12); white-space: nowrap; }
+.match { color: inherit; display: flex; align-items: center; gap: 8px; padding: 0 22px; border-right: 1px solid rgba(255,255,255,.12); white-space: nowrap; }
 .match .comp { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; opacity: .6; }
 .match b { background: rgba(255,255,255,.12); min-width: 22px; text-align: center; border-radius: 3px; padding: 1px 4px; }
 .match i { opacity: .5; font-style: normal; }
@@ -343,4 +343,67 @@ a:hover .media svg, a:hover .media img, .ov-card:hover .media svg { transform: s
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .ticker-track { overflow-x: auto; }
+}
+
+/* ---------- live link in the menu ---------- */
+.nav-live { color: #fff; }
+.nav-live .dot { margin-right: 6px; }
+.menu > li > a.nav-live.current { color: var(--accent); }
+a.ticker-label { text-decoration: none; }
+
+/* ---------- live scores page ---------- */
+.ms { padding-top: 26px; padding-bottom: 20px; max-width: 980px; }
+.ms-head h1 { font-size: clamp(30px, 4vw, 40px); }
+.ms-sub { color: var(--muted); margin: 6px 0 18px; }
+.ms-dates { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.ms-daylist { display: flex; gap: 6px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.ms-daylist button, .ms-arrow { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 99px; padding: 8px 14px; font-weight: 600; font-size: 14px; white-space: nowrap; }
+.ms-daylist button.on { background: var(--brand); border-color: var(--brand); color: #fff; }
+.ms-arrow { padding: 6px 12px; font-size: 18px; line-height: 1; }
+.ms-pick input { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 8px; padding: 7px 8px; font: inherit; font-size: 14px; }
+.ms-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 18px; position: sticky; top: 97px; background: var(--bg); z-index: 5; }
+.ms-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.ms-tabs button { border: 0; background: var(--soft); color: var(--text); border-radius: 6px; padding: 8px 12px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+.ms-tabs button .n { background: rgba(0,0,0,.08); border-radius: 99px; padding: 0 7px; font-size: 12px; }
+.ms-tabs button.on { background: var(--brand); color: #fff; }
+.ms-tabs button.on .n { background: rgba(255,255,255,.2); }
+.ms-tabs .tab-live .dot { width: 7px; height: 7px; }
+.ms-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.ms-filters input, .ms-filters select { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 6px; padding: 8px 10px; font: inherit; font-size: 14px; min-width: 0; }
+.ms-filters input { width: 170px; }
+.ms-filters select { max-width: 220px; }
+.ms-league { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 16px; background: var(--surface); }
+.ms-league > header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--soft); border-bottom: 1px solid var(--line); }
+.ms-league > header img { width: 24px; height: 24px; object-fit: contain; }
+.ms-league h2 { font: 700 15px/1.2 var(--sans); }
+.ms-league header span { font-size: 12px; color: var(--muted); }
+.ms-livecount { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--live) !important; font-weight: 700; font-size: 12px !important; }
+.ms-nologo { width: 24px; height: 24px; border-radius: 50%; background: var(--line); display: inline-block; flex: none; }
+.ms-nologo.sm { width: 20px; height: 20px; }
+.ms-row { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.ms-row:last-child { border-bottom: 0; }
+.ms-time { font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; font-variant-numeric: tabular-nums; }
+.st-in .ms-time { color: var(--live); }
+.st-in .ms-time::after { content: ""; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--live); margin: 4px auto 0; animation: pulse 1.6s infinite; }
+.st-off { opacity: .6; }
+.ms-teams, .ms-scores { display: grid; gap: 6px; }
+.ms-team { display: flex; align-items: center; gap: 8px; font-size: 15px; min-width: 0; }
+.ms-team img { width: 20px; height: 20px; object-fit: contain; flex: none; }
+.ms-team span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ms-team.win { font-weight: 700; }
+.ms-scores b { font-size: 15px; min-width: 22px; text-align: right; font-variant-numeric: tabular-nums; height: 20px; line-height: 20px; }
+.st-in .ms-scores b { color: var(--live); }
+.ms-empty { text-align: center; padding: 50px 16px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); }
+.ms-empty b { color: var(--text); }
+.ms-empty .link { background: none; border: 0; color: var(--link); text-decoration: underline; padding: 0; font: inherit; cursor: pointer; }
+.ms-skel .sk { height: 64px; border-radius: 8px; margin-bottom: 10px; background: linear-gradient(90deg, var(--soft), var(--line), var(--soft)); background-size: 200% 100%; animation: sk 1.2s linear infinite; }
+@keyframes sk { to { background-position: -200% 0; } }
+.ms-foot { color: var(--muted); font-size: 13px; margin-top: 20px; }
+@media (max-width: 960px) { .ms-bar { top: 97px; } }
+@media (max-width: 700px) {
+  .ms-bar { position: static; }
+  .ms-filters, .ms-filters input, .ms-filters select { width: 100%; max-width: none; }
+  .ms-filters select { flex: 1; width: auto; }
+  .ms-pick { display: none; }
+  .ms-row { grid-template-columns: 50px 1fr auto; gap: 10px; padding: 10px; }
 }

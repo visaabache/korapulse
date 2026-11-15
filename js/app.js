@@ -83,12 +83,13 @@
         <a href="${catUrl(c.slug)}">${esc(c.name)}${c.subs.length ? icon.chev : ""}</a>
         ${c.subs.length ? `<ul class="sub">${c.subs.map((s) => `<li><a href="${catUrl(c.slug, s)}">${esc(s)}</a></li>`).join("")}</ul>` : ""}
       </li>`).join("");
+    const liveItem = `<li><a href="matches.html" class="nav-live ${page === "matches" ? "current" : ""}"><span class="dot"></span>Live</a></li>`;
 
     $("#site-header").innerHTML = `
       <a class="skip" href="#main">Skip to content</a>
       <div class="topbar">
         <div class="container topbar-in">
-          <a href="#scores" class="tb-live"><span class="dot"></span> Live Scores</a>
+          <a href="matches.html" class="tb-live"><span class="dot"></span> Live Scores</a>
           <nav class="tb-links" aria-label="Featured">${D.topLinks.map((l) => `<a href="${l.href}">${esc(l.label)}</a>`).join("")}</nav>
           <span class="tb-date">${new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</span>
         </div>
@@ -100,14 +101,14 @@
         <div class="container navbar-in">
           <button class="icon-btn menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mainmenu">${icon.menu}</button>
           ${logo("logo-sm")}
-          <nav aria-label="Main"><ul class="menu" id="mainmenu">${nav}</ul></nav>
+          <nav aria-label="Main"><ul class="menu" id="mainmenu">${liveItem}${nav}</ul></nav>
           <div class="nav-tools">
             <button class="theme-toggle" aria-label="Toggle dark mode"><span class="knob"></span></button>
             <button class="icon-btn search-btn" aria-label="Search">${icon.search}</button>
           </div>
         </div>
         <div class="ticker" id="scores" aria-label="Live scores" ${D.scores.length ? "" : "hidden"}>
-          <span class="ticker-label">SCORES</span>
+          <a class="ticker-label" href="matches.html">SCORES</a>
           <div class="ticker-track"><div class="ticker-row">${tickerItems()}${tickerItems(true)}</div></div>
         </div>
       </div>
@@ -120,16 +121,52 @@
       </div>`;
   }
 
-  function tickerItems(dup) {
-    return D.scores.map((m) => {
+  function tickerItems(dup, list = D.scores) {
+    return list.map((m) => {
       const live = /LIVE/.test(m.status);
       const score = m.hs == null ? `<span class="ko">${esc(m.status)}</span>` : `<b>${m.hs}</b><i>-</i><b>${m.as}</b>`;
-      return `<div class="match ${live ? "is-live" : ""}" ${dup ? 'aria-hidden="true"' : ""}>
+      return `<a href="matches.html" class="match ${live ? "is-live" : ""}" ${dup ? 'aria-hidden="true" tabindex="-1"' : ""}>
         <span class="comp">${esc(m.comp)}</span>
         <span class="team">${esc(m.home)}</span>${score}<span class="team">${esc(m.away)}</span>
         ${m.hs != null ? `<span class="status">${esc(m.status)}</span>` : ""}
-      </div>`;
+      </a>`;
     }).join("");
+  }
+
+  // Ticker: live matches from around the world (Admin → Live Scores → "automatic"),
+  // falling back to the matches entered in the admin if the score service is unavailable.
+  const PRIORITY = ["mar.1", "caf.champions", "caf.confed", "caf.nations", "uefa.champions", "uefa.europa", "eng.1", "esp.1", "ita.1", "ger.1", "fra.1", "ksa.1"];
+  async function liveTicker() {
+    if ((D.site && D.site.ticker) === "manual") return;
+    const pad = (n) => String(n).padStart(2, "0");
+    const d = new Date(), day = `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}`;
+    try {
+      const r = await fetch(`/api/matches?date=${day}`);
+      if (!r.ok) return;
+      const data = await r.json();
+      const rank = (id) => { const i = PRIORITY.indexOf(id); return i < 0 ? 99 : i; };
+      const order = { in: 0, post: 1, pre: 2 };
+      const list = [];
+      data.leagues.forEach((l) => l.matches.forEach((m) => {
+        const local = new Date(m.start);
+        // today's matches, plus any still being played after midnight
+        if ((`${local.getFullYear()}${pad(local.getMonth() + 1)}${pad(local.getDate())}` !== day && m.state !== "in") || m.state === "off") return;
+        list.push({ m, l, k: [order[m.state] ?? 3, rank(l.id), m.start] });
+      }));
+      list.sort((a, b) => a.k[0] - b.k[0] || a.k[1] - b.k[1] || a.k[2].localeCompare(b.k[2]));
+      const items = list.slice(0, 18).map(({ m, l }) => ({
+        comp: l.short || l.name.split(" ").slice(0, 2).join(" "),
+        home: m.home.short || m.home.name, away: m.away.short || m.away.name,
+        hs: m.state === "pre" ? null : m.home.score, as: m.state === "pre" ? null : m.away.score,
+        status: m.state === "in" ? (m.halftime ? "LIVE HT" : `LIVE ${m.clock}`) : m.state === "post" ? "FT" : new Date(m.start).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })
+      }));
+      if (!items.length) return;
+      const row = document.querySelector(".ticker-row");
+      if (!row) return;
+      row.innerHTML = tickerItems(false, items) + tickerItems(true, items);
+      document.getElementById("scores").hidden = false;
+      if (list.some((x) => x.m.state === "in")) setTimeout(liveTicker, 60000);
+    } catch (e) {}
   }
 
   // ---------- footer ----------
@@ -482,7 +519,8 @@
   renderHeader();
   if (page === "home") renderHome();
   else if (page === "article") renderArticle();
-  else renderCategory();
+  else if (page !== "matches") renderCategory();
   renderFooter();
   wire();
+  liveTicker();
 })();

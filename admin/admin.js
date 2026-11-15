@@ -799,8 +799,13 @@
     if (!work) work = clone(D.scores);
     const html = `
       ${pageHead("Live Scores", `<a class="page-title-action" href="../index.html#scores" target="_blank" rel="noopener">View ticker</a>`)}
-      <p class="description" style="margin:-6px 0 14px">The matches in the score ticker under the site menu. Leave the score empty for matches that have not started, and put the kick-off time in Status.</p>
       <form data-form="scores">
+        <section class="postbox"><h2>What the score ticker shows</h2><div class="inside">
+          <p><label><input type="radio" name="mode" value="auto" ${(D.site.ticker || "auto") === "auto" ? "checked" : ""}> <b>Live matches from around the world</b> (automatic). Today's live, finished and upcoming matches, Botola Pro and CAF first. The matches below are used if the score service is unavailable.</label></p>
+          <p style="margin-bottom:0"><label><input type="radio" name="mode" value="manual" ${D.site.ticker === "manual" ? "checked" : ""}> <b>Only the matches I enter below</b></label></p>
+          <p class="description">The full list with filters is on the <a href="../matches.html" target="_blank" rel="noopener">Live scores page</a>.</p>
+        </div></section>
+        <p class="description" style="margin:0 0 10px">Leave the score empty for matches that have not started, and put the kick-off time in Status.</p>
         <table class="list-table edit-table">
           <thead><tr><th>Competition</th><th>Home team</th><th>Score</th><th>Away team</th><th>Status</th><th></th></tr></thead>
           <tbody>${work.map((m, i) => `<tr>
@@ -1172,6 +1177,7 @@
     },
     scores: (f) => {
       D.scores = readScores(f).filter((m) => m.home.trim() || m.away.trim());
+      D.site.ticker = f.mode.value;
       work = null; dirty = false;
       save("Live scores updated."); render();
     },

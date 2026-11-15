@@ -6,6 +6,8 @@
 //   2. otherwise the Cloudflare secret ADMIN_PASSWORD (username "admin", or ADMIN_USER).
 // Forgot the password? Delete the "admin" key in the korapulse-auth KV namespace
 // (Storage & Databases → KV) and log in with ADMIN_PASSWORD again.
+import { handleMatches } from "./matches.js";
+
 const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
 const MAX_FAILS = 10;           // wrong passwords allowed per IP address...
@@ -79,8 +81,9 @@ async function withPreview(request, env, url) {
   const isArticle = /^\/article(\.html)?$/.test(url.pathname);
   const a = isArticle ? (data.articles || []).find((x) => x.id === url.searchParams.get("id") && (x.status || "publish") === "publish") : null;
   const cat = !a && /^\/category/.test(url.pathname) ? (data.categories || []).find((c) => c.slug === url.searchParams.get("c")) : null;
-  const title = a ? a.title : cat ? `${cat.name} | ${site.name}` : `${site.name} | ${site.tagline || "Football news"}`;
-  const desc = a ? a.excerpt : site.tagline || "";
+  const isMatches = /^\/matches/.test(url.pathname);
+  const title = a ? a.title : isMatches ? `Live scores from around the world | ${site.name}` : cat ? `${cat.name} | ${site.name}` : `${site.name} | ${site.tagline || "Football news"}`;
+  const desc = a ? a.excerpt : isMatches ? "Live football scores, results and fixtures: Botola Pro, CAF, Champions League, Premier League, LaLiga and more." : site.tagline || "";
   const page = a ? `${url.origin}/article?id=${encodeURIComponent(a.id)}` : url.origin + url.pathname + url.search;
   const img = imageOf(data, a);
   const image = img ? (img.startsWith("data:") ? `${url.origin}/og/${encodeURIComponent(a.id)}` : new URL(img, url.origin).href) : `${url.origin}/og-image.png`;
@@ -120,12 +123,13 @@ async function previewImage(env, url) {
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (url.pathname === "/api/matches") return handleMatches(request, ctx);
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
     if (!url.pathname.startsWith("/admin/")) {
-      if (/^\/(index\.html|article(\.html)?|category(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url);
+      if (/^\/(index\.html|article(\.html)?|category(\.html)?|matches(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url);
       return env.ASSETS.fetch(request);
     }
 
