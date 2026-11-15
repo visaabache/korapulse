@@ -450,3 +450,6 @@ a.ticker-label { text-decoration: none; }
   .tb-date { display: none; }
   [dir="rtl"] .to-top { left: 14px; }
 }
+
+/* X share button: outline so it stays visible on dark backgrounds */
+.sh-x { box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.45); }

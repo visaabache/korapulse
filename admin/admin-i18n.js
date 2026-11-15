@@ -85,7 +85,7 @@
     // users
     ["The writers credited on articles. Sign-in to this dashboard uses the administrator account in", "Les auteurs crédités sur les articles. La connexion au tableau de bord utilise le compte administrateur dans les", "الكتّاب المذكورون في المقالات. الدخول إلى لوحة التحكم يتم بحساب المدير في"],
     ["Add New User", "Ajouter un utilisateur", "إضافة مستخدم"], ["Edit User", "Modifier l'utilisateur", "تعديل المستخدم"], ["Update User", "Mettre à jour", "تحديث المستخدم"], ["Role", "Rôle", "الدور"],
-    ["Administrator", "Administrateur", "مدير"], ["Editor", "Éditeur", "محرر"], ["Contributor", "Contributeur", "مساهم"], ["Biographical info", "Biographie", "نبذة"], ["Bio", "Bio", "نبذة"],
+    ["Administrator", "Administrateur", "مدير"], ["Editor", "Éditeur", "محرر"], ["Contributor", "Contributeur", "مساهم"], ["Biographical info", "Biographie", "نبذة"], ["Name (Français)", "Nom (français)", "الاسم (بالفرنسية)"], ["Name (العربية)", "Nom (arabe)", "الاسم (بالعربية)"], ["KoraPulse Administration", "Administration KoraPulse", "إدارة كورابولس"], ["Bio", "Bio", "نبذة"],
     // settings
     ["General Settings", "Réglages généraux", "الإعدادات العامة"], ["Site Title", "Titre du site", "اسم الموقع"], ["Tagline", "Slogan", "الشعار"],
     ["In a few words, explain what this site is about. Shown under the logo.", "En quelques mots, décrivez le site. Affiché sous le logo.", "بكلمات قليلة، عرّف بالموقع. يظهر تحت الشعار."],

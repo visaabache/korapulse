@@ -15,7 +15,8 @@
   D.site.tagline = L.tr(D.site, "tagline") || D.site.tagline;
   D.standings.title = L.tr(D.standings, "title") || D.standings.title;
   D.topLinks = (D.topLinks || []).map((l) => ({ ...l, label: (l.tr && l.tr[lang]) || l.label }));
-  D.articles = D.articles.map((a) => ({ ...a, title: L.tr(a, "title"), excerpt: L.tr(a, "excerpt"), body: L.tr(a, "body"), untranslated: !L.has(a) }));
+  const byline = (name) => { const u = (D.users || []).find((x) => x.name === name); return (u && u.tr && u.tr[lang]) || name; };
+  D.articles = D.articles.map((a) => ({ ...a, author: byline(a.author), title: L.tr(a, "title"), excerpt: L.tr(a, "excerpt"), body: L.tr(a, "body"), untranslated: !L.has(a) }));
   D.articles.forEach((a) => { a.tags = a.tags || []; if (!catBySlug[a.cat]) catBySlug[a.cat] = { slug: a.cat, name: a.cat, subs: [], subLabels: [] }; });
   const articles = D.articles.filter((a) => (a.status || "publish") === "publish").sort((a, b) => b.date.localeCompare(a.date));
   const byId = Object.fromEntries(articles.map((a) => [a.id, a]));
@@ -349,7 +350,7 @@
           <h1 class="h-serif article-title">${esc(a.title)}</h1>
           <p class="standfirst">${esc(a.excerpt)}</p>
           <div class="article-meta">
-            <span class="avatar">${esc(a.author.split(" ").map((w) => w[0]).join(""))}</span>
+            <span class="avatar avatar-logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="26" height="26"><circle cx="32" cy="32" r="27" fill="none" stroke="#fff" stroke-width="6"/><path d="M7 34 H19 L24 22 L31 44 L37 28 L41 34 H57" fill="none" stroke="#f2b705" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <div><span class="author">${t("By {author}", { author: esc(a.author) })}</span>${meta(a, { noAuthor: true })}</div>
             <span class="read">${t("{n} min read", { n: readTime(a) })}</span>
           </div>

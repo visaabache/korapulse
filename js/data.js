@@ -394,129 +394,16 @@ window.KP = {
   "users": [
     {
       "id": "u1",
-      "name": "Nadia Berrada",
-      "role": "Editor",
-      "bio": "Editor-in-chief. Covers the national teams."
-    },
-    {
-      "id": "u2",
-      "name": "Omar Lahlou",
-      "role": "Author",
-      "bio": "Botola Pro correspondent."
-    },
-    {
-      "id": "u3",
-      "name": "Salma Kettani",
-      "role": "Author",
-      "bio": "Features and women's football."
-    },
-    {
-      "id": "u4",
-      "name": "Youssef Amrani",
-      "role": "Author",
-      "bio": "African football."
-    },
-    {
-      "id": "u5",
-      "name": "Mehdi Chraibi",
-      "role": "Author",
-      "bio": "Transfers and the business of football."
-    },
-    {
-      "id": "u6",
-      "name": "Karim Benjelloun",
-      "role": "Contributor",
-      "bio": "Columnist."
-    },
-    {
-      "id": "u7",
-      "name": "Leila Fassi",
-      "role": "Author",
-      "bio": "European football."
+      "name": "KoraPulse Administration",
+      "role": "Administrator",
+      "bio": "",
+      "tr": {
+        "fr": "Administration KoraPulse",
+        "ar": "إدارة كورابولس"
+      }
     }
   ],
-  "comments": [
-    {
-      "id": "c1",
-      "post": "atlas-lions-november-squad",
-      "name": "Anas",
-      "text": "Great to see Botola players getting a chance. Benali deserves it.",
-      "date": "2026-11-14T10:12:00",
-      "status": "approved"
-    },
-    {
-      "id": "c2",
-      "post": "atlas-lions-november-squad",
-      "name": "Fatima Z.",
-      "text": "Which of the newcomers will start the first match?",
-      "date": "2026-11-14T11:40:00",
-      "status": "approved"
-    },
-    {
-      "id": "c3",
-      "post": "atlas-lions-november-squad",
-      "name": "Rachid",
-      "text": "The left-back was excellent in the U-23 camp.",
-      "date": "2026-11-14T13:05:00",
-      "status": "pending"
-    },
-    {
-      "id": "c4",
-      "post": "botola-title-race-tightens",
-      "name": "Hamid",
-      "text": "Fès deserved the point, they pressed for the whole second half.",
-      "date": "2026-11-14T09:30:00",
-      "status": "approved"
-    },
-    {
-      "id": "c5",
-      "post": "opinion-var",
-      "name": "Sara",
-      "text": "Announcing decisions on the speakers would change everything.",
-      "date": "2026-11-13T19:22:00",
-      "status": "approved"
-    },
-    {
-      "id": "c6",
-      "post": "opinion-var",
-      "name": "Youness",
-      "text": "I disagree, the waiting is part of the drama now.",
-      "date": "2026-11-13T20:01:00",
-      "status": "approved"
-    },
-    {
-      "id": "c7",
-      "post": "women-league-record-crowd",
-      "name": "Imane",
-      "text": "I was there! The atmosphere was unbelievable.",
-      "date": "2026-11-13T22:15:00",
-      "status": "approved"
-    },
-    {
-      "id": "c8",
-      "post": "women-league-record-crowd",
-      "name": "Khalid",
-      "text": "More double-headers please.",
-      "date": "2026-11-14T08:45:00",
-      "status": "pending"
-    },
-    {
-      "id": "c9",
-      "post": "winter-window-moroccan-targets",
-      "name": "Best Odds 4U",
-      "text": "Win big with our betting tips, click here!!!",
-      "date": "2026-11-14T07:02:00",
-      "status": "spam"
-    },
-    {
-      "id": "c10",
-      "post": "caf-champions-league-groups",
-      "name": "Mourad",
-      "text": "Long trips but a winnable group. Top two is realistic.",
-      "date": "2026-11-13T16:10:00",
-      "status": "approved"
-    }
-  ],
+  "comments": [],
   "media": [],
   "articles": [
     {
@@ -528,12 +415,12 @@ window.KP = {
       "featured": true,
       "motif": "stadium",
       "title": "Atlas Lions Call Up Five Uncapped Players for November Double-Header",
-      "author": "Nadia Berrada",
+      "author": "KoraPulse Administration",
       "date": "2026-11-14",
       "excerpt": "The national team's latest squad leans on Botola form and a new wave of European-based youngsters, with five names set for a first taste of senior football.",
       "body": [
         "The Atlas Lions technical staff named a 26-man squad on Friday for the November international window, and the headline is a clear one: five players have earned a first senior call-up after strong starts to the season.",
-        "Three of the newcomers play in the Botola Pro, a deliberate signal that domestic form is being watched closely. Rabat Stars midfielder Ilyas Benali, 21, has started every league game this season and leads the division for passes into the final third.",
+        "Three of the newcomers play in the Botola Pro, a deliberate signal that domestic form is being watched closely. A 21-year-old Rabat Stars midfielder has started every league game this season and leads the division for passes into the final third.",
         "The other two arrive from Europe: a left-back who came through a Dutch academy and a 19-year-old striker who chose Morocco over two other eligible nations in the summer. Both took part in the U-23 camp in October.",
         "The squad gathers in Salé on Monday before two matches in eight days. Staff said minutes would be shared across the group, with the second fixture used to test the newcomers in a competitive setting."
       ],
@@ -543,7 +430,7 @@ window.KP = {
           "excerpt": "La nouvelle liste s'appuie sur la forme en Botola et sur une vague de jeunes évoluant en Europe : cinq noms vont découvrir le football international.",
           "body": [
             "Le staff technique des Lions de l'Atlas a dévoilé vendredi une liste de 26 joueurs pour la fenêtre internationale de novembre, avec un fait marquant : cinq joueurs reçoivent leur première convocation en équipe A après un excellent début de saison.",
-            "Trois des nouveaux venus évoluent en Botola Pro, un signal clair que la forme en championnat national est suivie de près. Le milieu des Rabat Stars Ilyas Benali, 21 ans, a été titulaire à chaque match et mène le championnat pour les passes dans le dernier tiers.",
+            "Trois des nouveaux venus évoluent en Botola Pro, un signal clair que la forme en championnat national est suivie de près. Un milieu des Rabat Stars âgé de 21 ans a été titulaire à chaque match et mène le championnat pour les passes dans le dernier tiers.",
             "Les deux autres arrivent d'Europe : un latéral gauche formé dans un centre néerlandais et un attaquant de 19 ans qui a choisi le Maroc plutôt que deux autres sélections cet été. Tous deux ont participé au stage des U23 en octobre.",
             "Le groupe se réunira lundi à Salé avant deux matchs en huit jours. Le staff a indiqué que le temps de jeu serait partagé, le second match servant à tester les nouveaux dans un contexte compétitif."
           ]
@@ -553,7 +440,7 @@ window.KP = {
           "excerpt": "تعتمد اللائحة الجديدة على مستوى لاعبي البطولة وموجة من الشباب المحترفين في أوروبا، مع خمسة أسماء ستخوض أول تجربة دولية.",
           "body": [
             "كشف الطاقم التقني لأسود الأطلس يوم الجمعة عن لائحة من 26 لاعبا لفترة التوقف الدولي في نونبر، وأبرز ما فيها استدعاء خمسة لاعبين لأول مرة إلى المنتخب الأول بعد بداية موسم قوية.",
-            "ثلاثة من الوافدين الجدد يلعبون في البطولة الاحترافية، في إشارة واضحة إلى أن مستوى الدوري المحلي يحظى بمتابعة دقيقة. فقد شارك لاعب وسط رابط ستارز إلياس بنعلي، 21 عاما، أساسيا في كل المباريات ويتصدر الدوري في التمريرات نحو الثلث الأخير.",
+            "ثلاثة من الوافدين الجدد يلعبون في البطولة الاحترافية، في إشارة واضحة إلى أن مستوى الدوري المحلي يحظى بمتابعة دقيقة. فقد شارك لاعب وسط في رابط ستارز يبلغ 21 عاما أساسيا في كل المباريات ويتصدر الدوري في التمريرات نحو الثلث الأخير.",
             "أما الاثنان الآخران فقادمان من أوروبا: ظهير أيسر تكوّن في أكاديمية هولندية، ومهاجم في التاسعة عشرة اختار المغرب على منتخبين آخرين خلال الصيف. وقد شارك كلاهما في معسكر منتخب أقل من 23 سنة في أكتوبر.",
             "يتجمع المنتخب يوم الإثنين في سلا قبل مباراتين خلال ثمانية أيام، وأكد الطاقم أن الدقائق ستوزع على المجموعة، مع استغلال المباراة الثانية لاختبار الوجوه الجديدة في أجواء تنافسية."
           ]
@@ -568,7 +455,7 @@ window.KP = {
       ],
       "motif": "pitch",
       "title": "Botola Pro Title Race Tightens as Leaders Drop Points in Fès",
-      "author": "Omar Lahlou",
+      "author": "KoraPulse Administration",
       "date": "2026-11-14",
       "excerpt": "Racing Anfa saw their lead cut to a single point after a stubborn Fès Sporting side held on for a draw in front of a sold-out crowd.",
       "body": [
@@ -608,12 +495,12 @@ window.KP = {
       ],
       "motif": "pitch",
       "title": "Inside Rabat Stars' Academy, the Factory Behind Botola's Youngest Starters",
-      "author": "Salma Kettani",
+      "author": "KoraPulse Administration",
       "date": "2026-11-13",
       "excerpt": "Four of the league's ten youngest regular starters came through the same academy. We spent a week with the coaches who built it.",
       "body": [
         "The first thing you notice at the Rabat Stars training centre is how quiet it is. Sessions run on a strict timetable, and coaches speak to players in short, specific sentences rather than shouting from the touchline.",
-        "Academy director Hicham Alaoui says the approach is borrowed from education rather than football. Every player has a written plan for the season, reviewed every six weeks with the player and a parent.",
+        "The academy director says the approach is borrowed from education rather than football. Every player has a written plan for the season, reviewed every six weeks with the player and a parent.",
         "The results are now visible in the first team. Four of the ten youngest players to start regularly in the Botola Pro this season came through these pitches, and two of them have been called up by the national U-23 side.",
         "The club is now expanding its scouting to smaller towns in the region, with free trial days held every school holiday."
       ],
@@ -623,7 +510,7 @@ window.KP = {
           "excerpt": "Quatre des dix plus jeunes titulaires réguliers du championnat sont passés par la même académie. Nous avons passé une semaine avec ceux qui l'ont construite.",
           "body": [
             "La première chose qui frappe au centre d'entraînement des Rabat Stars, c'est le calme. Les séances suivent un horaire strict et les éducateurs parlent aux joueurs par phrases courtes et précises plutôt que de crier depuis la ligne de touche.",
-            "Le directeur de l'académie, Hicham Alaoui, explique que la méthode est empruntée à l'éducation plus qu'au football. Chaque joueur dispose d'un plan écrit pour la saison, revu toutes les six semaines avec lui et un parent.",
+            "Le directeur de l'académie explique que la méthode est empruntée à l'éducation plus qu'au football. Chaque joueur dispose d'un plan écrit pour la saison, revu toutes les six semaines avec lui et un parent.",
             "Les résultats se voient désormais en équipe première. Quatre des dix plus jeunes titulaires réguliers de la Botola Pro cette saison sont passés par ces terrains, et deux d'entre eux ont été appelés en sélection U23.",
             "Le club élargit désormais sa détection aux petites villes de la région, avec des journées d'essai gratuites à chaque vacance scolaire."
           ]
@@ -633,7 +520,7 @@ window.KP = {
           "excerpt": "أربعة من بين أصغر عشرة لاعبين أساسيين في الدوري تخرجوا من الأكاديمية نفسها. قضينا أسبوعا مع المدربين الذين بنوها.",
           "body": [
             "أول ما يلفت الانتباه في مركز تدريب رابط ستارز هو الهدوء. فالحصص تسير وفق جدول صارم، ويخاطب المؤطرون اللاعبين بجمل قصيرة ودقيقة بدل الصراخ من خط التماس.",
-            "يقول مدير الأكاديمية هشام العلوي إن المنهج مستوحى من التعليم أكثر من كرة القدم، إذ يتوفر كل لاعب على خطة مكتوبة للموسم تُراجَع كل ستة أسابيع معه ومع أحد والديه.",
+            "يقول مدير الأكاديمية إن المنهج مستوحى من التعليم أكثر من كرة القدم، إذ يتوفر كل لاعب على خطة مكتوبة للموسم تُراجَع كل ستة أسابيع معه ومع أحد والديه.",
             "وباتت النتائج واضحة في الفريق الأول، فأربعة من بين أصغر عشرة لاعبين أساسيين في البطولة الاحترافية هذا الموسم تخرجوا من هذه الملاعب، واستُدعي اثنان منهم إلى منتخب أقل من 23 سنة.",
             "ويوسع النادي حاليا عمليات التنقيب لتشمل المدن الصغيرة في الجهة، مع أيام اختبار مجانية في كل عطلة مدرسية."
           ]
@@ -648,7 +535,7 @@ window.KP = {
       ],
       "motif": "trophy",
       "title": "CAF Champions League Draw: Moroccan Clubs Learn Group-Stage Opponents",
-      "author": "Youssef Amrani",
+      "author": "KoraPulse Administration",
       "date": "2026-11-13",
       "excerpt": "Two Moroccan sides will face long trips and familiar rivals as the continent's top club competition moves into the group phase.",
       "body": [
@@ -688,7 +575,7 @@ window.KP = {
       ],
       "motif": "ball",
       "title": "AFCON Qualifiers: Five Things We Learned From the Latest Round",
-      "author": "Youssef Amrani",
+      "author": "KoraPulse Administration",
       "date": "2026-11-12",
       "excerpt": "Surprise results, breakout goalkeepers and a lot of late drama: our takeaways from the latest round of continental qualifiers.",
       "body": [
@@ -726,13 +613,13 @@ window.KP = {
       "tags": [],
       "motif": "net",
       "title": "Winter Window: Three Botola Stars Attracting European Scouts",
-      "author": "Mehdi Chraibi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-14",
       "excerpt": "Scouts from Belgium, France and Portugal have been regular visitors at Botola grounds this autumn. These are the names on their lists.",
       "body": [
         "With the January window seven weeks away, the press boxes at Botola Pro grounds have been busier than usual. Clubs from Belgium, France and Portugal have all sent scouts this autumn.",
         "Top of most lists is Fès Sporting's central defender, whose reading of the game and passing range have stood out in a side that has conceded only eight goals.",
-        "Rabat Stars' Ilyas Benali, freshly called up by the national team, is the second name. His club is understood to prefer keeping him until the summer.",
+        "The second name is a Rabat Stars midfielder freshly called up by the national team. His club is understood to prefer keeping him until the summer.",
         "The third is a pacey Agadir Sporting winger who is already in advanced talks over a loan with an option to buy."
       ],
       "tr": {
@@ -742,7 +629,7 @@ window.KP = {
           "body": [
             "À sept semaines de l'ouverture du mercato de janvier, les tribunes de presse de la Botola Pro sont plus fréquentées que d'habitude. Des clubs belges, français et portugais ont envoyé des recruteurs cet automne.",
             "En tête de la plupart des listes figure le défenseur central du Fès Sporting, dont la lecture du jeu et la qualité de passe ont marqué dans une équipe qui n'a encaissé que huit buts.",
-            "Ilyas Benali, des Rabat Stars, tout juste appelé en sélection, est le deuxième nom. Son club préférerait le garder jusqu'à l'été.",
+            "Le deuxième nom est un milieu des Rabat Stars tout juste appelé en sélection. Son club préférerait le garder jusqu'à l'été.",
             "Le troisième est un ailier rapide de l'Agadir Sporting, déjà en discussions avancées pour un prêt avec option d'achat."
           ]
         },
@@ -752,7 +639,7 @@ window.KP = {
           "body": [
             "قبل سبعة أسابيع من افتتاح سوق انتقالات يناير، تشهد منصات الصحافة في ملاعب البطولة الاحترافية حضورا أكبر من المعتاد، إذ أرسلت أندية من بلجيكا وفرنسا والبرتغال كشافيها هذا الخريف.",
             "ويتصدر معظم القوائم قلب دفاع فاس سبورتينغ، الذي لفت الأنظار بقراءته للعب وجودة تمريراته في فريق لم تستقبل شباكه سوى ثمانية أهداف.",
-            "أما الاسم الثاني فهو إلياس بنعلي لاعب رابط ستارز، الذي استُدعي حديثا للمنتخب، ويفضل ناديه الاحتفاظ به حتى الصيف.",
+            "أما الاسم الثاني فهو لاعب وسط في رابط ستارز استُدعي حديثا للمنتخب، ويفضل ناديه الاحتفاظ به حتى الصيف.",
             "والثالث جناح سريع في أكادير سبورتينغ دخل بالفعل في مفاوضات متقدمة بشأن إعارة مع خيار الشراء."
           ]
         }
@@ -764,7 +651,7 @@ window.KP = {
       "tags": [],
       "motif": "net",
       "title": "Agadir Sporting Winger Close to Loan Move to Belgium",
-      "author": "Mehdi Chraibi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-11",
       "excerpt": "The 22-year-old has scored four times this season and would join a top-half side in the Belgian Pro League on an 18-month deal.",
       "body": [
@@ -799,7 +686,7 @@ window.KP = {
       "tags": [],
       "motif": "stadium",
       "title": "Record Crowd Watches Women's League Derby in Casablanca",
-      "author": "Salma Kettani",
+      "author": "KoraPulse Administration",
       "date": "2026-11-13",
       "excerpt": "More than 11,000 fans turned out for a 2-2 thriller, the biggest attendance for a women's club match in the country's history.",
       "body": [
@@ -837,7 +724,7 @@ window.KP = {
       "tags": [],
       "motif": "trophy",
       "title": "U-20 Lionesses Book Their Place at the Continental Finals",
-      "author": "Nadia Berrada",
+      "author": "KoraPulse Administration",
       "date": "2026-11-10",
       "excerpt": "A composed 2-0 win on aggregate sends Morocco's U-20 women to next year's finals, the third straight qualification for the age group.",
       "body": [
@@ -872,7 +759,7 @@ window.KP = {
       "tags": [],
       "motif": "stadium",
       "title": "What Hosting the 2030 World Cup Could Mean for Grassroots Football",
-      "author": "Omar Lahlou",
+      "author": "KoraPulse Administration",
       "date": "2026-11-12",
       "excerpt": "The stadiums get the headlines. The real legacy could be decided on school pitches and neighbourhood fields.",
       "body": [
@@ -910,7 +797,7 @@ window.KP = {
       "tags": [],
       "motif": "ball",
       "title": "Host Cities Begin Planning Fan Zones and Transport for 2030",
-      "author": "Mehdi Chraibi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-09",
       "excerpt": "Local planners are already mapping fan-zone sites and match-day transport, drawing lessons from recent tournaments.",
       "body": [
@@ -945,7 +832,7 @@ window.KP = {
       "tags": [],
       "motif": "pitch",
       "title": "VAR Has Made the League Fairer. It Has Also Made It Slower.",
-      "author": "Karim Benjelloun",
+      "author": "KoraPulse Administration",
       "date": "2026-11-13",
       "excerpt": "Fewer clear errors is a win. Four-minute reviews in a half-empty stadium are not. There is a better balance to find.",
       "body": [
@@ -983,7 +870,7 @@ window.KP = {
       "tags": [],
       "motif": "net",
       "title": "Moroccan Coaches Deserve More Chances at the Top",
-      "author": "Karim Benjelloun",
+      "author": "KoraPulse Administration",
       "date": "2026-11-11",
       "excerpt": "Our clubs keep hiring from abroad while homegrown coaches build reputations in youth football and the lower leagues.",
       "body": [
@@ -1018,7 +905,7 @@ window.KP = {
       "tags": [],
       "motif": "stadium",
       "title": "Full Stadiums Start With Fair Ticket Prices",
-      "author": "Leila Fassi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-10",
       "excerpt": "The record women's derby crowd was not an accident. Cheap tickets and smart scheduling filled the stands.",
       "body": [
@@ -1055,7 +942,7 @@ window.KP = {
       ],
       "motif": "trophy",
       "title": "Moroccan-Heritage Players Leave Their Mark on Champions League Week",
-      "author": "Leila Fassi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-13",
       "excerpt": "From starting full-backs to late substitutes, Moroccan-heritage players were involved across the latest round of European matches.",
       "body": [
@@ -1092,7 +979,7 @@ window.KP = {
       ],
       "motif": "ball",
       "title": "Festive Fixture Pile-Up: How Clubs Are Managing Squad Fatigue",
-      "author": "Omar Lahlou",
+      "author": "KoraPulse Administration",
       "date": "2026-11-11",
       "excerpt": "Rotation, GPS data and recovery pods: the methods clubs are using to survive the busiest weeks of the season.",
       "body": [
@@ -1129,7 +1016,7 @@ window.KP = {
       ],
       "motif": "pitch",
       "title": "Why Spanish Clubs Keep Scouting North Africa",
-      "author": "Youssef Amrani",
+      "author": "KoraPulse Administration",
       "date": "2026-11-09",
       "excerpt": "Short flights, shared football culture and good value make the region a natural hunting ground for clubs across the Strait.",
       "body": [
@@ -1164,7 +1051,7 @@ window.KP = {
       "tags": [],
       "motif": "pitch",
       "title": "New Referee Academy Opens in Rabat to Train the Next Generation of Officials",
-      "author": "Nadia Berrada",
+      "author": "KoraPulse Administration",
       "date": "2026-11-12",
       "excerpt": "Forty trainees, including twelve women, make up the first intake of a two-year programme combining fitness, law and video training.",
       "body": [
@@ -1201,7 +1088,7 @@ window.KP = {
       ],
       "motif": "ball",
       "title": "U-23 Side Confirm Friendly Ahead of Olympic Qualifying Campaign",
-      "author": "Mehdi Chraibi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-10",
       "excerpt": "The youngsters will face a European opponent next month in the first of three planned preparation matches.",
       "body": [
@@ -1236,7 +1123,7 @@ window.KP = {
       "tags": [],
       "motif": "net",
       "title": "Neighbourhood Pitches Programme Reaches Its 100th Site",
-      "author": "Leila Fassi",
+      "author": "KoraPulse Administration",
       "date": "2026-11-09",
       "excerpt": "Small-sided artificial pitches are now open in a hundred neighbourhoods, with free coaching sessions on weekends.",
       "body": [
@@ -1273,7 +1160,7 @@ window.KP = {
       ],
       "motif": "stadium",
       "title": "Matchday 11 Preview: Tanger Host the Leaders in a Northern Showdown",
-      "author": "Omar Lahlou",
+      "author": "KoraPulse Administration",
       "date": "2026-11-14",
       "excerpt": "Étoile de Tanger have not lost at home since March. Racing Anfa have not lost anywhere since September. Something has to give.",
       "body": [
@@ -1310,11 +1197,11 @@ window.KP = {
       ],
       "motif": "net",
       "title": "“The Shirt Weighs More Than Any Trophy”: Meet the Atlas Lions' Third Goalkeeper",
-      "author": "Salma Kettani",
+      "author": "KoraPulse Administration",
       "date": "2026-11-11",
       "excerpt": "He has not played a minute for the national team yet. He still calls every camp the best week of his year.",
       "body": [
-        "Third-choice goalkeepers rarely give interviews. Hamza El Idrissi, 24, says that is exactly why he wanted to talk.",
+        "Third-choice goalkeepers rarely give interviews. This one, 24, says that is exactly why he wanted to talk.",
         "“People think you are just there to make up the numbers,” he says. “But in training you face the best strikers in the country every day. You learn more in a week than in a month at your club.”",
         "He spends camps studying the two goalkeepers ahead of him, filling notebooks with details on positioning and distribution.",
         "Asked about his goal, he does not hesitate: “One cap. After that, we will see.”"
@@ -1324,7 +1211,7 @@ window.KP = {
           "title": "« Le maillot pèse plus lourd que n'importe quel trophée » : rencontre avec le troisième gardien des Lions de l'Atlas",
           "excerpt": "Il n'a pas encore joué une minute en sélection. Il considère pourtant chaque rassemblement comme la meilleure semaine de son année.",
           "body": [
-            "Les troisièmes gardiens donnent rarement des interviews. Hamza El Idrissi, 24 ans, dit que c'est justement pour cela qu'il voulait parler.",
+            "Les troisièmes gardiens donnent rarement des interviews. Celui-ci, 24 ans, dit que c'est justement pour cela qu'il voulait parler.",
             "« Les gens pensent qu'on est là pour faire le nombre, dit-il. Mais à l'entraînement, tu affrontes chaque jour les meilleurs attaquants du pays. Tu apprends plus en une semaine qu'en un mois en club. »",
             "Pendant les stages, il étudie les deux gardiens devant lui et remplit des carnets de détails sur le placement et la relance.",
             "Interrogé sur son objectif, il ne marque pas d'hésitation : « Une sélection. Après, on verra. »"
@@ -1334,7 +1221,7 @@ window.KP = {
           "title": "«القميص أثقل من أي لقب»: لقاء مع الحارس الثالث لأسود الأطلس",
           "excerpt": "لم يلعب بعد أي دقيقة مع المنتخب، ومع ذلك يعتبر كل تجمع أفضل أسبوع في سنته.",
           "body": [
-            "نادرا ما يجري الحراس الثالثون مقابلات صحفية، ويقول حمزة الإدريسي، 24 عاما، إن هذا بالضبط ما دفعه إلى الحديث.",
+            "نادرا ما يجري الحراس الثالثون مقابلات صحفية، ويقول حارسنا البالغ 24 عاما إن هذا بالضبط ما دفعه إلى الحديث.",
             "«يظن الناس أنك موجود فقط لإكمال العدد»، يقول. «لكن في التدريبات تواجه كل يوم أفضل مهاجمي البلاد، وتتعلم في أسبوع أكثر مما تتعلمه في شهر مع ناديك».",
             "ويقضي فترات التجمع في دراسة الحارسين اللذين يتقدمانه، ويملأ دفاتر بتفاصيل التمركز وإعادة اللعب.",
             "وعندما سُئل عن هدفه لم يتردد: «مباراة دولية واحدة، وبعدها سنرى»."
@@ -1343,5 +1230,5 @@ window.KP = {
       }
     }
   ],
-  "updated": "2026-11-15T00:48:50.000Z"
+  "updated": "2026-11-15T01:08:08.000Z"
 };

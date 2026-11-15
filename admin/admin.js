@@ -919,6 +919,7 @@
           <h2>${ed ? "Edit User" : "Add New User"}</h2>
           <form data-form="user">
             <div class="form-field"><label for="un">Name</label><input type="text" id="un" name="name" required value="${esc(ed ? ed.name : "")}"></div>
+            ${["fr", "ar"].map((l) => `<div class="form-field"><label for="un-${l}">Name (${LANGS[l]})</label><input type="text" id="un-${l}" name="name_${l}" ${l === "ar" ? 'dir="rtl"' : ""} value="${esc(ed && ed.tr ? ed.tr[l] || "" : "")}"></div>`).join("")}
             <div class="form-field"><label for="ur">Role</label><select id="ur" name="role">${ROLES.map((r) => `<option ${ed && ed.role === r ? "selected" : !ed && r === "Author" ? "selected" : ""}>${r}</option>`).join("")}</select></div>
             <div class="form-field"><label for="ub">Biographical info</label><textarea id="ub" name="bio" rows="3">${esc(ed ? ed.bio : "")}</textarea></div>
             <button class="button button-primary">${ed ? "Update User" : "Add New User"}</button>
@@ -1279,15 +1280,16 @@
     },
     user: (f) => {
       const name = f.name.value.trim(), role = f.role.value, bio = f.bio.value.trim();
+      const trn = { fr: f.name_fr.value.trim(), ar: f.name_ar.value.trim() };
       if (D.users.some((u) => u.name.toLowerCase() === name.toLowerCase() && u.id !== editUser)) { flash = { type: "error", text: `There is already a user called ${name}.` }; render(); return; }
       if (editUser) {
         const u = D.users.find((x) => x.id === editUser);
         D.articles.forEach((a) => { if (a.author === u.name) a.author = name; });
-        Object.assign(u, { name, role, bio });
+        Object.assign(u, { name, role, bio, tr: trn });
         editUser = null;
         save("User updated.");
       } else {
-        D.users.push({ id: uid("u"), name, role, bio });
+        D.users.push({ id: uid("u"), name, role, bio, tr: trn });
         save("New user created.");
       }
       render();
