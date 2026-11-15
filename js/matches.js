@@ -33,7 +33,7 @@
   // matches of the chosen local day, per league
   function leaguesOfDay() {
     if (!data) return [];
-    return data.leagues.map((l) => ({ ...l, matches: l.matches.filter((m) => localDay(new Date(m.start)) === state.date || (state.date === today && m.state === "in")).sort((a, b) => a.start.localeCompare(b.start)) }))
+    return data.leagues.map((l) => ({ ...l, matches: l.matches.filter((m) => data.dayFiltered || localDay(new Date(m.start)) === state.date || (state.date === today && m.state === "in")).sort((a, b) => a.start.localeCompare(b.start)) }))
       .filter((l) => l.matches.length);
   }
   const isLive = (m) => m.state === "in";
@@ -62,7 +62,7 @@
           </div>
         </div>
         <div id="ms-list" aria-live="polite"></div>
-        <p class="ms-foot">Times are shown in your time zone. Scores update automatically every 30 seconds while matches are live. Source: ESPN.</p>
+        <p class="ms-foot" id="ms-foot"></p>
       </div>`;
     main.querySelectorAll("[data-day]").forEach((b) => b.addEventListener("click", () => setDate(addDays(state.date, +b.dataset.day))));
     const di = document.getElementById("ms-date");
@@ -157,6 +157,8 @@
       if (data && data.date !== state.date.replace(/-/g, "")) data = null;
     }
     loading = false;
+    const foot = document.getElementById("ms-foot");
+    if (foot) foot.textContent = data ? `Times are shown in your time zone. ${data.refresh > 1 ? `Scores refresh every ${data.refresh} minutes.` : "Scores update automatically while matches are live."} Source: ${data.source || "ESPN"}.` : "";
     const up = document.getElementById("ms-updated");
     if (up) up.textContent = data ? `updated ${new Date(data.updated).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}` : "not available";
     draw();

@@ -6,7 +6,8 @@
 //   2. otherwise the Cloudflare secret ADMIN_PASSWORD (username "admin", or ADMIN_USER).
 // Forgot the password? Delete the "admin" key in the korapulse-auth KV namespace
 // (Storage & Databases → KV) and log in with ADMIN_PASSWORD again.
-import { handleMatches } from "./matches.js";
+import { handleMatches, scoresConfig } from "./matches.js";
+import { status as apiFootballStatus } from "./apifootball.js";
 
 const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
@@ -125,7 +126,7 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), { status
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/matches") return handleMatches(request, ctx);
+    if (url.pathname === "/api/matches") return handleMatches(request, env, ctx);
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
     if (!url.pathname.startsWith("/admin/")) {
@@ -155,6 +156,36 @@ export default {
     if (url.pathname === "/admin/server-auth.js") {
       const info = { user: acc.user, canChange: !!env.AUTH, changed: acc.secret == null ? acc.changed || null : null };
       return new Response(`window.KP_SERVER_AUTH = ${JSON.stringify(info)};`, { headers: { "content-type": "text/javascript; charset=utf-8", "cache-control": "no-store" } });
+    }
+
+    // live scores provider (Admin → Settings → Live scores)
+    if (url.pathname === "/admin/api/scores") {
+      if (!env.AUTH) return json({ error: "Missing AUTH storage." }, 500);
+      const cfg = await scoresConfig(env);
+      if (request.method === "POST") {
+        let body;
+        try { body = await request.json(); } catch (e) { return json({ error: "Invalid request." }, 400); }
+        const saved = (await env.AUTH.get("scores-config", "json")) || {};
+        const next = { ...saved };
+        if (["auto", "espn", "apifootball"].includes(body.provider)) next.provider = body.provider;
+        if (typeof body.apiKey === "string" && body.apiKey.trim()) next.apiKey = body.apiKey.trim();
+        if (body.removeKey) delete next.apiKey;
+        if (body.perDay) next.perDay = Math.max(10, Math.min(1000000, parseInt(body.perDay, 10) || 100));
+        await env.AUTH.put("scores-config", JSON.stringify(next));
+        // drop cached days so the new settings apply at once
+        for (const k of (await env.AUTH.list({ prefix: "af:" })).keys) if (/^af:\d{8}$/.test(k.name)) await env.AUTH.delete(k.name);
+        return json({ ok: true });
+      }
+      const usage = await env.AUTH.get("af:usage", "json");
+      const lastError = await env.AUTH.get("af:lastError", "json");
+      let test = null;
+      if (url.searchParams.get("test") === "1" && cfg.key) test = await apiFootballStatus(cfg.key);
+      return json({
+        wanted: cfg.wanted, provider: cfg.provider, perDay: cfg.perDay,
+        hasKey: !!cfg.key, keyHint: cfg.key ? "••••" + cfg.key.slice(-4) : "",
+        refreshMinutes: Math.max(1, Math.ceil(1440 / (cfg.perDay * 0.75))),
+        usage, lastError, test
+      });
     }
 
     if (url.pathname === "/admin/api/password") {

@@ -8,6 +8,8 @@
 //           matches: [{ id, start, state: "pre"|"in"|"post", clock, detail, venue,
 //                       home: { name, short, logo, score, winner }, away: {...} }] }] }
 
+import { fetchDay, SITE_TZ } from "./apifootball.js";
+
 // [ESPN league code, region, country] — at most ~45 (Cloudflare allows 50 fetches per request).
 export const LEAGUES = [
   ["mar.1", "Morocco", "Morocco"],
@@ -121,16 +123,68 @@ async function fetchLeague(league, range) {
   }
 }
 
-export async function handleMatches(request, ctx) {
+// Which provider to use: set in Admin → Settings → Live scores (stored in the AUTH KV namespace).
+export async function scoresConfig(env) {
+  const cfg = (env.AUTH && (await env.AUTH.get("scores-config", "json"))) || {};
+  const key = cfg.apiKey || env.APIFOOTBALL_KEY || "";
+  const wanted = cfg.provider || "auto";
+  const provider = (wanted === "apifootball" || wanted === "auto") && key ? "apifootball" : "espn";
+  return { wanted, provider, key, perDay: Math.max(10, +cfg.perDay || 100) };
+}
+
+const dayNum = (d) => Date.UTC(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8)) / 864e5;
+
+// API-Football: one request returns a whole day worldwide. Results are kept in KV so that all
+// Cloudflare locations share them, and refreshed no more often than the daily quota allows.
+async function apiFootball(date, cfg, env) {
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: SITE_TZ }).format(new Date()).replace(/-/g, "");
+  const diff = dayNum(date) - dayNum(today);
+  if (Math.abs(diff) > 7) return null; // protect the quota: other days come from ESPN
+  const todayEvery = Math.max(1, Math.ceil(1440 / (cfg.perDay * 0.75)));
+  const every = diff === 0 ? todayEvery : diff === -1 ? 60 : diff === 1 ? 120 : diff < -1 ? 1440 : 360; // minutes
+  const key = "af:" + date;
+  let rec = await env.AUTH.get(key, "json");
+  const fresh = rec && Date.now() - Date.parse(rec.updated) < every * 60000;
+  let warning = null;
+  if (!fresh) {
+    const lock = "aflock:" + date;
+    const busy = rec && (await env.AUTH.get(lock));
+    if (!busy) {
+      await env.AUTH.put(lock, "1", { expirationTtl: 60 });
+      const res = await fetchDay(date, cfg.key);
+      if (res.remaining != null) await env.AUTH.put("af:usage", JSON.stringify({ remaining: res.remaining, limit: res.limit, at: new Date().toISOString() }));
+      if (res.error) {
+        warning = res.error;
+        await env.AUTH.put("af:lastError", JSON.stringify({ error: res.error, at: new Date().toISOString() }));
+      } else {
+        rec = { updated: new Date().toISOString(), leagues: res.leagues };
+        await env.AUTH.put(key, JSON.stringify(rec), { expirationTtl: 8 * 86400 });
+      }
+    }
+  }
+  if (!rec) return { error: warning || "No data yet" };
+  return { date, updated: rec.updated, source: "API-Football", dayFiltered: true, refresh: every, warning, leagues: rec.leagues };
+}
+
+export async function handleMatches(request, env, ctx) {
   const url = new URL(request.url);
   const today = ymd(new Date());
   let date = (url.searchParams.get("date") || today).replace(/-/g, "");
   if (!/^\d{8}$/.test(date)) return Response.json({ error: "date must be YYYYMMDD" }, { status: 400 });
 
+  const cfg = await scoresConfig(env);
+  if (cfg.provider === "apifootball") {
+    const body = await apiFootball(date, cfg, env);
+    if (body && body.leagues) {
+      return new Response(JSON.stringify(body), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=30", "access-control-allow-origin": "*" } });
+    }
+    // API-Football unavailable (no data, quota, plan): fall back to ESPN below
+  }
+
   // one cached answer per day for everyone: 30 s around today, longer for other days
   const diff = Math.abs(Date.UTC(+date.slice(0, 4), +date.slice(4, 6) - 1, +date.slice(6, 8)) - Date.UTC(+today.slice(0, 4), +today.slice(4, 6) - 1, +today.slice(6, 8))) / 864e5;
   const ttl = diff <= 1 ? 30 : 900;
-  const cacheKey = new Request(`${url.origin}/api/matches?date=${date}`);
+  const cacheKey = new Request(`${url.origin}/api/matches?date=${date}&p=espn`);
   const cache = caches.default;
   const hit = await cache.match(cacheKey);
   if (hit) return hit;

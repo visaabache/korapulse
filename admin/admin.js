@@ -922,6 +922,7 @@
         </tbody></table>
         <p><button class="button button-primary">Save Changes</button></p>
       </form>
+      ${server ? `<h2 style="font-size:1.3em;margin:30px 0 10px">Live scores</h2><div id="scores-box"><p class="description">Loading…</p></div>` : ""}
       <h2 style="font-size:1.3em;margin:30px 0 0">Administrator account</h2>
       ${server ? (server.canChange ? `
       <form data-form="server-password" autocomplete="off">
@@ -941,7 +942,41 @@
         </tbody></table>
         <p><button class="button">Update account</button></p>
       </form>`}`;
-    return { title: "General Settings", menu: "settings", sub: "settings", html };
+    return { title: "General Settings", menu: "settings", sub: "settings", html, after: () => server && scoresBox() };
+  }
+
+  // Live scores provider: ESPN (free, no key) or API-Football (key, saved on Cloudflare).
+  async function scoresBox(test) {
+    const box = $("#scores-box");
+    if (!box) return;
+    let s;
+    try { const r = await fetch("api/scores" + (test ? "?test=1" : ""), { cache: "no-store" }); s = await r.json(); if (!r.ok) throw new Error(s.error); }
+    catch (e) { box.innerHTML = `<div class="notice notice-error"><p>Could not load the live scores settings.</p></div>`; return; }
+    const t = s.test;
+    const usage = s.usage ? `${s.usage.remaining} of ${s.usage.limit} requests left today (checked ${fmtTime(s.usage.at.slice(0, 19)) || fmtDate(s.usage.at)})` : "";
+    box.innerHTML = `
+      <form data-form="scores-provider">
+        <table class="form-table"><tbody>
+          <tr><th>Source</th><td>
+            <p style="margin:0 0 6px"><label><input type="radio" name="provider" value="auto" ${s.wanted === "auto" ? "checked" : ""}> <b>Automatic</b>: API-Football when a key is saved, otherwise ESPN</label></p>
+            <p style="margin:0 0 6px"><label><input type="radio" name="provider" value="apifootball" ${s.wanted === "apifootball" ? "checked" : ""}> <b>API-Football</b> (official, all competitions; needs a key)</label></p>
+            <p style="margin:0"><label><input type="radio" name="provider" value="espn" ${s.wanted === "espn" ? "checked" : ""}> <b>ESPN</b> (free, no key, unofficial, 40 competitions)</label></p>
+            <p class="description">Now using: <b>${s.provider === "apifootball" ? "API-Football" : "ESPN"}</b>. If API-Football fails (no data, daily limit or plan), the site uses ESPN.</p></td></tr>
+          <tr><th><label for="af-key">API-Football key</label></th><td>
+            <input type="password" id="af-key" name="apiKey" class="regular-text" autocomplete="off" placeholder="${s.hasKey ? "Saved (" + esc(s.keyHint) + "). Type a new key to replace it" : "Paste your key from dashboard.api-football.com"}">
+            ${s.hasKey ? ` <button type="button" class="button-link delete" data-act="af-remove">Remove key</button>` : ""}
+            <p class="description">Free key at <a href="https://dashboard.api-football.com/register" target="_blank" rel="noopener">dashboard.api-football.com</a> (My Account → API key). Saved on Cloudflare only, never in the site's files.</p></td></tr>
+          <tr><th><label for="af-day">Requests per day in your plan</label></th><td>
+            <input type="number" id="af-day" name="perDay" class="small-text" style="width:100px" min="10" value="${s.perDay}">
+            <p class="description">Free plan: 100 (today's scores refresh every ${Math.max(1, Math.ceil(1440 / 75))} minutes). Pro: 7500 (every minute). Now: every <b>${s.refreshMinutes} minute${s.refreshMinutes === 1 ? "" : "s"}</b>.</p></td></tr>
+          ${s.hasKey ? `<tr><th>Status</th><td>
+            ${t ? (t.ok ? `<div class="notice notice-success"><p>Connected. Plan: <b>${esc(t.plan || "?")}</b>${t.active === false ? " (inactive)" : ""} · ${t.used ?? "?"} of ${t.limit ?? "?"} requests used today${t.end ? " · renews " + esc(fmtDate(t.end)) : ""}.</p></div>` : `<div class="notice notice-error"><p>${esc(t.error || "The key was not accepted.")}</p></div>`) : ""}
+            ${usage ? `<p class="description">${esc(usage)}</p>` : ""}
+            ${s.lastError ? `<p class="description" style="color:#b32d2e">Last error (${esc(fmtDate(s.lastError.at))} ${esc(fmtTime(s.lastError.at.slice(0, 19)))}): ${esc(s.lastError.error)}</p>` : ""}
+            <button type="button" class="button" data-act="af-test">Test connection</button></td></tr>` : ""}
+        </tbody></table>
+        <p><button class="button button-primary">Save live scores settings</button> <a class="button" href="../matches.html" target="_blank" rel="noopener">Open live scores</a></p>
+      </form>`;
   }
 
   function tools() {
@@ -1084,6 +1119,8 @@
       D.users = D.users.filter((x) => x.id !== u.id);
       save("User deleted."); render();
     },
+    "af-test": (b) => { b.disabled = true; b.textContent = "Testing…"; scoresBox(true); },
+    "af-remove": () => { if (confirm("Remove the API-Football key? The site will use ESPN.")) saveScores({ removeKey: true }, "API-Football key removed."); },
     "export-js": () => {
       const txt = `/* ${D.site.name} — site content.\n   Exported from the admin dashboard on ${new Date().toLocaleString("en-GB")}.\n   Replace js/data.js with this file and redeploy the site. */\nwindow.KP = ${JSON.stringify(D, null, 2)};\n`;
       download("data.js", txt, "text/javascript");
@@ -1099,7 +1136,18 @@
     }
   };
 
+  async function saveScores(payload, msg) {
+    try {
+      const r = await fetch("api/scores", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || r.status);
+      flash = { type: "success", text: msg };
+    } catch (e) { flash = { type: "error", text: "Could not save: " + e.message }; }
+    render();
+  }
+
   const FORMS = {
+    "scores-provider": (f) => saveScores({ provider: f.provider.value, apiKey: f.apiKey.value, perDay: f.perDay.value }, "Live scores settings saved."),
     setup: async (f) => {
       if (f.pw.value !== f.pw2.value) { renderLogin({ type: "error", text: "The passwords do not match." }); return; }
       const user = f.user.value.trim();

@@ -135,7 +135,7 @@
 
   // Ticker: live matches from around the world (Admin → Live Scores → "automatic"),
   // falling back to the matches entered in the admin if the score service is unavailable.
-  const PRIORITY = ["mar.1", "caf.champions", "caf.confed", "caf.nations", "uefa.champions", "uefa.europa", "eng.1", "esp.1", "ita.1", "ger.1", "fra.1", "ksa.1"];
+  const PRIORITY = ["af200", "af6", "af12", "af20", "af2", "af3", "af39", "af140", "af135", "af78", "af61", "af307", "mar.1", "caf.champions", "caf.confed", "caf.nations", "uefa.champions", "uefa.europa", "eng.1", "esp.1", "ita.1", "ger.1", "fra.1", "ksa.1"];
   async function liveTicker() {
     if ((D.site && D.site.ticker) === "manual") return;
     const pad = (n) => String(n).padStart(2, "0");
@@ -150,7 +150,7 @@
       data.leagues.forEach((l) => l.matches.forEach((m) => {
         const local = new Date(m.start);
         // today's matches, plus any still being played after midnight
-        if ((`${local.getFullYear()}${pad(local.getMonth() + 1)}${pad(local.getDate())}` !== day && m.state !== "in") || m.state === "off") return;
+        if ((!data.dayFiltered && `${local.getFullYear()}${pad(local.getMonth() + 1)}${pad(local.getDate())}` !== day && m.state !== "in") || m.state === "off") return;
         list.push({ m, l, k: [order[m.state] ?? 3, rank(l.id), m.start] });
       }));
       list.sort((a, b) => a.k[0] - b.k[0] || a.k[1] - b.k[1] || a.k[2].localeCompare(b.k[2]));
