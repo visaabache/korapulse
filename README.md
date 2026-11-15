@@ -18,6 +18,13 @@ python3 -m http.server 8000
 | `category.html?c=<category>` | A category, with sub-category chips (`&t=Results`) and "Load more" |
 | `category.html?q=<words>` | Search results (search icon in the menu, or press `/`) |
 
+## Reading and sharing
+Readers don't need an account: they read, and share articles with the buttons at the top and bottom of each article: **Facebook, X, WhatsApp, Instagram** and **copy link**. Instagram has no "share a link" address on the web, so on phones its button opens the phone's share menu (Instagram is in it), and on computers it copies the link to paste into a story or message.
+
+When a link is shared, the Worker adds the article's title, summary and picture to the page (Open Graph tags), so Facebook, WhatsApp and X show a preview card. Articles without an uploaded photo use `og-image.png`. Facebook keeps previews for a while: after changing an article, refresh its preview at developers.facebook.com/tools/debug.
+
+Comments are switched off. To turn them on: Admin → Settings → "Allow readers to comment".
+
 ## Editing content
 Everything is in **`js/data.js`**: site name, menu, top links, live scores, the league table and the articles.
 To add an article, copy one object in `articles` and change `id`, `cat`, `title`, `author`, `date`, `excerpt` and `body`.

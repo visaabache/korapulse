@@ -11,6 +11,8 @@
   D.articles.forEach((a) => { a.tags = a.tags || []; if (!catBySlug[a.cat]) catBySlug[a.cat] = { slug: a.cat, name: a.cat, subs: [] }; });
   const articles = D.articles.filter((a) => (a.status || "publish") === "publish").sort((a, b) => b.date.localeCompare(a.date));
   const byId = Object.fromEntries(articles.map((a) => [a.id, a]));
+  // Comments are off unless switched on in Admin → Settings ("Allow comments").
+  const commentsOn = !!(D.site && D.site.comments);
   const comments = D.comments || [];
   const ccount = (id) => comments.filter((c) => c.post === id && c.status === "approved").length;
 
@@ -71,7 +73,7 @@
     <div class="meta">
       ${opts.noAuthor ? "" : `<span class="author">${esc(a.author)}</span>`}
       <span>${icon.clock} ${fmtDate(a.date)}</span>
-      ${opts.noComments ? "" : `<span>${icon.chat} ${ccount(a.id)}</span>`}
+      ${opts.noComments || !commentsOn ? "" : `<span>${icon.chat} ${ccount(a.id)}</span>`}
     </div>`;
 
   // ---------- header ----------
@@ -88,7 +90,7 @@
         <div class="container topbar-in">
           <a href="#scores" class="tb-live"><span class="dot"></span> Live Scores</a>
           <nav class="tb-links" aria-label="Featured">${D.topLinks.map((l) => `<a href="${l.href}">${esc(l.label)}</a>`).join("")}</nav>
-          <a href="admin/" class="tb-login">${icon.user} Login</a>
+          <span class="tb-date">${new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</span>
         </div>
       </div>
       <header class="masthead">
@@ -199,7 +201,8 @@
   function sidebar(excludeId) {
     const op = articles.filter((a) => a.cat === "opinion" && a.id !== excludeId);
     const [first, ...rest] = op;
-    const popular = articles.filter((a) => a.id !== excludeId).slice().sort((a, b) => ccount(b.id) - ccount(a.id)).slice(0, 5);
+    const popular = articles.filter((a) => a.id !== excludeId && a.cat !== "opinion").slice(0, 5);
+    const follow = ["instagram", "facebook", "x", "youtube", "tiktok"].filter((k) => D.site.social && D.site.social[k] && D.site.social[k] !== "#");
     return `
       ${ad("box")}
       ${first ? `
@@ -222,15 +225,15 @@
         </table>
       </section>
       <section class="side-sec">
-        <h2 class="sec-title">Most read</h2>
+        <h2 class="sec-title">Top stories</h2>
         <ol class="popular">${popular.map((a, i) => `<li><span class="num">${i + 1}</span><a href="${url(a)}">${esc(a.title)}</a></li>`).join("")}</ol>
       </section>
+      ${follow.length ? `
       <section class="side-sec newsletter">
-        <h2>The Final Whistle</h2>
-        <p>The day's football news in your inbox every evening. Free.</p>
-        <form class="nl-form"><input type="email" required placeholder="Your email" aria-label="Your email"><button>Subscribe</button></form>
-        <p class="nl-ok" hidden>Thanks! Check your inbox to confirm.</p>
-      </section>`;
+        <h2>Follow ${esc(D.site.name)}</h2>
+        <p>Goals, transfers and breaking news on your favourite network.</p>
+        <div class="follow">${follow.map((k) => `<a href="${esc(D.site.social[k])}" target="_blank" rel="noopener" aria-label="${k}">${icon[k]}</a>`).join("")}</div>
+      </section>` : ""}`;
   }
 
   // ---------- pages ----------
@@ -268,11 +271,21 @@
 
   function renderArticle() {
     const a = byId[params.get("id")] || (preview && D.articles.find((x) => x.id === params.get("id"))) || articles[0];
-    const approved = comments.filter((c) => c.post === a.id && c.status === "approved").sort((x, y) => x.date.localeCompare(y.date));
+    const approved = commentsOn ? comments.filter((c) => c.post === a.id && c.status === "approved").sort((x, y) => x.date.localeCompare(y.date)) : [];
     const cat = catBySlug[a.cat];
     document.title = `${a.title} | ${D.site.name}`;
     const related = articles.filter((x) => x.id !== a.id && x.cat === a.cat).concat(articles.filter((x) => x.id !== a.id && x.cat !== a.cat)).slice(0, 3);
-    const share = encodeURIComponent(location.href), title = encodeURIComponent(a.title);
+    const shareUrl = `${location.origin}${location.pathname}?id=${encodeURIComponent(a.id)}`;
+    const share = encodeURIComponent(shareUrl), title = encodeURIComponent(a.title);
+    const shareBar = (cls) => `
+          <div class="share ${cls}" data-id="${esc(a.id)}">
+            <span>Share</span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=${share}" target="_blank" rel="noopener" aria-label="Share on Facebook" class="sh-fb">${icon.facebook}</a>
+            <a href="https://x.com/intent/post?url=${share}&text=${title}" target="_blank" rel="noopener" aria-label="Share on X" class="sh-x">${icon.x}</a>
+            <a href="https://wa.me/?text=${title}%20${share}" target="_blank" rel="noopener" aria-label="Share on WhatsApp" class="sh-wa">${icon.whatsapp}</a>
+            <button type="button" class="sh-ig" aria-label="Share on Instagram">${icon.instagram}</button>
+            <button type="button" class="sh-copy" aria-label="Copy link">${icon.link}</button>
+          </div>`;
 
     $("#main").innerHTML = `
       <div class="container">${ad("leader")}</div>
@@ -287,18 +300,13 @@
             <div><span class="author">By ${esc(a.author)}</span>${meta(a, { noAuthor: true })}</div>
             <span class="read">${readTime(a)} min read</span>
           </div>
+          ${shareBar("share-top")}
           <figure class="article-media">${media(a)}${a.image && src(a.image) ? "" : `<figcaption>Illustration · ${esc(cat.name)}</figcaption>`}</figure>
           ${preview && a.status !== "publish" && a.status ? `<p class="preview-note">Preview: this ${esc(a.status === "trash" ? "trashed post" : "draft")} is not visible to visitors.</p>` : ""}
           <div class="article-body">${(a.body || []).map(block).join("")}</div>
           ${a.tags.length ? `<div class="tag-list">${a.tags.map((t) => `<a href="${catUrl(a.cat, t)}">#${esc(t)}</a>`).join("")}</div>` : ""}
-          <div class="share">
-            <span>Share</span>
-            <a href="https://www.facebook.com/sharer/sharer.php?u=${share}" target="_blank" rel="noopener" aria-label="Share on Facebook" class="sh-fb">${icon.facebook}</a>
-            <a href="https://x.com/intent/post?url=${share}&text=${title}" target="_blank" rel="noopener" aria-label="Share on X" class="sh-x">${icon.x}</a>
-            <a href="https://wa.me/?text=${title}%20${share}" target="_blank" rel="noopener" aria-label="Share on WhatsApp" class="sh-wa">${icon.whatsapp}</a>
-            <button class="sh-copy" aria-label="Copy link">${icon.link}</button>
-          </div>
-          <section class="comments-box">
+          ${shareBar("")}
+          ${commentsOn ? `<section class="comments-box">
             <h2 class="sec-title">${approved.length} comment${approved.length === 1 ? "" : "s"}</h2>
             <ol class="comment-list">${approved.map((c) => `
               <li><span class="avatar">${esc(c.name.trim()[0] || "?")}</span><div><b>${esc(c.name)}</b>${c.admin ? ' <span class="staff">KoraPulse</span>' : ""}<time>${fmtDate(c.date.slice(0, 10))}</time><p>${esc(c.text)}</p></div></li>`).join("")}</ol>
@@ -309,7 +317,7 @@
               <button class="btn">Post comment</button>
             </form>
             <p class="cf-ok" hidden>Thanks! Your comment is awaiting moderation.</p>
-          </section>
+          </section>` : ""}
           <section>
             <h2 class="sec-title">Related</h2>
             <div class="ov-grid">${related.map(overlayCard).join("")}</div>
@@ -318,10 +326,22 @@
         <aside class="col-side">${sidebar(a.id)}</aside>
       </div>`;
 
-    $(".sh-copy").addEventListener("click", (e) => {
-      navigator.clipboard && navigator.clipboard.writeText(location.href);
-      e.currentTarget.classList.add("done");
-    });
+    const copy = async () => {
+      try { await navigator.clipboard.writeText(shareUrl); return true; }
+      catch (e) { prompt("Copy this link:", shareUrl); return false; }
+    };
+    document.querySelectorAll(".sh-copy").forEach((b) => b.addEventListener("click", async () => {
+      if (await copy()) toast("Link copied");
+    }));
+    // Instagram has no web share link: use the phone's share menu (Instagram is in it),
+    // otherwise copy the link to paste into a story or message.
+    document.querySelectorAll(".sh-ig").forEach((b) => b.addEventListener("click", async () => {
+      if (navigator.share) {
+        try { await navigator.share({ title: a.title, text: a.title, url: shareUrl }); } catch (e) {}
+        return;
+      }
+      if (await copy()) toast("Link copied: paste it in your Instagram story or message");
+    }));
   }
 
   function renderCategory() {
@@ -380,6 +400,15 @@
     draw();
   }
 
+  function toast(text) {
+    let t = document.querySelector(".toast");
+    if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.appendChild(t); }
+    t.textContent = text;
+    t.classList.add("show");
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+
   // ---------- behaviour ----------
   function wire() {
     // dark mode
@@ -434,12 +463,6 @@
     addEventListener("scroll", () => top.classList.toggle("show", scrollY > 700), { passive: true });
     top.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
 
-    // newsletter (demo)
-    document.querySelectorAll(".nl-form").forEach((f) => f.addEventListener("submit", (e) => {
-      e.preventDefault();
-      f.hidden = true;
-      f.nextElementSibling.hidden = false;
-    }));
     // comments go to moderation (Admin → Comments). Without a server they are kept in this browser.
     document.querySelectorAll(".comment-form").forEach((f) => f.addEventListener("submit", (e) => {
       e.preventDefault();

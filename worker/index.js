@@ -48,13 +48,86 @@ const page = (title, text, status, extra = {}) => new Response(
   <body style="font:16px system-ui,sans-serif;background:#f0f0f1;display:grid;place-items:center;min-height:100vh;margin:0;padding:16px;text-align:center">
   <div><h1 style="font-weight:400">${title}</h1><p>${text}</p><p><a href="/">← Back to KoraPulse</a></p></div>`,
   { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", ...extra } });
+// ---------- link previews (Facebook, WhatsApp, X, Instagram) ----------
+// The pages are built in the browser, so the Worker adds the title, summary and picture
+// of each page to its HTML for the apps that read them when a link is shared.
+let cache = { tag: null, data: null };
+async function siteData(env, origin) {
+  const res = await env.ASSETS.fetch(new Request(origin + "/js/data.js"));
+  const tag = res.headers.get("etag") || res.headers.get("last-modified");
+  if (tag && cache.tag === tag) return cache.data;
+  const text = await res.text();
+  let data = null;
+  try { data = JSON.parse(text.slice(text.indexOf("{", text.indexOf("window.KP")), text.lastIndexOf("}") + 1)); } catch (e) {}
+  cache = { tag, data };
+  return data;
+}
+const attr = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const imageOf = (data, a) => {
+  const u = a && a.image;
+  if (!u) return null;
+  if (u.startsWith("media:")) { const m = (data.media || []).find((x) => x.id === u.slice(6)); return m ? m.url : null; }
+  return u;
+};
+
+async function withPreview(request, env, url) {
+  const res = await env.ASSETS.fetch(request);
+  if (!res.ok || !(res.headers.get("content-type") || "").includes("text/html")) return res;
+  const data = await siteData(env, url.origin);
+  if (!data) return res;
+  const site = data.site || {};
+  const isArticle = /^\/article(\.html)?$/.test(url.pathname);
+  const a = isArticle ? (data.articles || []).find((x) => x.id === url.searchParams.get("id") && (x.status || "publish") === "publish") : null;
+  const cat = !a && /^\/category/.test(url.pathname) ? (data.categories || []).find((c) => c.slug === url.searchParams.get("c")) : null;
+  const title = a ? a.title : cat ? `${cat.name} | ${site.name}` : `${site.name} | ${site.tagline || "Football news"}`;
+  const desc = a ? a.excerpt : site.tagline || "";
+  const page = a ? `${url.origin}/article?id=${encodeURIComponent(a.id)}` : url.origin + url.pathname + url.search;
+  const img = imageOf(data, a);
+  const image = img ? (img.startsWith("data:") ? `${url.origin}/og/${encodeURIComponent(a.id)}` : new URL(img, url.origin).href) : `${url.origin}/og-image.png`;
+  const tags = `
+    <meta name="description" content="${attr(desc)}">
+    <link rel="canonical" href="${attr(page)}">
+    <meta property="og:site_name" content="${attr(site.name)}">
+    <meta property="og:type" content="${a ? "article" : "website"}">
+    <meta property="og:title" content="${attr(title)}">
+    <meta property="og:description" content="${attr(desc)}">
+    <meta property="og:url" content="${attr(page)}">
+    <meta property="og:image" content="${attr(image)}">
+    <meta property="og:image:alt" content="${attr(a ? a.title : site.name)}">
+    ${img ? "" : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}
+    ${a ? `<meta property="article:published_time" content="${attr(a.date)}"><meta property="article:author" content="${attr(a.author)}">` : ""}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${attr(title)}">
+    <meta name="twitter:description" content="${attr(desc)}">
+    <meta name="twitter:image" content="${attr(image)}">`;
+  return new HTMLRewriter()
+    .on("title", { element(el) { el.setInnerContent(a ? `${a.title} | ${site.name}` : title); } })
+    .on('meta[name="description"]', { element(el) { el.remove(); } })
+    .on("head", { element(el) { el.append(tags, { html: true }); } })
+    .transform(res);
+}
+
+async function previewImage(env, url) {
+  const data = await siteData(env, url.origin);
+  const a = data && (data.articles || []).find((x) => x.id === decodeURIComponent(url.pathname.slice(4)));
+  const img = a && imageOf(data, a);
+  const m = img && img.match(/^data:(image\/[\w+.-]+);base64,(.+)$/);
+  if (!m) return Response.redirect(url.origin + "/og-image.png", 302);
+  const bytes = Uint8Array.from(atob(m[2]), (c) => c.charCodeAt(0));
+  return new Response(bytes, { headers: { "content-type": m[1], "cache-control": "public, max-age=3600" } });
+}
+
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
-    if (!url.pathname.startsWith("/admin/")) return env.ASSETS.fetch(request);
+    if (url.pathname.startsWith("/og/")) return previewImage(env, url);
+    if (!url.pathname.startsWith("/admin/")) {
+      if (/^\/(index\.html|article(\.html)?|category(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url);
+      return env.ASSETS.fetch(request);
+    }
 
     const acc = await account(env);
     if (!acc) return page("Admin locked", "No admin password is set on this Worker (secret ADMIN_PASSWORD).", 503);

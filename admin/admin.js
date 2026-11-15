@@ -49,6 +49,7 @@
   const storageUsed = () => JSON.stringify(D).length;
   const STORAGE_MAX = 5000000;
 
+  const commentsOn = () => !!D.site.comments;
   const catName = (slug) => (D.categories.find((c) => c.slug === slug) || { name: slug || "Uncategorized" }).name;
   const approvedCount = (id) => D.comments.filter((c) => c.post === id && c.status === "approved").length;
   const pendingCount = (id) => D.comments.filter((c) => c.status === "pending" && (!id || c.post === id)).length;
@@ -156,7 +157,7 @@
     { sep: 1 },
     { id: "posts", label: "Posts", icon: "pin", href: "#/posts", subs: [["All Posts", "#/posts", "posts"], ["Add New Post", "#/post/new", "new"], ["Categories", "#/categories", "categories"]] },
     { id: "media", label: "Media", icon: "media", href: "#/media", subs: [["Library", "#/media", "media"]] },
-    { id: "comments", label: "Comments", icon: "comment", href: "#/comments", badge: () => pendingCount() },
+    { id: "comments", label: "Comments", icon: "comment", href: "#/comments", badge: () => pendingCount(), when: commentsOn },
     { sep: 1 },
     { id: "scores", label: "Live Scores", icon: "ball", href: "#/scores" },
     { id: "table", label: "League Table", icon: "table", href: "#/table" },
@@ -172,7 +173,7 @@
         <button class="ab-menu-btn" data-act="menu-toggle" aria-label="Menu">${icons.menu}</button>
         <a class="ab-logo" href="#/dashboard" aria-label="Dashboard">${icons.logo}</a>
         <a href="../index.html" target="_blank" rel="noopener">${icons.home}<span class="ab-hide-sm">${esc(D.site.name)}</span></a>
-        <a href="#/comments?status=pending" aria-label="${p} comments in moderation">${icons.comment}<span class="ab-count ${p ? "hot" : ""}">${p}</span></a>
+        ${commentsOn() ? `<a href="#/comments?status=pending" aria-label="${p} comments in moderation">${icons.comment}<span class="ab-count ${p ? "hot" : ""}">${p}</span></a>` : ""}
         <a href="#/post/new">${icons.plus}<span class="ab-hide-sm">New</span></a>
         <div class="ab-right">
           <a href="#/settings" class="ab-hide-sm">Howdy, ${esc(currentUser())} <span class="avatar-sm">${esc(currentUser()[0].toUpperCase())}</span></a>
@@ -186,6 +187,7 @@
       <nav class="sidemenu" aria-label="Main menu"><ul>
         ${MENU.map((m) => {
           if (m.sep) return '<li class="menu-sep"></li>';
+          if (m.when && !m.when()) return "";
           const b = m.badge ? m.badge() : 0;
           return `<li class="menu-top ${m.id === active ? "current" : ""}">
             <a href="${m.href}" title="${esc(m.label)}">${icons[m.icon]}<span>${esc(m.label)}</span>${b ? `<span class="menu-badge">${b}</span>` : ""}</a>
@@ -249,7 +251,8 @@
         <div class="welcome-cols">
           <div><h3>${icons.pen} Write the news</h3><p>Publish match reports, transfer news and opinion pieces with photos.</p><a class="button button-primary" href="#/post/new">Write a new post</a></div>
           <div><h3>${icons.ball} Match day</h3><p>Update the <a href="#/scores">live score ticker</a> and the <a href="#/table">league table</a> as the results come in.</p></div>
-          <div><h3>${icons.comment} Your readers</h3><p>${pend ? `<a href="#/comments?status=pending">${pend} comment${pend === 1 ? "" : "s"}</a> waiting for approval.` : "No comments waiting for approval."} <br><a href="../index.html" target="_blank" rel="noopener">View your site</a></p></div>
+          ${commentsOn() ? `<div><h3>${icons.comment} Your readers</h3><p>${pend ? `<a href="#/comments?status=pending">${pend} comment${pend === 1 ? "" : "s"}</a> waiting for approval.` : "No comments waiting for approval."} <br><a href="../index.html" target="_blank" rel="noopener">View your site</a></p></div>`
+            : `<div><h3>${icons.link} Shared everywhere</h3><p>Readers share your articles on Facebook, X, WhatsApp and Instagram. Add your social pages in <a href="#/settings">Settings</a> so readers can follow you.<br><a href="../index.html" target="_blank" rel="noopener">View your site</a></p></div>`}
         </div>
       </section>` : ""}
       <div class="dash-cols">
@@ -258,8 +261,8 @@
             <ul class="glance">
               <li><a href="#/posts?status=publish">${icons.pin} ${pub.length} Posts</a></li>
               <li><a href="#/posts?status=draft">${icons.edit} ${drafts.length} Draft${drafts.length === 1 ? "" : "s"}</a></li>
-              <li><a href="#/comments">${icons.comment} ${approved} Comments</a></li>
-              <li><a href="#/comments?status=pending" class="${pend ? "warn" : ""}">${icons.comment} ${pend} in moderation</a></li>
+              ${commentsOn() ? `<li><a href="#/comments">${icons.comment} ${approved} Comments</a></li>
+              <li><a href="#/comments?status=pending" class="${pend ? "warn" : ""}">${icons.comment} ${pend} in moderation</a></li>` : ""}
               <li><a href="#/categories">${icons.table} ${D.categories.length} Categories</a></li>
               <li><a href="#/media">${icons.media} ${D.media.length} Images</a></li>
             </ul>
@@ -269,6 +272,7 @@
             <div class="activity-block"><h3>Recently Published</h3>
               <ul class="activity-list">${recent.map((a) => `<li><span>${fmtDate(a.date)}</span><a href="#/post/${esc(a.id)}">${esc(a.title)}</a></li>`).join("")}</ul>
             </div>
+            ${commentsOn() ? `
             <div class="activity-block"><h3>Recent Comments</h3>
               ${recentC.map((c) => {
                 const p = findPost(c.post);
@@ -280,6 +284,7 @@
               }).join("") || "<p>No comments yet.</p>"}
               <p style="margin:10px 0 0"><a href="#/comments">All comments</a> | <a href="#/comments?status=pending">Pending (${pend})</a></p>
             </div>
+            ` : ""}
           </div></section>
         </div>
         <div>
@@ -321,7 +326,7 @@
     const link = (o) => qs("#/posts", { status: status === "all" ? "" : status, cat, author, s, ...o });
     const views = [["all", "All"], ["publish", "Published"], ["draft", "Drafts"], ["trash", "Trash"]].filter(([k]) => k === "all" || count(k));
 
-    const head = `<tr><td class="check-column"><input type="checkbox" data-checkall aria-label="Select all"></td><th class="thumb hide-sm"></th><th>Title</th><th class="hide-sm">Author</th><th class="hide-sm">Category</th><th class="hide-sm">Tags</th><th class="num">${icons.comment.replace('width="20" height="20"', 'width="16" height="16"')}</th><th>Date</th></tr>`;
+    const head = `<tr><td class="check-column"><input type="checkbox" data-checkall aria-label="Select all"></td><th class="thumb hide-sm"></th><th>Title</th><th class="hide-sm">Author</th><th class="hide-sm">Category</th><th class="hide-sm">Tags</th>${commentsOn() ? `<th class="num">${icons.comment.replace('width="20" height="20"', 'width="16" height="16"')}</th>` : ""}<th>Date</th></tr>`;
     const html = `
       ${pageHead("Posts", `<a class="page-title-action" href="#/post/new">Add New Post</a>`)}
       ${s ? `<p class="description">Search results for: <b>${esc(s)}</b></p>` : ""}
@@ -361,10 +366,10 @@
               <td class="hide-sm"><a href="${qs("#/posts", { author: a.author })}">${esc(a.author)}</a></td>
               <td class="hide-sm"><a href="${qs("#/posts", { cat: a.cat })}">${esc(catName(a.cat))}</a></td>
               <td class="hide-sm">${a.tags.length ? a.tags.map((t) => `<span class="tag-chip">${esc(t)}</span>`).join("") : "—"}</td>
-              <td class="num"><a class="comment-bubble ${pc ? "pending" : ac ? "" : "zero"}" href="#/comments?post=${encodeURIComponent(a.id)}" title="${ac} approved, ${pc} pending">${ac + pc}</a></td>
+              ${commentsOn() ? `<td class="num"><a class="comment-bubble ${pc ? "pending" : ac ? "" : "zero"}" href="#/comments?post=${encodeURIComponent(a.id)}" title="${ac} approved, ${pc} pending">${ac + pc}</a></td>` : ""}
               <td class="date-col">${a.status === "publish" ? "Published" : a.status === "draft" ? "Last Modified" : "Trashed"}<b>${fmtSlash(a.status === "publish" ? a.date : a.modified || a.date)}</b></td>
             </tr>`;
-          }).join("") || `<tr class="empty"><td colspan="8">No posts found.</td></tr>`}</tbody>
+          }).join("") || `<tr class="empty"><td colspan="${commentsOn() ? 8 : 7}">No posts found.</td></tr>`}</tbody>
           <tfoot>${head}</tfoot>
         </table>
       </form>`;
@@ -613,8 +618,8 @@
           const ctx = c.getContext("2d");
           ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h);
           ctx.drawImage(img, 0, 0, w, h);
-          let url = c.toDataURL("image/webp", 0.8);
-          if (!url.startsWith("data:image/webp")) url = c.toDataURL("image/jpeg", 0.82);
+          // JPEG: shown by every browser and in Facebook / WhatsApp link previews
+          const url = c.toDataURL("image/jpeg", 0.82);
           resolve({ id: uid("m"), name: file.name, url, w, h, size: Math.round(url.length * 0.75), date: nowIso(), alt: "" });
         };
         img.src = fr.result;
@@ -907,6 +912,7 @@
           <tr><th><label for="sg">Tagline</label></th><td><input type="text" id="sg" name="tagline" class="regular-text" value="${esc(s.tagline)}"><p class="description">In a few words, explain what this site is about. Shown under the logo.</p></td></tr>
           <tr><th><label for="se">Contact email</label></th><td><input type="email" id="se" name="email" class="regular-text" value="${esc(s.email || "")}"></td></tr>
           <tr><th>Social media</th><td>${["instagram", "x", "facebook", "youtube", "tiktok", "linkedin"].map((k) => `<p style="margin:0 0 8px"><label style="display:inline-block;width:90px" for="so-${k}">${k === "x" ? "X" : k[0].toUpperCase() + k.slice(1)}</label><input type="url" id="so-${k}" name="so-${k}" class="regular-text" value="${esc(so[k] && so[k] !== "#" ? so[k] : "")}" placeholder="https://"></p>`).join("")}</td></tr>
+          <tr><th>Comments</th><td><label><input type="checkbox" name="comments" ${commentsOn() ? "checked" : ""}> Allow readers to comment on articles</label><p class="description">When off, readers can only read and share. Comments then need moderation in the Comments menu.</p></td></tr>
           <tr><th><label for="tl">Top bar links</label></th><td><textarea id="tl" name="toplinks" rows="5" class="large-text" style="max-width:560px">${esc(D.topLinks.map((l) => `${l.label} | ${l.href}`).join("\n"))}</textarea><p class="description">One link per line: <code>Label | address</code>, e.g. <code>Botola Pro | category.html?c=botola</code></p></td></tr>
         </tbody></table>
         <p><button class="button button-primary">Save Changes</button></p>
@@ -1195,6 +1201,7 @@
       D.site.name = f.name.value.trim();
       D.site.tagline = f.tagline.value.trim();
       D.site.email = f.email.value.trim();
+      D.site.comments = f.comments.checked;
       ["instagram", "x", "facebook", "youtube", "tiktok", "linkedin"].forEach((k) => { D.site.social[k] = f["so-" + k].value.trim() || "#"; });
       D.topLinks = f.toplinks.value.split("\n").map((l) => l.split("|").map((x) => x.trim())).filter((p) => p[0] && p[1]).map(([label, href]) => ({ label, href }));
       save("Settings saved."); render();

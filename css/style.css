@@ -224,9 +224,19 @@ a:hover .media svg, a:hover .media img, .ov-card:hover .media svg { transform: s
 .tag-list a:hover { color: var(--link); }
 .share { display: flex; align-items: center; gap: 10px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .share span { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; margin-right: 6px; }
-.share a, .share button { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #fff; border: 0; }
+.share a, .share button { cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #fff; border: 0; }
 .sh-fb { background: #1877f2; } .sh-x { background: #111; } .sh-wa { background: #25d366; }
+.sh-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
 .sh-copy { background: var(--muted); }
+.share-top { border: 0; padding: 14px 0 0; }
+.share-top span { display: none; }
+.share-top a, .share-top button { width: 36px; height: 36px; }
+.follow { display: flex; gap: 10px; flex-wrap: wrap; }
+.follow a { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; }
+.follow a:hover { background: var(--accent); color: #111; }
+.tb-date { opacity: .85; font-weight: 500; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); background: #111; color: #fff; padding: 12px 18px; border-radius: 6px; font-size: 14px; opacity: 0; transition: .25s; z-index: 95; max-width: calc(100% - 32px); text-align: center; pointer-events: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
 .sh-copy.done { background: var(--brand); }
 .comments-box textarea { width: 100%; border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 4px; padding: 12px; font: inherit; resize: vertical; }
 .comment-form .btn { margin-top: 10px; }
