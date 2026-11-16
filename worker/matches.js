@@ -171,6 +171,7 @@ export async function handleMatches(request, env, ctx) {
   const today = ymd(new Date());
   let date = (url.searchParams.get("date") || today).replace(/-/g, "");
   if (!/^\d{8}$/.test(date)) return Response.json({ error: "date must be YYYYMMDD" }, { status: 400 });
+  if (Math.abs(dayNum(date) - dayNum(today)) > 60) return Response.json({ error: "date out of range" }, { status: 400 });
 
   const cfg = await scoresConfig(env);
   if (cfg.provider === "apifootball") {

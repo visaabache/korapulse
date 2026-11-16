@@ -25,6 +25,16 @@ python3 -m http.server 8000
 - **Admin dashboard:** switch with **EN · FR · ع** in the admin bar (remembered on that browser). Arabic uses a right-to-left layout. The translations live in `admin/admin-i18n.js`; the public site's in `js/i18n.js`.
 - Team and competition names in live scores come from the score provider and are not translated.
 
+## Security
+- **Headers on every response** (`worker/security.js` for pages, API and admin; `_headers` for static files): Content-Security-Policy (only the site's own scripts can run; no framing), HSTS (HTTPS only, 1 year), nosniff, `X-Frame-Options: DENY`, strict referrer, Permissions-Policy (no camera, microphone, location…), cross-origin isolation of windows.
+- **HTTPS only:** plain HTTP is redirected to HTTPS.
+- **Forged requests blocked (CSRF):** every change (`POST`) to `/api/*` and `/admin/*` must come from this website, as JSON; requests from other sites, bots without an Origin, and plain HTML forms are refused with 403.
+- **Admin:** password checked on Cloudflare before any admin file is sent, salted PBKDF2 password hash, 10 wrong passwords → 15-minute block, admin never indexed.
+- **Contact form:** hidden anti-bot field, 5 messages per hour per connection, strict field limits.
+- **Live scores API:** dates limited to ±60 days (no cache-busting abuse of the score providers).
+- `/.well-known/security.txt` tells security researchers how to contact you.
+- No inline scripts, no `eval`, no third-party scripts (only Google Fonts).
+
 ## SEO (search engines)
 Handled by the Worker (`worker/seo.js`) on every page:
 - **Titles and descriptions** in English, French and Arabic, written for real searches ("football news Morocco", "Botola Pro", "Atlas Lions", "live scores").

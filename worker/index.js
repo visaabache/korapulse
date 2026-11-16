@@ -10,6 +10,7 @@ import { handleMatches, scoresConfig } from "./matches.js";
 import { status as apiFootballStatus } from "./apifootball.js";
 import { handleContact, handleMessages } from "./contact.js";
 import { SITE, describe, headTags, bodyHtml, sitemap, robots } from "./seo.js";
+import { secure, sameOrigin, securityTxt } from "./security.js";
 
 const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
@@ -111,11 +112,28 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), { status
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    // HTTPS only
+    if (url.protocol === "http:" && !/^(localhost|127\.0\.0\.1)$/.test(url.hostname)) { url.protocol = "https:"; return Response.redirect(url.toString(), 301); }
+    // changes must come from this website (blocks forged requests from other sites)
+    if ((url.pathname.startsWith("/api/") || url.pathname.startsWith("/admin/")) && !sameOrigin(request, url)) {
+      return secure(new Response(JSON.stringify({ error: "Request refused." }), { status: 403, headers: { "content-type": "application/json" } }));
+    }
+    try {
+      return secure(await route(request, env, ctx, url));
+    } catch (e) {
+      return secure(new Response("Something went wrong. Please try again.", { status: 500, headers: { "content-type": "text/plain; charset=utf-8" } }));
+    }
+  }
+};
+
+async function route(request, env, ctx, url) {
+  {
     // one address for everyone: www.korapulse.space → korapulse.space
     if (url.hostname === "www.korapulse.space") { url.hostname = "korapulse.space"; return Response.redirect(url.toString(), 301); }
     if (url.pathname === "/api/matches") return handleMatches(request, env, ctx);
     if (url.pathname === "/api/contact") return handleContact(request, env);
     if (url.pathname === "/robots.txt") return robots(url);
+    if (url.pathname === "/.well-known/security.txt") return securityTxt(SITE);
     if (url.pathname === "/sitemap.xml") { const data = await siteData(env, url.origin); return data ? sitemap(data) : new Response("Not found", { status: 404 }); }
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
@@ -205,4 +223,4 @@ export default {
     out.headers.set("x-robots-tag", "noindex, nofollow");
     return out;
   }
-};
+}

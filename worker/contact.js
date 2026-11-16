@@ -11,6 +11,7 @@ export async function handleContact(request, env) {
   if (+(request.headers.get("content-length") || 0) > 20000) return json({ error: "Too long." }, 413);
   let b;
   try { b = await request.json(); } catch (e) { return json({ error: "Invalid request." }, 400); }
+  if (!b || typeof b !== "object" || Array.isArray(b)) return json({ error: "Invalid request." }, 400);
   if (b.website) return json({ ok: true }); // hidden field filled in: a bot
   const message = clip(b.message, 4000);
   if (message.length < 10) return json({ error: "Message too short." }, 400);
@@ -21,7 +22,7 @@ export async function handleContact(request, env) {
   await env.AUTH.put(rk, String(n + 1), { expirationTtl: 3600 });
   const date = new Date().toISOString();
   const id = "msg:" + date.replace(/[-:.TZ]/g, "") + Math.random().toString(36).slice(2, 6);
-  const rec = { date, name: clip(b.name, 100), reply: clip(b.reply, 150), topic: clip(b.topic, 20) || "general", message, lang: clip(b.lang, 2) || "en" };
+  const rec = { date, name: clip(b.name, 100), reply: clip(b.reply, 150), topic: ["general", "correction", "story", "partnership", "other"].includes(b.topic) ? b.topic : "general", message, lang: ["en", "fr", "ar"].includes(b.lang) ? b.lang : "en" };
   await env.AUTH.put(id, JSON.stringify(rec), {
     expirationTtl: KEEP,
     metadata: { date, name: rec.name.slice(0, 60), topic: rec.topic, read: false, preview: message.slice(0, 140) }
