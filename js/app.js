@@ -310,8 +310,9 @@
       <div class="container">${ad("leader")}</div>
       <div class="container layout">
         <div class="col-main">
+          <h1 class="visually-hidden">${esc(D.site.name)}: ${esc(D.site.tagline)}</h1>
           <article class="featured">
-            <h1 class="h-serif"><a href="${url(featured)}">${esc(featured.title)}</a></h1>
+            <h2 class="h-serif featured-title"><a href="${url(featured)}">${esc(featured.title)}</a></h2>
             ${meta(featured)}
             <a href="${url(featured)}" class="feat-media" tabindex="-1" aria-hidden="true">${media(featured)}<span class="tag tag-abs">${t("Headlines")}</span></a>
             <p class="excerpt">${esc(featured.excerpt)}</p>

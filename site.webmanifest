@@ -1,0 +1,13 @@
+{
+  "name": "KoraPulse — Football News",
+  "short_name": "KoraPulse",
+  "description": "Football news from Morocco, Africa and the world, with live scores.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d4f34",
+  "theme_color": "#0d4f34",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

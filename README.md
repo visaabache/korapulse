@@ -25,6 +25,17 @@ python3 -m http.server 8000
 - **Admin dashboard:** switch with **EN · FR · ع** in the admin bar (remembered on that browser). Arabic uses a right-to-left layout. The translations live in `admin/admin-i18n.js`; the public site's in `js/i18n.js`.
 - Team and competition names in live scores come from the score provider and are not translated.
 
+## SEO (search engines)
+Handled by the Worker (`worker/seo.js`) on every page:
+- **Titles and descriptions** in English, French and Arabic, written for real searches ("football news Morocco", "Botola Pro", "Atlas Lions", "live scores").
+- **Canonical address** `https://korapulse.space` (constant `SITE`), with `hreflang` links between the three languages; other addresses (workers.dev) are marked `noindex`.
+- **Content in the HTML** for search engines (headline, text, links), replaced by the full page when the scripts run.
+- **Structured data** (schema.org): NewsMediaOrganization, WebSite with search box, NewsArticle, BreadcrumbList, CollectionPage, About and Contact pages.
+- **`/sitemap.xml`** (all articles, categories and pages in 3 languages) and **`/robots.txt`** (admin, API and previews excluded).
+- Search results, sub-section filters, "Coming soon" pages and previews are `noindex`.
+
+After connecting the domain, add it to **Google Search Console** and **Bing Webmaster Tools**, and submit `https://korapulse.space/sitemap.xml`.
+
 ## Pages and contact form
 - **Pages** (Admin → Pages): About, Contact, Advertise, Careers, Privacy Policy and Terms of Use, in English, French and Arabic, at `page.html?p=<name>`. Each page is **Published**, **Coming soon** (a short notice and a "Soon" badge in the footer; Advertise and Careers start like this) or **Draft**. You can add your own pages.
 - **Contact form** (on the Contact page): name, a way to reply (optional), subject and message. Messages are stored on Cloudflare (KV) for 12 months and read in **Admin → Messages**, with buttons to reply by email or WhatsApp. Spam protection: a hidden field that bots fill in, and at most 5 messages per hour from the same connection.

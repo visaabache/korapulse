@@ -9,6 +9,7 @@
 import { handleMatches, scoresConfig } from "./matches.js";
 import { status as apiFootballStatus } from "./apifootball.js";
 import { handleContact, handleMessages } from "./contact.js";
+import { SITE, describe, headTags, bodyHtml, sitemap, robots } from "./seo.js";
 
 const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
@@ -79,47 +80,20 @@ async function withPreview(request, env, url) {
   if (!res.ok || !(res.headers.get("content-type") || "").includes("text/html")) return res;
   const data = await siteData(env, url.origin);
   if (!data) return res;
-  const site = data.site || {};
-  const lang = ["fr", "ar"].includes(url.searchParams.get("lang")) ? url.searchParams.get("lang") : "en";
-  const T = (obj, f) => (obj && obj.tr && obj.tr[lang] && obj.tr[lang][f]) || (obj ? obj[f] : "");
-  const UI = {
-    fr: { live: "Scores en direct du monde entier", liveDesc: "Scores, résultats et programme du football : Botola Pro, CAF, Ligue des champions, Premier League, LaLiga et plus." },
-    ar: { live: "النتائج المباشرة من كل أنحاء العالم", liveDesc: "نتائج ومواعيد مباريات كرة القدم: البطولة الاحترافية وإفريقيا ودوري الأبطال والدوري الإنجليزي والإسباني وغيرها." }
-  }[lang];
-  const isArticle = /^\/article(\.html)?$/.test(url.pathname);
-  const a = isArticle ? (data.articles || []).find((x) => x.id === url.searchParams.get("id") && (x.status || "publish") === "publish") : null;
-  const cat = !a && /^\/category/.test(url.pathname) ? (data.categories || []).find((c) => c.slug === url.searchParams.get("c")) : null;
-  const isMatches = /^\/matches/.test(url.pathname);
-  const pg = /^\/page/.test(url.pathname) ? (data.pages || []).find((x) => x.slug === url.searchParams.get("p")) : null;
-  const tagline = T(site, "tagline") || "Football news";
-  const title = a ? T(a, "title") : pg ? `${T(pg, "title")} | ${site.name}` : isMatches ? `${UI ? UI.live : "Live scores from around the world"} | ${site.name}` : cat ? `${T(cat, "name")} | ${site.name}` : `${site.name} | ${tagline}`;
-  const desc = a ? T(a, "excerpt") : pg ? String((T(pg, "body") || [])[0] || tagline).replace(/[#*\[\]]|\(page\.html[^)]*\)/g, "").slice(0, 200) : isMatches ? (UI ? UI.liveDesc : "Live football scores, results and fixtures: Botola Pro, CAF, Champions League, Premier League, LaLiga and more.") : tagline;
-  const page = a ? `${url.origin}/article?id=${encodeURIComponent(a.id)}${lang !== "en" ? "&lang=" + lang : ""}` : url.origin + url.pathname + url.search;
-  const img = imageOf(data, a);
-  const image = img ? (img.startsWith("data:") ? `${url.origin}/og/${encodeURIComponent(a.id)}` : new URL(img, url.origin).href) : `${url.origin}/og-image.png`;
-  const tags = `
-    <meta name="description" content="${attr(desc)}">
-    <link rel="canonical" href="${attr(page)}">
-    <meta property="og:site_name" content="${attr(site.name)}">
-    <meta property="og:locale" content="${{ en: "en_GB", fr: "fr_FR", ar: "ar_MA" }[lang]}">
-    <meta property="og:type" content="${a ? "article" : "website"}">
-    <meta property="og:title" content="${attr(title)}">
-    <meta property="og:description" content="${attr(desc)}">
-    <meta property="og:url" content="${attr(page)}">
-    <meta property="og:image" content="${attr(image)}">
-    <meta property="og:image:alt" content="${attr(a ? T(a, "title") : site.name)}">
-    ${img ? "" : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}
-    ${a ? `<meta property="article:published_time" content="${attr(a.date)}"><meta property="article:author" content="${attr(a.author)}">` : ""}
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${attr(title)}">
-    <meta name="twitter:description" content="${attr(desc)}">
-    <meta name="twitter:image" content="${attr(image)}">`;
-  return new HTMLRewriter()
-    .on("html", { element(el) { el.setAttribute("lang", lang); el.setAttribute("dir", lang === "ar" ? "rtl" : "ltr"); } })
-    .on("title", { element(el) { el.setInnerContent(a ? `${T(a, "title")} | ${site.name}` : title); } })
+  const d = describe(data, url);
+  const img = d.article ? imageOf(data, d.article) : null;
+  const image = img ? (img.startsWith("data:") ? `${SITE}/og/${encodeURIComponent(d.article.id)}` : new URL(img, SITE).href) : `${SITE}/og-image.png`;
+  const out = new HTMLRewriter()
+    .on("html", { element(el) { el.setAttribute("lang", d.lang); el.setAttribute("dir", d.lang === "ar" ? "rtl" : "ltr"); } })
+    .on("title", { element(el) { el.setInnerContent(d.title); } })
     .on('meta[name="description"]', { element(el) { el.remove(); } })
-    .on("head", { element(el) { el.append(tags, { html: true }); } })
+    .on("head", { element(el) { el.append(headTags(d, image, !!img), { html: true }); } })
+    .on("main#main", { element(el) { el.setInnerContent(bodyHtml(d), { html: true }); } })
     .transform(res);
+  const r = new Response(out.body, out);
+  r.headers.set("cache-control", "public, max-age=60");
+  if (url.hostname !== new URL(SITE).hostname) r.headers.set("x-robots-tag", "noindex");
+  return r;
 }
 
 async function previewImage(env, url) {
@@ -141,6 +115,8 @@ export default {
     if (url.hostname === "www.korapulse.space") { url.hostname = "korapulse.space"; return Response.redirect(url.toString(), 301); }
     if (url.pathname === "/api/matches") return handleMatches(request, env, ctx);
     if (url.pathname === "/api/contact") return handleContact(request, env);
+    if (url.pathname === "/robots.txt") return robots(url);
+    if (url.pathname === "/sitemap.xml") { const data = await siteData(env, url.origin); return data ? sitemap(data) : new Response("Not found", { status: 404 }); }
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
     if (!url.pathname.startsWith("/admin/")) {
