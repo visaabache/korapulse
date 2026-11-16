@@ -137,6 +137,8 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), { status
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    // one address for everyone: www.korapulse.space → korapulse.space
+    if (url.hostname === "www.korapulse.space") { url.hostname = "korapulse.space"; return Response.redirect(url.toString(), 301); }
     if (url.pathname === "/api/matches") return handleMatches(request, env, ctx);
     if (url.pathname === "/api/contact") return handleContact(request, env);
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);

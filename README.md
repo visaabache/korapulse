@@ -1,6 +1,6 @@
 # KoraPulse: football news website
 
-Live: **https://korapulse.visa-abache.workers.dev** · Admin: **https://korapulse.visa-abache.workers.dev/admin/**
+Live: **https://korapulse.space** · Admin: **https://korapulse.space/admin/** (also at korapulse.visa-abache.workers.dev)
 
 A football news site (Morocco, Africa, Europe), with a classic news-site layout: a top bar, a large centred logo, a menu bar that stays at the top with dropdowns, a live-score ticker, a featured story with a sidebar (opinion, league table, most read, newsletter), sections for each competition, ad slots and a large footer.
 
