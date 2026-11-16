@@ -33,6 +33,8 @@ const HOMEWORD = { en: "Home", fr: "Accueil", ar: "الرئيسية" };
 const tr = (obj, f, lang) => (obj && obj.tr && obj.tr[lang] && obj.tr[lang][f]) || (obj ? obj[f] : "");
 const withLang = (path, lang) => SITE + path + (lang === "en" ? "" : (path.includes("?") ? "&" : "?") + "lang=" + lang);
 const isLive = (a) => (a.status || "publish") === "publish";
+// languages an article or page really exists in (English is the original)
+const langsOf = (o) => LANGS.filter((l) => l === "en" || (o && o.tr && o.tr[l] && o.tr[l].title));
 
 // Describe the page being served: title, description, canonical path, structured data, crawlable body
 export function describe(data, url) {
@@ -43,7 +45,7 @@ export function describe(data, url) {
   const cats = data.categories || [];
   const catName = (slug) => tr(cats.find((c) => c.slug === slug) || { name: slug }, "name", lang);
   const author = (name) => { const u = (data.users || []).find((x) => x.name === name); return (u && u.tr && u.tr[lang]) || name || NAME[lang]; };
-  const out = { lang, robots: "index, follow, max-image-preview:large, max-snippet:-1", ld: [], body: "" };
+  const out = { lang, langs: LANGS, robots: "index, follow, max-image-preview:large, max-snippet:-1", ld: [], body: "" };
   const crumbs = [[HOMEWORD[lang], withLang("/", lang)]];
   const org = { "@type": "NewsMediaOrganization", "@id": SITE + "/#org", name: "KoraPulse", alternateName: "كورابولس", url: SITE + "/", logo: { "@type": "ImageObject", url: SITE + "/icon-512.png", width: 512, height: 512 },
     sameAs: Object.values(site.social || {}).filter((v) => /^https?:/.test(v || "")) };
@@ -57,6 +59,8 @@ export function describe(data, url) {
     out.path = `/article?id=${encodeURIComponent(a.id)}`;
     out.type = "article";
     out.article = a;
+    out.langs = langsOf(a);
+    if (!out.langs.includes(lang)) { out.robots = "noindex, follow"; out.canonicalLang = "en"; }
     out.section = catName(a.cat);
     crumbs.push([out.section, withLang(`/category?c=${a.cat}`, lang)], [title, withLang(out.path, lang)]);
     out.ld.push({ "@context": "https://schema.org", "@type": "NewsArticle", headline: cut(title, 110), description: out.desc, inLanguage: lang,
@@ -69,7 +73,7 @@ export function describe(data, url) {
     const q = (url.searchParams.get("q") || "").trim();
     const slug = url.searchParams.get("c");
     const c = cats.find((x) => x.slug === slug);
-    if (q || !c) { out.robots = "noindex, follow"; }
+    if (q || !c || !articles.some((a) => a.cat === c.slug)) { out.robots = "noindex, follow"; }
     const name = c ? catName(c.slug) : NAME[lang];
     const tag = url.searchParams.get("t");
     if (tag) out.robots = "noindex, follow"; // sub-section filters: index the main category only
@@ -91,6 +95,8 @@ export function describe(data, url) {
     out.title = `${title} | ${NAME[lang]}`;
     out.desc = cut(body[0] || HOME[lang].desc, 160);
     out.path = `/page?p=${p.slug}`;
+    out.langs = langsOf(p);
+    if (!out.langs.includes(lang)) { out.robots = "noindex, follow"; out.canonicalLang = "en"; }
     if (p.status === "soon") out.robots = "noindex, follow";
     crumbs.push([title, withLang(out.path, lang)]);
     out.body = `<h1>${esc(title)}</h1>${body.map((x) => (x.startsWith("## ") ? `<h2>${esc(plain(x))}</h2>` : `<p>${esc(plain(x))}</p>`)).join("")}`;
@@ -115,8 +121,8 @@ export function describe(data, url) {
 
 // <head> tags: description, robots, canonical, hreflang, Open Graph, Twitter card, JSON-LD
 export function headTags(d, image, hasPhoto) {
-  const canonical = withLang(d.path, d.lang);
-  const alt = LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${esc(withLang(d.path, l))}">`).join("") + `<link rel="alternate" hreflang="x-default" href="${esc(withLang(d.path, "en"))}">`;
+  const canonical = withLang(d.path, d.canonicalLang || d.lang);
+  const alt = d.langs.map((l) => `<link rel="alternate" hreflang="${l}" href="${esc(withLang(d.path, l))}">`).join("") + `<link rel="alternate" hreflang="x-default" href="${esc(withLang(d.path, "en"))}">`;
   const a = d.article;
   const ld = d.ld.map((o) => (o.image === "__IMAGE__" ? { ...o, image: [image] } : o));
   return `
@@ -148,17 +154,17 @@ export const bodyHtml = (d) => `<div class="ssr" dir="${d.lang === "ar" ? "rtl" 
 
 export function sitemap(data) {
   const urls = [];
-  const add = (path, lastmod, priority, freq) => urls.push({ path, lastmod, priority, freq });
+  const add = (path, lastmod, priority, freq, langs = LANGS) => urls.push({ path, lastmod, priority, freq, langs });
   const today = new Date().toISOString().slice(0, 10);
   const arts = (data.articles || []).filter(isLive);
   const latest = arts.map((a) => a.modified || a.date).sort().pop() || today;
   add("/", String(latest).slice(0, 10), "1.0", "hourly");
   add("/matches", today, "0.9", "always");
-  (data.categories || []).forEach((c) => add(`/category?c=${c.slug}`, String(latest).slice(0, 10), "0.7", "daily"));
-  arts.forEach((a) => add(`/article?id=${encodeURIComponent(a.id)}`, String(a.modified || a.date).slice(0, 10), "0.8", "weekly"));
-  (data.pages || []).filter((p) => p.status === "publish").forEach((p) => add(`/page?p=${p.slug}`, today, "0.3", "monthly"));
+  (data.categories || []).filter((c) => arts.some((a) => a.cat === c.slug)).forEach((c) => add(`/category?c=${c.slug}`, String(latest).slice(0, 10), "0.7", "daily"));
+  arts.forEach((a) => add(`/article?id=${encodeURIComponent(a.id)}`, String(a.modified || a.date).slice(0, 10), "0.8", "weekly", langsOf(a)));
+  (data.pages || []).filter((p) => p.status === "publish").forEach((p) => add(`/page?p=${p.slug}`, today, "0.3", "monthly", langsOf(p)));
   const loc = (p, l) => esc(withLang(p, l));
-  const body = urls.flatMap((u) => LANGS.map((l) => `<url><loc>${loc(u.path, l)}</loc><lastmod>${u.lastmod}</lastmod><changefreq>${u.freq}</changefreq><priority>${u.priority}</priority>${LANGS.map((x) => `<xhtml:link rel="alternate" hreflang="${x}" href="${loc(u.path, x)}"/>`).join("")}<xhtml:link rel="alternate" hreflang="x-default" href="${loc(u.path, "en")}"/></url>`)).join("\n");
+  const body = urls.flatMap((u) => u.langs.map((l) => `<url><loc>${loc(u.path, l)}</loc><lastmod>${u.lastmod}</lastmod><changefreq>${u.freq}</changefreq><priority>${u.priority}</priority>${u.langs.map((x) => `<xhtml:link rel="alternate" hreflang="${x}" href="${loc(u.path, x)}"/>`).join("")}<xhtml:link rel="alternate" hreflang="x-default" href="${loc(u.path, "en")}"/></url>`)).join("\n");
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${body}\n</urlset>\n`, {
     headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600" }
   });

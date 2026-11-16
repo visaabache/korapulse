@@ -25,6 +25,14 @@ python3 -m http.server 8000
 - **Admin dashboard:** switch with **EN · FR · ع** in the admin bar (remembered on that browser). Arabic uses a right-to-left layout. The translations live in `admin/admin-i18n.js`; the public site's in `js/i18n.js`.
 - Team and competition names in live scores come from the score provider and are not translated.
 
+## Google AdSense
+Set up in **Admin → Settings → Advertising** (stored on Cloudflare; code in `worker/ads.js`):
+- **Publisher ID** (`ca-pub-…`): adds the `google-adsense-account` verification tag to every page and serves `/ads.txt` (`google.com, pub-…, DIRECT, f08c47fec0942fa0`).
+- **Show ads**: loads the AdSense script on every page (needed for the review and for Auto ads) and lets Google's ad servers through the security rules of the pages only.
+- **Ad units** (optional, `data-ad-slot` numbers): top banner, sidebar, homepage, and inside articles (after the 2nd paragraph). Without units, no ad space is shown; with Auto ads on in AdSense, Google places ads by itself.
+- The Privacy Policy includes Google's required advertising-cookie disclosures and opt-out links; EEA/UK/Swiss visitors get Google's consent message (set it up in AdSense → Privacy & messaging).
+- For approval: sections without articles are hidden from menus and kept out of Google, untranslated language versions are `noindex`, and the sample content was removed (backup: `marketing/sample-content-backup.json`).
+
 ## Security
 - **Headers on every response** (`worker/security.js` for pages, API and admin; `_headers` for static files): Content-Security-Policy (only the site's own scripts can run; no framing), HSTS (HTTPS only, 1 year), nosniff, `X-Frame-Options: DENY`, strict referrer, Permissions-Policy (no camera, microphone, location…), cross-origin isolation of windows.
 - **HTTPS only:** plain HTTP is redirected to HTTPS.

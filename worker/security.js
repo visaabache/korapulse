@@ -1,3 +1,5 @@
+import { ADS_CSP } from "./ads.js";
+
 // Security for KoraPulse: headers on every response, HTTPS, and protection of the forms and
 // admin actions against requests sent from other websites (CSRF).
 
@@ -33,6 +35,9 @@ export const SECURITY_HEADERS = {
 export function secure(res) {
   const out = new Response(res.body, res);
   for (const [k, v] of Object.entries(SECURITY_HEADERS)) out.headers.set(k, v);
+  // pages showing Google ads need Google's ad servers allowed
+  if (out.headers.get("x-kp-csp") === "ads") out.headers.set("Content-Security-Policy", ADS_CSP);
+  out.headers.delete("x-kp-csp");
   out.headers.delete("x-powered-by");
   return out;
 }

@@ -486,3 +486,11 @@ a.ticker-label { text-decoration: none; }
 .ssr a { color: var(--link); }
 .ssr-crumbs { font: 13px var(--sans); color: var(--muted); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Google AdSense units (only present when ads are switched on) */
+.kp-ad { margin: 24px auto; text-align: center; min-height: 100px; }
+.kp-ad-label { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.kp-ad-leader { max-width: 970px; }
+.kp-ad-banner { max-width: 728px; }
+.kp-ad-box { min-height: 250px; margin-top: 0; }
+.article-body .kp-ad { margin: 28px 0; }

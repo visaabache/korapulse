@@ -961,6 +961,7 @@
         </tbody></table>
         <p><button class="button button-primary">Save Changes</button></p>
       </form>
+      ${server ? `<h2 style="font-size:1.3em;margin:30px 0 10px">Advertising (Google AdSense)</h2><div id="ads-box"><p class="description">Loading…</p></div>` : ""}
       ${server ? `<h2 style="font-size:1.3em;margin:30px 0 10px">Live scores</h2><div id="scores-box"><p class="description">Loading…</p></div>` : ""}
       <h2 style="font-size:1.3em;margin:30px 0 0">Administrator account</h2>
       ${server ? (server.canChange ? `
@@ -981,7 +982,33 @@
         </tbody></table>
         <p><button class="button">Update account</button></p>
       </form>`}`;
-    return { title: "General Settings", menu: "settings", sub: "settings", html, after: () => server && scoresBox() };
+    return { title: "General Settings", menu: "settings", sub: "settings", html, after: () => { if (server) { adsBox(); scoresBox(); } } };
+  }
+
+  // Google AdSense: publisher ID, on/off, ad unit IDs (stored on Cloudflare, used by the Worker)
+  async function adsBox() {
+    const box = $("#ads-box");
+    if (!box) return;
+    let a;
+    try { const r = await fetch("api/ads", { cache: "no-store" }); a = await r.json(); if (!r.ok) throw new Error(); }
+    catch (e) { box.innerHTML = `<div class="notice notice-error"><p>Could not load the advertising settings.</p></div>`; return; }
+    const sl = a.slots || {};
+    const row = (k, label, help) => `<tr><th><label for="ad-${k}">${label}</label></th><td><input type="text" inputmode="numeric" id="ad-${k}" name="slot_${k}" class="regular-text" value="${esc(sl[k] || "")}" placeholder="1234567890"><p class="description">${help}</p></td></tr>`;
+    box.innerHTML = `
+      <form data-form="ads" autocomplete="off">
+        <table class="form-table"><tbody>
+          <tr><th><label for="ad-client">Publisher ID</label></th><td><input type="text" id="ad-client" name="client" class="regular-text" value="${esc(a.client || "")}" placeholder="ca-pub-1234567890123456">
+            <p class="description">From AdSense → Account → Account information. Saving it adds the verification tag to every page and creates <a href="../ads.txt" target="_blank" rel="noopener">ads.txt</a>, so you can request a review right away.</p></td></tr>
+          <tr><th>Show ads</th><td><label><input type="checkbox" name="enabled" ${a.enabled ? "checked" : ""}> Load Google AdSense on the site</label>
+            <p class="description">Turn this on to add the AdSense code (needed for the review and for Auto ads). Ads only appear once Google has approved the site.</p></td></tr>
+          ${row("top", "Ad unit: top banner", "Optional. Under the menu on every page (data-ad-slot of a display ad unit).")}
+          ${row("sidebar", "Ad unit: sidebar", "Optional. At the top of the sidebar.")}
+          ${row("section", "Ad unit: homepage", "Optional. Between the homepage sections.")}
+          ${row("article", "Ad unit: inside articles", "Optional. After the second paragraph of each article (in-article ad unit).")}
+        </tbody></table>
+        <p class="description">With Auto ads switched on in AdSense, Google places ads by itself and these fields can stay empty.</p>
+        <p><button class="button button-primary">Save advertising settings</button></p>
+      </form>`;
   }
 
   // Live scores provider: ESPN (free, no key) or API-Football (key, saved on Cloudflare).
@@ -1328,6 +1355,16 @@
   }
 
   const FORMS = {
+    ads: async (f) => {
+      const slots = { top: f.slot_top.value, sidebar: f.slot_sidebar.value, section: f.slot_section.value, article: f.slot_article.value };
+      try {
+        const r = await fetch("api/ads", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ client: f.client.value, enabled: f.enabled.checked, slots }) });
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.error || r.status);
+        flash = { type: "success", text: "Advertising settings saved." };
+      } catch (e) { flash = { type: "error", text: "Could not save: " + e.message }; }
+      render();
+    },
     "scores-provider": (f) => saveScores({ provider: f.provider.value, apiKey: f.apiKey.value, perDay: f.perDay.value }, "Live scores settings saved."),
     setup: async (f) => {
       if (f.pw.value !== f.pw2.value) { renderLogin({ type: "error", text: "The passwords do not match." }); return; }

@@ -11,6 +11,7 @@ import { status as apiFootballStatus } from "./apifootball.js";
 import { handleContact, handleMessages } from "./contact.js";
 import { SITE, describe, headTags, bodyHtml, sitemap, robots } from "./seo.js";
 import { secure, sameOrigin, securityTxt } from "./security.js";
+import { adsConfig, adsHead, adsTxt } from "./ads.js";
 
 const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
@@ -82,18 +83,20 @@ async function withPreview(request, env, url) {
   const data = await siteData(env, url.origin);
   if (!data) return res;
   const d = describe(data, url);
+  const ads = await adsConfig(env);
   const img = d.article ? imageOf(data, d.article) : null;
   const image = img ? (img.startsWith("data:") ? `${SITE}/og/${encodeURIComponent(d.article.id)}` : new URL(img, SITE).href) : `${SITE}/og-image.png`;
   const out = new HTMLRewriter()
     .on("html", { element(el) { el.setAttribute("lang", d.lang); el.setAttribute("dir", d.lang === "ar" ? "rtl" : "ltr"); } })
     .on("title", { element(el) { el.setInnerContent(d.title); } })
     .on('meta[name="description"]', { element(el) { el.remove(); } })
-    .on("head", { element(el) { el.append(headTags(d, image, !!img), { html: true }); } })
+    .on("head", { element(el) { el.append(headTags(d, image, !!img) + adsHead(ads), { html: true }); } })
     .on("main#main", { element(el) { el.setInnerContent(bodyHtml(d), { html: true }); } })
     .transform(res);
   const r = new Response(out.body, out);
   r.headers.set("cache-control", "public, max-age=60");
   if (url.hostname !== new URL(SITE).hostname) r.headers.set("x-robots-tag", "noindex");
+  if (ads.enabled) r.headers.set("x-kp-csp", "ads");
   return r;
 }
 
@@ -134,6 +137,7 @@ async function route(request, env, ctx, url) {
     if (url.pathname === "/api/contact") return handleContact(request, env);
     if (url.pathname === "/robots.txt") return robots(url);
     if (url.pathname === "/.well-known/security.txt") return securityTxt(SITE);
+    if (url.pathname === "/ads.txt") return adsTxt(await adsConfig(env));
     if (url.pathname === "/sitemap.xml") { const data = await siteData(env, url.origin); return data ? sitemap(data) : new Response("Not found", { status: 404 }); }
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
@@ -167,6 +171,22 @@ async function route(request, env, ctx, url) {
     }
 
     if (url.pathname === "/admin/api/messages") return handleMessages(request, env, url);
+
+    // advertising (Admin → Settings → Advertising)
+    if (url.pathname === "/admin/api/ads") {
+      if (!env.AUTH) return json({ error: "Missing AUTH storage." }, 500);
+      if (request.method === "POST") {
+        let b;
+        try { b = await request.json(); } catch (e) { return json({ error: "Invalid request." }, 400); }
+        let client = String(b.client || "").trim().replace(/^pub-/, "ca-pub-");
+        if (client && !/^ca-pub-\d{10,20}$/.test(client)) return json({ error: "The publisher ID looks like ca-pub-1234567890123456." }, 400);
+        const slots = {};
+        for (const k of ["top", "sidebar", "section", "article"]) { const v = String((b.slots || {})[k] || "").trim(); if (v && !/^\d{6,20}$/.test(v)) return json({ error: "Ad unit IDs are numbers only (data-ad-slot)." }, 400); if (v) slots[k] = v; }
+        await env.AUTH.put("ads-config", JSON.stringify({ client, enabled: !!b.enabled && !!client, slots }));
+        return json({ ok: true });
+      }
+      return json(await adsConfig(env));
+    }
 
     // live scores provider (Admin → Settings → Live scores)
     if (url.pathname === "/admin/api/scores") {

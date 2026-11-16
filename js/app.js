@@ -44,6 +44,9 @@
   const url = (a) => L.link(`article.html?id=${encodeURIComponent(a.id)}`);
   const catUrl = (slug, tag) => L.link(`category.html?c=${slug}` + (tag ? `&t=${encodeURIComponent(tag)}` : ""));
   const home = L.link("index.html"), liveUrl = L.link("matches.html");
+  // a section is linked only once it has at least one article (no empty pages)
+  const hasCat = (slug) => articles.some((a) => a.cat === slug);
+  const linkOk = (href) => { const m = /[?&]c=([\w-]+)/.exec(href); return !m || hasCat(m[1]); };
   const pageUrl = (slug) => L.link(`page.html?p=${slug}`);
   const readTime = (a) => Math.max(1, Math.round((a.body || []).join(" ").split(/\s+/).length / 200));
 
@@ -89,7 +92,7 @@
 
   // ---------- header ----------
   function renderHeader() {
-    const nav = D.categories.map((c) => `
+    const nav = D.categories.filter((c) => articles.some((a) => a.cat === c.slug)).map((c) => `
       <li class="${c.subs.length ? "has-sub" : ""}">
         <a href="${catUrl(c.slug)}">${esc(c.name)}${c.subs.length ? icon.chev : ""}</a>
         ${c.subs.length ? `<ul class="sub">${c.subs.map((s) => `<li><a href="${catUrl(c.slug, s)}">${esc(subLabel(c.slug, s))}</a></li>`).join("")}</ul>` : ""}
@@ -105,7 +108,7 @@
       <div class="topbar">
         <div class="container topbar-in">
           <a href="${liveUrl}" class="tb-live"><span class="dot"></span> ${t("Live Scores")}</a>
-          <nav class="tb-links" aria-label="Featured">${D.topLinks.map((l) => `<a href="${L.link(l.href)}">${esc(l.label)}</a>`).join("")}</nav>
+          <nav class="tb-links" aria-label="Featured">${D.topLinks.filter((l) => linkOk(l.href)).map((l) => `<a href="${L.link(l.href)}">${esc(l.label)}</a>`).join("")}</nav>
           <div class="tb-right"><span class="tb-date">${new Date().toLocaleDateString(L.locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}</span>
           <nav class="lang-switch" aria-label="${t("Language")}">${langs}</nav></div>
         </div>
@@ -199,21 +202,16 @@
           </div>
           <div>
             <h3>${t("Topics")}</h3>
-            <ul>${D.categories.slice(1, 7).map((c) => `<li><a href="${catUrl(c.slug)}">${esc(c.name)}</a></li>`).join("")}</ul>
+            <ul>${D.categories.filter((c) => articles.some((a) => a.cat === c.slug)).slice(0, 6).map((c) => `<li><a href="${catUrl(c.slug)}">${esc(c.name)}</a></li>`).join("")}</ul>
           </div>
           <div>
             <h3>${t("Competitions")}</h3>
-            <ul><li><a href="${catUrl("botola")}">${t("Botola Pro")}</a></li><li><a href="${catUrl("africa", "AFCON")}">${t("AFCON")}</a></li><li><a href="${catUrl("africa", "CAF Champions League")}">${t("CAF Champions League")}</a></li><li><a href="${catUrl("europe", "Champions League")}">${t("UEFA Champions League")}</a></li><li><a href="${catUrl("world-cup-2030")}">${t("World Cup 2030")}</a></li></ul>
+            <ul>${[["botola", "", "Botola Pro"], ["africa", "AFCON", "AFCON"], ["africa", "CAF Champions League", "CAF Champions League"], ["europe", "Champions League", "UEFA Champions League"], ["world-cup-2030", "", "World Cup 2030"]].filter(([c, tg]) => articles.some((a) => a.cat === c && (!tg || (a.tags || []).includes(tg)))).map(([c, tg, l]) => `<li><a href="${catUrl(c, tg || undefined)}">${t(l)}</a></li>`).join("")}</ul>
           </div>
           <div class="footer-brand">
             ${logo("logo-footer")}
             <div class="socials">
               ${["instagram", "x", "linkedin", "facebook", "youtube", "tiktok"].filter((k) => s[k] && s[k] !== "#").map((k) => `<a href="${esc(s[k])}" target="_blank" rel="noopener" aria-label="${k}">${icon[k]}</a>`).join("")}
-            </div>
-            <p class="app-title">${t("Download our app")}</p>
-            <div class="stores">
-              <a href="#" class="store"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#34d27b" d="M4 3l10 9-10 9z"/><path fill="#ffcb30" d="M14 12l3-3 4 2.3c.8.5.8 1 0 1.4L17 15z"/><path fill="#ff4b5c" d="M4 21l10-9 3 3-11 6.3c-.9.5-1.6.3-2-.3z"/><path fill="#3bb7ff" d="M4 3c.4-.6 1.1-.8 2-.3L17 9l-3 3z"/></svg><span><small>${t("GET IT ON")}</small>Google Play</span></a>
-              <a href="#" class="store"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.6a4.5 4.5 0 00-3.5-1.9c-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.8-3.2-.8A4.8 4.8 0 004 9.7c-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8 1.5 0 1.9.8 3.2.8 1.3 0 2.2-1.2 3-2.4a10 10 0 001.3-2.8 4.3 4.3 0 01-2.4-4.1zM14 5.4A4.4 4.4 0 0015 2a4.4 4.4 0 00-2.9 1.5A4.1 4.1 0 0011 6.8a3.7 3.7 0 003-1.4z"/></svg><span><small>${t("Download on the")}</small>App Store</span></a>
             </div>
           </div>
         </div>
@@ -251,7 +249,19 @@
       ${meta(a, { noComments: true, noAuthor: true })}
     </article>`;
 
-  const ad = (size, label = t("Advertisement")) => `<div class="ad ad-${size}"><span>${label}</span><small>${size === "leader" ? "970 × 90" : size === "box" ? "300 × 250" : "728 × 90"}</small></div>`;
+  // Google AdSense units, shown only when ads are switched on in Admin → Settings → Advertising
+  // (the Worker adds the configuration to the page). Without it, no ad space is shown at all.
+  const ADS = (() => { try { return JSON.parse((document.getElementById("kp-ads") || {}).textContent || "null"); } catch (e) { return null; } })();
+  const SLOT = { leader: "top", box: "sidebar", banner: "section", article: "article" };
+  const ad = (size) => {
+    const slot = ADS && ADS.slots && ADS.slots[SLOT[size]];
+    if (!slot) return "";
+    return `<div class="kp-ad kp-ad-${size}"><span class="kp-ad-label">${t("Advertisement")}</span><ins class="adsbygoogle" style="display:block" data-ad-client="${esc(ADS.client)}" data-ad-slot="${esc(slot)}" ${size === "article" ? 'data-ad-layout="in-article" data-ad-format="fluid"' : 'data-ad-format="auto" data-full-width-responsive="true"'}></ins></div>`;
+  };
+  const fillAds = () => document.querySelectorAll("ins.adsbygoogle:not([data-kp-done])").forEach((el) => {
+    el.dataset.kpDone = "1";
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+  });
 
   function sidebar(excludeId) {
     const op = articles.filter((a) => a.cat === "opinion" && a.id !== excludeId);
@@ -272,13 +282,13 @@
         </article>
         <div class="two-col">${rest.slice(0, 2).map(smallCard).join("")}</div>
       </section>` : ""}
-      <section class="side-sec">
+      ${D.standings.rows && D.standings.rows.length ? `<section class="side-sec">
         <h2 class="sec-title"><a href="${catUrl("botola")}">${esc(D.standings.title)}</a></h2>
         <table class="table">
           <thead><tr><th>#</th><th class="l">${lang === "ar" ? "النادي" : "Club"}</th><th>P</th><th>GD</th><th>Pts</th></tr></thead>
           <tbody>${D.standings.rows.map((r, i) => `<tr class="${i < 2 ? "top" : ""}"><td>${i + 1}</td><td class="l">${esc(r.club)}</td><td>${r.p}</td><td>${r.gd > 0 ? "+" + r.gd : r.gd}</td><td><b>${r.pts}</b></td></tr>`).join("")}</tbody>
         </table>
-      </section>
+      </section>` : ""}
       <section class="side-sec">
         <h2 class="sec-title">${t("Top stories")}</h2>
         <ol class="popular">${popular.map((a, i) => `<li><span class="num">${i + 1}</span><a href="${url(a)}">${esc(a.title)}</a></li>`).join("")}</ol>
@@ -360,7 +370,7 @@
           <figure class="article-media">${media(a)}${a.image && src(a.image) ? (a.imageCredit ? `<figcaption>${esc(typeof a.imageCredit === "object" ? a.imageCredit[lang] || a.imageCredit.en : a.imageCredit)}</figcaption>` : "") : `<figcaption>${t("Illustration · {cat}", { cat: esc(cat.name) })}</figcaption>`}</figure>
           ${preview && a.status !== "publish" && a.status ? `<p class="preview-note">${t("Preview: this draft is not visible to visitors.")}</p>` : ""}
           ${a.untranslated ? `<p class="preview-note">${t("Not yet translated: showing the original article.")}</p>` : ""}
-          <div class="article-body" ${a.untranslated ? 'dir="auto"' : ""}>${(a.body || []).map(block).join("")}</div>
+          <div class="article-body" ${a.untranslated ? 'dir="auto"' : ""}>${(a.body || []).map((p, i) => block(p) + (i === 1 && (a.body || []).length > 3 ? ad("article") : "")).join("")}</div>
           ${a.tags.length ? `<div class="tag-list">${a.tags.map((tg) => `<a href="${catUrl(a.cat, tg)}">#${esc(subLabel(a.cat, tg))}</a>`).join("")}</div>` : ""}
           ${shareBar("")}
           ${commentsOn ? `<section class="comments-box">
@@ -607,5 +617,6 @@
   else if (page !== "matches") renderCategory();
   renderFooter();
   wire();
+  fillAds();
   liveTicker();
 })();
