@@ -357,7 +357,7 @@
             <span class="read">${t("{n} min read", { n: readTime(a) })}</span>
           </div>
           ${shareBar("share-top")}
-          <figure class="article-media">${media(a)}${a.image && src(a.image) ? "" : `<figcaption>${t("Illustration · {cat}", { cat: esc(cat.name) })}</figcaption>`}</figure>
+          <figure class="article-media">${media(a)}${a.image && src(a.image) ? (a.imageCredit ? `<figcaption>${esc(typeof a.imageCredit === "object" ? a.imageCredit[lang] || a.imageCredit.en : a.imageCredit)}</figcaption>` : "") : `<figcaption>${t("Illustration · {cat}", { cat: esc(cat.name) })}</figcaption>`}</figure>
           ${preview && a.status !== "publish" && a.status ? `<p class="preview-note">${t("Preview: this draft is not visible to visitors.")}</p>` : ""}
           ${a.untranslated ? `<p class="preview-note">${t("Not yet translated: showing the original article.")}</p>` : ""}
           <div class="article-body" ${a.untranslated ? 'dir="auto"' : ""}>${(a.body || []).map(block).join("")}</div>
