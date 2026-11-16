@@ -1,0 +1,52 @@
+[
+ {
+  "n": "1-en",
+  "lang": "en",
+  "photo": "1517747614396-d21a78b850e8",
+  "pos": "50% 55%",
+  "tag": "Nations League · Quarter-finals",
+  "title": "Germany <em>thrash the Netherlands</em>",
+  "score": [
+   "Germany",
+   "5",
+   "0",
+   "Netherlands"
+  ],
+  "sub": "Wirtz scores twice in Berlin, and both teams reach the quarter-finals. The draw is on 20 November."
+ },
+ {
+  "n": "1-ar",
+  "lang": "ar",
+  "photo": "1517747614396-d21a78b850e8",
+  "pos": "50% 55%",
+  "tag": "دوري الأمم · ربع النهائي",
+  "title": "ألمانيا <em>تكتسح هولندا</em>",
+  "score": [
+   "ألمانيا",
+   "5",
+   "0",
+   "هولندا"
+  ],
+  "sub": "فيرتز يسجل هدفين في برلين، والمنتخبان يتأهلان إلى ربع النهائي. القرعة يوم 20 نونبر."
+ },
+ {
+  "n": "2-en",
+  "lang": "en",
+  "photo": "1489944440615-453fc2b6a9a9",
+  "pos": "50% 50%",
+  "tag": "World Cup 2030 · The final",
+  "quote": "“",
+  "title": "Madrid mayor: a final in Morocco <em>is “an insult”</em>",
+  "sub": "He wants the 2030 final in Madrid or Barcelona. Morocco is bidding with the Grand Stade Hassan II, and FIFA has not decided yet."
+ },
+ {
+  "n": "2-ar",
+  "lang": "ar",
+  "photo": "1489944440615-453fc2b6a9a9",
+  "pos": "50% 50%",
+  "tag": "مونديال 2030 · المباراة النهائية",
+  "quote": "”",
+  "title": "عمدة مدريد: نهائي المونديال في المغرب <em>«إهانة» لإسبانيا</em>",
+  "sub": "يطالب بإقامة نهائي 2030 في مدريد أو برشلونة، بينما يترشح المغرب بملعب الحسن الثاني الكبير، والفيفا لم يحسم بعد."
+ }
+]
