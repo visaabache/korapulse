@@ -411,9 +411,9 @@ window.KP = {
       },
       "motif": "stadium",
       "title": "Morocco vs Niger Tonight: Atlas Lions Chase a Fourth Straight Win in AFCON 2027 Qualifying",
-      "excerpt": "Four days after the 5-1 first leg, Morocco face Niger again tonight at the Moulay Abdellah Sports Complex in Rabat. Kick-off is at 8 p.m. GMT (9 p.m. in Morocco).",
+      "excerpt": "Four days after the 5-1 first leg, Morocco face Niger again tonight at the Moulay Abdellah Sports Complex in Rabat. Kick-off is at 8 p.m. Moroccan time (GMT).",
       "body": [
-        "Morocco meet Niger for the second time in five days tonight, Tuesday 17 November, in the fourth round of qualifying for the 2027 Africa Cup of Nations. The match kicks off at 8 p.m. GMT (9 p.m. Moroccan time) at the Moulay Abdellah Sports Complex in Rabat.",
+        "Morocco meet Niger for the second time in five days tonight, Tuesday 17 November, in the fourth round of qualifying for the 2027 Africa Cup of Nations. The match kicks off at 8 p.m. Moroccan time (GMT) at the Moulay Abdellah Sports Complex in Rabat.",
         "Niger are the nominal home side, but, as in Friday's first leg, the game is played in Morocco.",
         "## A perfect start",
         "The Atlas Lions have won all three of their qualifying matches so far and lead Group A with nine points. On Friday they beat Niger 5-1, with captain Achraf Hakimi scoring twice and Brahim Díaz setting up the opening goal.",
@@ -427,9 +427,9 @@ window.KP = {
       "tr": {
         "ar": {
           "title": "المغرب والنيجر الليلة: أسود الأطلس يبحثون عن فوز رابع توالياً في تصفيات كأس أمم إفريقيا 2027",
-          "excerpt": "بعد أربعة أيام من الفوز 5-1 ذهاباً، يواجه المنتخب المغربي نظيره النيجيري مجدداً الليلة بالمركب الرياضي مولاي عبد الله في الرباط، على الساعة 21:00 بتوقيت المغرب.",
+          "excerpt": "بعد أربعة أيام من الفوز 5-1 ذهاباً، يواجه المنتخب المغربي نظيره النيجيري مجدداً الليلة بالمركب الرياضي مولاي عبد الله في الرباط، على الساعة 20:00 بتوقيت المغرب.",
           "body": [
-            "يلتقي المنتخب المغربي بنظيره النيجيري للمرة الثانية في خمسة أيام، مساء اليوم الثلاثاء 17 نونبر، لحساب الجولة الرابعة من تصفيات كأس أمم إفريقيا 2027. وتنطلق المباراة على الساعة 20:00 بتوقيت غرينتش (21:00 بتوقيت المغرب) بالمركب الرياضي مولاي عبد الله في الرباط.",
+            "يلتقي المنتخب المغربي بنظيره النيجيري للمرة الثانية في خمسة أيام، مساء اليوم الثلاثاء 17 نونبر، لحساب الجولة الرابعة من تصفيات كأس أمم إفريقيا 2027. وتنطلق المباراة على الساعة 20:00 بتوقيت المغرب (غرينتش) بالمركب الرياضي مولاي عبد الله في الرباط.",
             "ورغم أن النيجر هي صاحبة الأرض رسمياً، تُلعب المباراة في المغرب كما كان الحال في مباراة الذهاب يوم الجمعة.",
             "## بداية مثالية",
             "حقق أسود الأطلس الفوز في مبارياتهم الثلاث الأولى في التصفيات، ويتصدرون المجموعة الأولى برصيد تسع نقاط. وفي مباراة الجمعة تغلبوا على النيجر بخمسة أهداف مقابل هدف، سجل منها القائد أشرف حكيمي هدفين، فيما صنع إبراهيم دياز الهدف الأول.",
@@ -444,12 +444,12 @@ window.KP = {
       },
       "author": "KoraPulse Administration",
       "date": "2026-11-17",
-      "modified": "2026-11-17T10:36:14",
+      "modified": "2026-11-17T12:34:31",
       "status": "publish",
       "featured": true
     }
   ],
-  "updated": "2026-11-17T10:36:14.000Z",
+  "updated": "2026-11-17T12:34:31.000Z",
   "pages": [
     {
       "slug": "about",
