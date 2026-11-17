@@ -1,0 +1,96 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@500;600;700;800&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1080px;height:1350px;overflow:hidden;background:#0a3826;font-family:Inter,sans-serif;color:#fff;position:relative}
+.photo{position:absolute;inset:0 0 auto 0;height:830px;background-size:cover;background-position:var(--pos)}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,30,20,.75) 0%,rgba(6,30,20,.25) 16%,rgba(6,30,20,0) 28%,rgba(6,30,20,0) 55%,rgba(9,56,38,.85) 92%,#0b4430 100%)}
+.logo{position:absolute;top:44px;left:50px;display:flex;align-items:center;gap:14px;z-index:3;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+.logo b{font:700 50px/0.9 Oswald;letter-spacing:.04em;display:block}
+.logo span{font:500 23px/1 Oswald;letter-spacing:.44em;color:#f2b705;display:block}
+.credit{position:absolute;top:56px;right:50px;z-index:3;font-size:17px;font-weight:600;opacity:.75;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.panel{position:absolute;left:0;right:0;bottom:0;height:560px;background:#0b4430;overflow:hidden}
+.panel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 100% 100%,rgba(242,183,5,.16),transparent 55%),radial-gradient(ellipse at 0% 0%,rgba(255,255,255,.06),transparent 50%)}
+.lines{position:absolute;right:-120px;bottom:-140px;width:620px;opacity:.09}
+.bar{position:absolute;left:0;top:-14px;width:260px;height:14px;background:#f2b705;z-index:2}
+.tag{position:absolute;left:60px;top:760px;z-index:4;background:#f2b705;color:#0b2a1c;font:700 26px/1 Oswald;letter-spacing:.08em;text-transform:uppercase;padding:14px 22px 13px;transform:skew(-8deg)}
+.tag i{display:inline-block;transform:skew(8deg);font-style:normal}
+.content{position:absolute;left:60px;right:60px;top:850px;bottom:110px;display:flex;flex-direction:column;justify-content:center;gap:26px;z-index:2}
+h1{font:700 86px/1.02 Oswald;text-transform:uppercase;letter-spacing:.005em}
+h1 em{font-style:normal;color:#f2b705}
+.sub{font-size:31px;line-height:1.35;font-weight:500;color:rgba(255,255,255,.88);max-width:900px}
+.score{position:absolute;z-index:4;right:60px;top:680px;display:flex;align-items:stretch;border-radius:10px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.score .t{background:#fff;color:#0b2a1c;font:700 28px/1 Oswald;text-transform:uppercase;padding:0 22px;display:flex;align-items:center;letter-spacing:.03em}
+.score .s{background:#f2b705;color:#0b2a1c;font:700 60px/1 Oswald;padding:14px 22px;display:flex;align-items:center;gap:14px}
+.score .s i{font-style:normal;opacity:.5;font-size:44px}
+.big{position:absolute;z-index:4;right:60px;top:610px;background:#f2b705;color:#0b2a1c;font:700 170px/1 Oswald;padding:20px 34px 14px;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+.date{position:absolute;z-index:4;right:60px;top:640px;background:#fff;color:#0b2a1c;border-radius:12px;overflow:hidden;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.45);min-width:210px}
+.date .d1{background:#f2b705;font:700 28px/1 Oswald;text-transform:uppercase;padding:12px 20px;letter-spacing:.06em}
+.date .d2{font:700 62px/1 Oswald;padding:14px 20px 4px}
+.date .d3{font:600 22px/1 Inter;padding:0 20px 16px;color:#0b4430}
+.table{position:absolute;z-index:4;right:60px;top:600px;background:#fff;color:#0b2a1c;border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45);min-width:430px}
+.table div{display:grid;grid-template-columns:54px 1fr 120px;white-space:nowrap;align-items:center;font:600 27px/1 Inter;padding:15px 18px;border-bottom:1px solid #e5e7e5}
+.table div:first-child{background:#f2b705}
+.table div:last-child{border:0}
+.table b{font:700 30px/1 Oswald;text-align:right}
+.table .p{font:700 26px/1 Oswald;color:#0b4430}
+.foot{position:absolute;left:60px;right:60px;bottom:44px;display:flex;justify-content:space-between;align-items:center;z-index:2;font-size:24px;font-weight:600;color:rgba(255,255,255,.75)}
+.foot .h{display:flex;align-items:center;gap:10px;color:#fff}
+.foot .h svg{width:30px;height:30px}
+.foot .cta{display:flex;align-items:center;gap:10px}
+.foot .cta::before{content:"";width:36px;height:3px;background:#f2b705}
+.pulse{position:absolute;right:56px;bottom:120px;width:240px;opacity:.07;z-index:1}
+
+/* Arabic version: right to left */
+[dir=rtl] .tag{left:auto;right:60px;font-family:Cairo;letter-spacing:0;font-weight:800;transform:skew(8deg)}
+[dir=rtl] .tag i{transform:skew(-8deg)}
+[dir=rtl] .score{right:auto;left:60px;flex-direction:row-reverse}
+[dir=rtl] .score .t{font-family:Cairo;font-weight:800;letter-spacing:0}
+[dir=rtl] .score .s{direction:ltr}
+[dir=rtl] h1{font-family:Cairo;font-weight:800;line-height:1.3;letter-spacing:0}
+[dir=rtl] .sub{font-family:Cairo;font-weight:600;font-size:32px;line-height:1.6}
+[dir=rtl] .foot{flex-direction:row-reverse}
+[dir=rtl] .foot .h{direction:ltr}
+[dir=rtl] .foot .cta{font-family:Cairo;flex-direction:row-reverse}
+[dir=rtl] .credit{right:auto;left:50px}
+[dir=rtl] .logo{left:auto;right:50px;direction:ltr}
+[dir=rtl] .bar{left:auto;right:0}
+.quote{position:absolute;z-index:4;right:60px;top:600px;width:200px;height:200px;border-radius:50%;background:#f2b705;color:#0b4430;display:grid;place-items:center;font:700 220px/1 Georgia,serif;padding-top:70px;box-shadow:0 12px 40px rgba(0,0,0,.45)}
+[dir=rtl] .quote{right:auto;left:60px}
+
+[dir=rtl] .date{right:auto;left:60px}
+[dir=rtl] .date .d1,[dir=rtl] .date .d3{font-family:Cairo;letter-spacing:0}
+</style></head><body>
+<div class="photo" id="photo"></div>
+<div class="logo"><svg viewBox="0 0 64 64" width="74" height="74"><circle cx="32" cy="32" r="28" fill="none" stroke="#fff" stroke-width="5"/><path d="M6 34 H19 L24 22 L31 44 L37 28 L41 34 H58" fill="none" stroke="#f2b705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>KORA</b><span>PULSE</span></div></div>
+<div class="credit">Illustrative photo · Unsplash</div>
+<div class="tag"><i id="tag"></i></div>
+<div id="extra"></div>
+<div class="panel">
+  <div class="bar"></div>
+  <svg class="lines" viewBox="0 0 400 400"><g fill="none" stroke="#fff" stroke-width="6"><circle cx="200" cy="200" r="120"/><line x1="0" y1="200" x2="400" y2="200"/><rect x="100" y="0" width="200" height="70"/><rect x="100" y="330" width="200" height="70"/></g></svg>
+  <svg class="pulse" viewBox="0 0 64 64"><path d="M2 34 H19 L24 22 L31 44 L37 28 L41 34 H62" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div>
+<div class="content"><h1 id="title"></h1><p class="sub" id="sub"></p></div>
+<div class="foot"><span class="h"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg>@kora_pulsee</span><span class="cta">Full story · link in bio</span></div>
+<script>
+function render(p){
+  document.documentElement.dir=p.lang==='ar'?'rtl':'ltr';
+  document.querySelector('.foot .cta').textContent=p.lang==='ar'?'التفاصيل · الرابط في البايو':'Full story · link in bio';
+  document.querySelector('.credit').textContent=p.lang==='ar'?'صورة توضيحية · Unsplash':'Illustrative photo · Unsplash';
+  document.getElementById('photo').style.backgroundImage='url(photos/'+p.photo+'.jpg)';
+  document.getElementById('photo').style.setProperty('--pos',p.pos||'50% 50%');
+  document.getElementById('tag').textContent=p.tag;
+  document.getElementById('title').innerHTML=p.title;
+  document.getElementById('sub').textContent=p.sub;
+  const x=document.getElementById('extra');
+  if(p.score) x.innerHTML='<div class="score"><span class="t">'+p.score[0]+'</span><span class="s">'+p.score[1]+'<i>–</i>'+p.score[2]+'</span><span class="t">'+p.score[3]+'</span></div>';
+  else if(p.quote) x.innerHTML='<div class="quote">'+p.quote+'</div>';
+  else if(p.big) x.innerHTML='<div class="big">'+p.big+'</div>';
+  else if(p.date) x.innerHTML='<div class="date"><div class="d1">'+p.date[0]+'</div><div class="d2">'+p.date[1]+'</div><div class="d3">'+p.date[2]+'</div></div>';
+  else if(p.table) x.innerHTML='<div class="table">'+p.table.map(r=>'<div><span class="p">'+r[0]+'</span><span>'+r[1]+'</span><b>'+r[2]+' pts</b></div>').join('')+'</div>';
+  // headline size fits two to three lines
+  const h=document.getElementById('title'); let s=86; h.style.fontSize=s+'px';
+  while(h.scrollHeight>270 && s>60){s-=4;h.style.fontSize=s+'px';}
+}
+</script></body></html>

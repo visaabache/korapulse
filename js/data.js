@@ -390,15 +390,66 @@ window.KP = {
       "date": "2026-11-16",
       "modified": "2026-11-16T23:23:31",
       "status": "publish",
-      "featured": true,
+      "featured": false,
       "imageCredit": {
         "en": "Illustrative photo · Unsplash",
         "fr": "Photo d'illustration · Unsplash",
         "ar": "صورة توضيحية · Unsplash"
       }
+    },
+    {
+      "id": "morocco-vs-niger-afcon-2027-qualifier-preview-rabat",
+      "cat": "atlas-lions",
+      "tags": [
+        "Senior team"
+      ],
+      "image": "images/morocco-flag-fans.jpg",
+      "imageCredit": {
+        "en": "Illustrative photo · Unsplash",
+        "fr": "Photo d'illustration · Unsplash",
+        "ar": "صورة توضيحية · Unsplash"
+      },
+      "motif": "stadium",
+      "title": "Morocco vs Niger Tonight: Atlas Lions Chase a Fourth Straight Win in AFCON 2027 Qualifying",
+      "excerpt": "Four days after the 5-1 first leg, Morocco face Niger again tonight at the Moulay Abdellah Sports Complex in Rabat. Kick-off is at 8 p.m. GMT (9 p.m. in Morocco).",
+      "body": [
+        "Morocco meet Niger for the second time in five days tonight, Tuesday 17 November, in the fourth round of qualifying for the 2027 Africa Cup of Nations. The match kicks off at 8 p.m. GMT (9 p.m. Moroccan time) at the Moulay Abdellah Sports Complex in Rabat.",
+        "Niger are the nominal home side, but, as in Friday's first leg, the game is played in Morocco.",
+        "## A perfect start",
+        "The Atlas Lions have won all three of their qualifying matches so far and lead Group A with nine points. On Friday they beat Niger 5-1, with captain Achraf Hakimi scoring twice and Brahim Díaz setting up the opening goal.",
+        "Niger have three points from their first three games. They opened with a 2-1 win over Lesotho, then lost 2-0 to Gabon before Friday's heavy defeat.",
+        "## What to watch",
+        "After the first leg, the coaching staff praised the new generation of players who were given a chance alongside the established stars. Tonight is another opportunity for them to impress, while a win would leave Morocco with twelve points from twelve and a big step closer to the 2027 tournament.",
+        "Morocco start as clear favourites. Niger, who conceded five goals on Friday, will look to tighten up at the back and make the game more difficult than the first meeting.",
+        "## How to follow the match",
+        "Follow the live score on KoraPulse in the Live section, and find the result and reaction on the site after the final whistle."
+      ],
+      "tr": {
+        "ar": {
+          "title": "المغرب والنيجر الليلة: أسود الأطلس يبحثون عن فوز رابع توالياً في تصفيات كأس أمم إفريقيا 2027",
+          "excerpt": "بعد أربعة أيام من الفوز 5-1 ذهاباً، يواجه المنتخب المغربي نظيره النيجيري مجدداً الليلة بالمركب الرياضي مولاي عبد الله في الرباط، على الساعة 21:00 بتوقيت المغرب.",
+          "body": [
+            "يلتقي المنتخب المغربي بنظيره النيجيري للمرة الثانية في خمسة أيام، مساء اليوم الثلاثاء 17 نونبر، لحساب الجولة الرابعة من تصفيات كأس أمم إفريقيا 2027. وتنطلق المباراة على الساعة 20:00 بتوقيت غرينتش (21:00 بتوقيت المغرب) بالمركب الرياضي مولاي عبد الله في الرباط.",
+            "ورغم أن النيجر هي صاحبة الأرض رسمياً، تُلعب المباراة في المغرب كما كان الحال في مباراة الذهاب يوم الجمعة.",
+            "## بداية مثالية",
+            "حقق أسود الأطلس الفوز في مبارياتهم الثلاث الأولى في التصفيات، ويتصدرون المجموعة الأولى برصيد تسع نقاط. وفي مباراة الجمعة تغلبوا على النيجر بخمسة أهداف مقابل هدف، سجل منها القائد أشرف حكيمي هدفين، فيما صنع إبراهيم دياز الهدف الأول.",
+            "أما منتخب النيجر فيملك ثلاث نقاط من ثلاث مباريات، بعدما افتتح مشواره بالفوز على ليسوتو 2-1، ثم خسر أمام الغابون 2-0، قبل الهزيمة الثقيلة يوم الجمعة.",
+            "## ما يجب متابعته",
+            "بعد مباراة الذهاب، أشاد الطاقم التقني بالجيل الجديد من اللاعبين الذين منحوا الفرصة إلى جانب النجوم المعروفين، وتمثل مباراة الليلة فرصة جديدة لهم لإثبات الذات. والفوز سيمنح المغرب 12 نقطة من أصل 12، ويقربه كثيراً من بلوغ نهائيات 2027.",
+            "ويدخل المنتخب المغربي المباراة مرشحاً بقوة للفوز، بينما سيسعى منتخب النيجر، الذي استقبل خمسة أهداف يوم الجمعة، إلى تحسين أدائه الدفاعي وجعل المهمة أصعب مما كانت عليه في الذهاب.",
+            "## كيف تتابع المباراة",
+            "تابع النتيجة المباشرة على كورابولس في قسم «مباشر»، وستجد النتيجة وردود الفعل على الموقع بعد صافرة النهاية."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-17",
+      "modified": "2026-11-17T10:36:14",
+      "status": "publish",
+      "featured": true
     }
   ],
-  "updated": "2026-11-16T23:49:40.000Z",
+  "updated": "2026-11-17T10:36:14.000Z",
   "pages": [
     {
       "slug": "about",
