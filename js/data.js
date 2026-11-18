@@ -446,10 +446,74 @@ window.KP = {
       "date": "2026-11-17",
       "modified": "2026-11-17T12:34:31",
       "status": "publish",
+      "featured": false
+    },
+    {
+      "id": "morocco-players-world-cup-2026-quarter-final-bonus-ouahbi",
+      "cat": "atlas-lions",
+      "tags": [
+        "Senior team"
+      ],
+      "image": "images/morocco-fans-green-flare.jpg",
+      "imageCredit": {
+        "en": "Illustrative photo · Unsplash",
+        "fr": "Photo d'illustration · Unsplash",
+        "ar": "صورة توضيحية · Unsplash"
+      },
+      "motif": "stadium",
+      "title": "Atlas Lions to Receive MAD 8 Million Each for 2026 World Cup Quarter-Final, Ouahbi MAD 16 Million, Reports Say",
+      "excerpt": "According to Moroccan media, each Morocco player is set to receive a bonus of 800 million centimes for reaching the World Cup quarter-finals, and coach Mohamed Ouahbi 1.6 billion. The federation has not confirmed the figures.",
+      "body": [
+        "Morocco's players are set to receive a bonus of MAD 8 million (800 million centimes) each for reaching the quarter-finals of the 2026 World Cup, according to several Moroccan media outlets.",
+        "Head coach Mohamed Ouahbi would receive double the players' amount, MAD 16 million (1.6 billion centimes), for leading the team to the last eight. One report puts the coach's bonus slightly higher, at 1.7 billion centimes.",
+        "## Not officially confirmed",
+        "The Royal Moroccan Football Federation (FRMF) has not published the amounts. The figures come from media reports citing sources close to the national team, so they should be treated with caution until an official announcement.",
+        "## A historic run",
+        "The bonuses reward Morocco's run to the quarter-finals of the 2026 World Cup, where the Atlas Lions were knocked out by France, 2-0.",
+        "Before that quarter-final, Ouahbi had played down talk of money, saying that the only bonus that mattered was winning the World Cup.",
+        "## Back to work",
+        "The national team has since moved on to the 2027 Africa Cup of Nations qualifiers, where Morocco are top of Group A."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Mondial 2026 : 8 millions de dirhams par joueur et 16 millions pour Ouahbi, selon la presse",
+          "excerpt": "Selon des médias marocains, chaque joueur de l'équipe nationale recevrait une prime de 800 millions de centimes pour la qualification en quarts de finale du Mondial, et le sélectionneur Mohamed Ouahbi 1,6 milliard. La Fédération n'a pas confirmé ces montants.",
+          "body": [
+            "Les joueurs de l'équipe du Maroc recevraient chacun une prime de 8 millions de dirhams (800 millions de centimes) pour la qualification en quarts de finale de la Coupe du monde 2026, selon plusieurs médias marocains.",
+            "Le sélectionneur Mohamed Ouahbi toucherait le double, soit 16 millions de dirhams (1,6 milliard de centimes), pour avoir mené l'équipe jusqu'en quarts de finale. Un média évoque un montant légèrement supérieur, de 1,7 milliard de centimes.",
+            "## Pas de confirmation officielle",
+            "La Fédération royale marocaine de football (FRMF) n'a pas publié ces montants. Les chiffres proviennent de médias citant des sources proches de la sélection : ils sont donc à prendre avec prudence en attendant une annonce officielle.",
+            "## Un parcours historique",
+            "Ces primes récompensent le parcours du Maroc jusqu'en quarts de finale du Mondial 2026, où les Lions de l'Atlas ont été éliminés par la France (2-0).",
+            "Avant ce quart de finale, Ouahbi avait relativisé la question de l'argent, affirmant que la seule prime qui comptait était de gagner la Coupe du monde.",
+            "## Retour au travail",
+            "La sélection est depuis passée aux éliminatoires de la CAN 2027, où le Maroc occupe la tête du groupe A."
+          ]
+        },
+        "ar": {
+          "title": "800 مليون سنتيم لكل لاعب ومليار و600 مليون لوهبي.. مكافآت بلوغ ربع نهائي مونديال 2026 حسب تقارير",
+          "excerpt": "بحسب وسائل إعلام مغربية، سيحصل كل لاعب في المنتخب الوطني على مكافأة قدرها 800 مليون سنتيم نظير بلوغ ربع نهائي كأس العالم، والمدرب محمد وهبي على مليار و600 مليون سنتيم، دون تأكيد رسمي من الجامعة.",
+          "body": [
+            "سيحصل لاعبو المنتخب المغربي على مكافأة مالية قدرها 800 مليون سنتيم (8 ملايين درهم) لكل لاعب، نظير بلوغ الدور ربع النهائي من كأس العالم 2026، وفق ما أوردته عدة وسائل إعلام مغربية.",
+            "أما الناخب الوطني محمد وهبي فسينال ضعف منحة اللاعب، أي مليارا و600 مليون سنتيم (16 مليون درهم)، مكافأة على قيادته المنتخب إلى ربع النهائي، فيما تحدث مصدر إعلامي آخر عن مليار و700 مليون سنتيم.",
+            "## لا تأكيد رسمي",
+            "لم تنشر الجامعة الملكية المغربية لكرة القدم هذه الأرقام بشكل رسمي، إذ جرى تداولها عبر مصادر إعلامية مقربة من المنتخب، ما يستدعي التعامل معها بحذر إلى حين صدور إعلان رسمي.",
+            "## مشوار تاريخي",
+            "وتأتي هذه المكافآت تتويجا لمشوار أسود الأطلس في مونديال 2026، الذي بلغوا فيه الدور ربع النهائي قبل أن يودعوا المنافسة على يد المنتخب الفرنسي بهدفين دون رد.",
+            "وكان وهبي قد قلل قبل مباراة ربع النهائي من الحديث عن المال، مؤكدا أن المكافأة الوحيدة التي تهم هي الفوز بكأس العالم.",
+            "## العودة إلى العمل",
+            "وانتقل المنتخب الوطني بعد ذلك إلى تصفيات كأس أمم إفريقيا 2027، حيث يتصدر المغرب المجموعة الأولى."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-18",
+      "modified": "2026-11-18T23:35:52",
+      "status": "publish",
       "featured": true
     }
   ],
-  "updated": "2026-11-17T12:34:31.000Z",
+  "updated": "2026-11-18T23:35:52.000Z",
   "pages": [
     {
       "slug": "about",
