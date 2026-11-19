@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d4f34">
+<title>Log in · KoraPulse admin</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&family=Cairo:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+<main class="wrap">
+  <section class="brand" aria-hidden="true">
+    <svg class="pitch" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice"><g fill="none" stroke="#fff" stroke-width="3"><rect x="40" y="40" width="520" height="720"/><line x1="40" y1="400" x2="560" y2="400"/><circle cx="300" cy="400" r="90"/><rect x="170" y="40" width="260" height="120"/><rect x="170" y="640" width="260" height="120"/></g></svg>
+    <div class="brand-in">
+      <div class="logo">
+        <svg viewBox="0 0 64 64" width="72" height="72"><circle cx="32" cy="32" r="28" fill="none" stroke="#fff" stroke-width="5"/><path d="M6 34 H19 L24 22 L31 44 L37 28 L41 34 H58" fill="none" stroke="#f2b705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><b>KORA</b><span>PULSE</span></div>
+      </div>
+      <p class="tag" data-t="tagline">Football news from Morocco, Africa and the world</p>
+      <ul class="points">
+        <li data-t="p1">Write and publish articles in three languages</li>
+        <li data-t="p2">Live scores, pages, messages and settings</li>
+        <li data-t="p3">Protected by a secure, encrypted login</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel">
+    <nav class="langs" aria-label="Language">
+      <button type="button" data-lang="en">EN</button><button type="button" data-lang="fr">FR</button><button type="button" data-lang="ar" lang="ar">ع</button>
+    </nav>
+    <form class="card" id="login" novalidate>
+      <div class="mini-logo" aria-hidden="true"><svg viewBox="0 0 64 64" width="44" height="44"><circle cx="32" cy="32" r="28" fill="none" stroke="#0d4f34" stroke-width="5"/><path d="M6 34 H19 L24 22 L31 44 L37 28 L41 34 H58" fill="none" stroke="#f2b705" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h1 data-t="title">Welcome back</h1>
+      <p class="sub" data-t="sub">Log in to the KoraPulse dashboard</p>
+
+      <div class="msg" id="msg" role="alert" hidden></div>
+
+      <label class="field">
+        <span data-t="user">Username</span>
+        <input name="user" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus>
+      </label>
+      <label class="field">
+        <span data-t="pass">Password</span>
+        <span class="pw">
+          <input name="pass" type="password" autocomplete="current-password" required>
+          <button type="button" class="eye" id="eye" aria-pressed="false" data-ta="show" aria-label="Show password">
+            <svg class="i-show" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="i-hide" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3l18 18M10.6 5.1A10.4 10.4 0 0112 5c6.4 0 10 7 10 7a17 17 0 01-3.2 4.1M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a9.7 9.7 0 004.4-1.1M9.9 9.9a3 3 0 004.2 4.2"/></svg>
+          </button>
+        </span>
+      </label>
+      <p class="caps" id="caps" hidden data-t="caps">Caps Lock is on</p>
+
+      <label class="remember"><input type="checkbox" name="remember"> <span data-t="remember">Keep me logged in for 14 days</span></label>
+
+      <button class="submit" id="submit"><span data-t="login">Log in</span><i class="spin" aria-hidden="true"></i></button>
+
+      <p class="help" data-t="help">Forgot your password? Ask the site owner to reset it in Cloudflare (see the README).</p>
+    </form>
+    <a class="back" href="/" data-t="back">← Back to KoraPulse</a>
+  </section>
+</main>
+<script src="login.js"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
-// KoraPulse Worker: serves the static site, and locks /admin/ behind a username and password.
+// KoraPulse Worker: serves the static site, and locks /admin/ behind a login page (/admin/login)
+// with a secure session cookie (worker/session.js).
 //
 // Password, in order of priority:
 //   1. the one set in the dashboard (Settings → Administrator account), kept in the AUTH KV
@@ -12,8 +13,8 @@ import { handleContact, handleMessages } from "./contact.js";
 import { SITE, describe, headTags, bodyHtml, sitemap, robots } from "./seo.js";
 import { secure, sameOrigin, securityTxt } from "./security.js";
 import { adsConfig, adsHead, adsTxt } from "./ads.js";
+import { getSession, createSession, endSession, endAllSessions } from "./session.js";
 
-const REALM = 'Basic realm="KoraPulse admin", charset="UTF-8"';
 const ITERATIONS = 100000;
 const MAX_FAILS = 10;           // wrong passwords allowed per IP address...
 const FAIL_WINDOW = 15 * 60;    // ...in this many seconds
@@ -39,15 +40,6 @@ async function checkPassword(acc, user, pass) {
   const okUser = await same(user.toLowerCase(), acc.user.toLowerCase());
   const okPass = acc.secret != null ? await same(pass, acc.secret) : await same(await pbkdf2(pass, acc.salt, acc.iterations), acc.hash);
   return okUser && okPass;
-}
-function credentials(request) {
-  const [scheme, value] = (request.headers.get("authorization") || "").split(" ");
-  if (scheme !== "Basic" || !value) return null;
-  try {
-    const decoded = new TextDecoder().decode(Uint8Array.from(atob(value), (c) => c.charCodeAt(0)));
-    const i = decoded.indexOf(":");
-    return i < 0 ? null : { user: decoded.slice(0, i), pass: decoded.slice(i + 1) };
-  } catch (e) { return null; }
 }
 
 const page = (title, text, status, extra = {}) => new Response(
@@ -148,21 +140,47 @@ async function route(request, env, ctx, url) {
 
     const acc = await account(env);
     if (!acc) return page("Admin locked", "No admin password is set on this Worker (secret ADMIN_PASSWORD).", 503);
-    if (url.pathname === "/admin/logout") {
-      return page("Logged out", 'You are logged out. If your browser still remembers the password, close the browser. <a href="/admin/">Log in again</a>', 401, { "www-authenticate": REALM });
-    }
 
-    // too many wrong passwords from this address: wait a while
+    // the login page and its files are public; everything else in /admin needs a session
+    if (url.pathname === "/admin/login" || url.pathname === "/admin/login.html") {
+      if (await getSession(request, env)) return Response.redirect(url.origin + "/admin/", 302);
+      const r = await env.ASSETS.fetch(new Request(url.origin + "/admin/login", request));
+      const out = new Response(r.body, r);
+      out.headers.set("cache-control", "no-store");
+      out.headers.set("x-robots-tag", "noindex, nofollow");
+      return out;
+    }
+    if (url.pathname === "/admin/login.css" || url.pathname === "/admin/login.js") return env.ASSETS.fetch(request);
+
     const ip = request.headers.get("cf-connecting-ip") || "unknown";
     const failKey = "fails:" + ip;
-    const fails = env.AUTH ? +(await env.AUTH.get(failKey)) || 0 : 0;
-    if (fails >= MAX_FAILS) return page("Too many attempts", "Too many wrong passwords. Try again in 15 minutes.", 429, { "retry-after": String(FAIL_WINDOW) });
 
-    const cred = credentials(request);
-    const ok = cred && await checkPassword(acc, cred.user, cred.pass);
-    if (!ok) {
-      if (cred && env.AUTH) await env.AUTH.put(failKey, String(fails + 1), { expirationTtl: FAIL_WINDOW });
-      return page("Log in required", "Enter the admin username and password to open the dashboard.", 401, { "www-authenticate": REALM });
+    if (url.pathname === "/admin/api/login") {
+      if (request.method !== "POST") return json({ error: "Use POST." }, 405);
+      const fails = env.AUTH ? +(await env.AUTH.get(failKey)) || 0 : 0;
+      if (fails >= MAX_FAILS) return json({ error: "locked", minutes: Math.round(FAIL_WINDOW / 60) }, 429);
+      let b;
+      try { b = await request.json(); } catch (e) { return json({ error: "invalid" }, 400); }
+      const user = String((b && b.user) || "").trim(), pass = String((b && b.pass) || "");
+      if (!user || !pass || !(await checkPassword(acc, user, pass))) {
+        if (env.AUTH) await env.AUTH.put(failKey, String(fails + 1), { expirationTtl: FAIL_WINDOW });
+        return json({ error: "wrong", left: Math.max(0, MAX_FAILS - fails - 1) }, 401);
+      }
+      if (env.AUTH) await env.AUTH.delete(failKey);
+      const cookie = await createSession(env, acc.user, !!b.remember, url.protocol === "https:");
+      return new Response(JSON.stringify({ ok: true }), { headers: { "content-type": "application/json", "cache-control": "no-store", "set-cookie": cookie } });
+    }
+
+    if (url.pathname === "/admin/logout") {
+      const cookie = await endSession(request, env);
+      return new Response(null, { status: 302, headers: { location: url.origin + "/admin/login?out=1", "set-cookie": cookie, "cache-control": "no-store" } });
+    }
+
+    const session = await getSession(request, env);
+    if (!session) {
+      if (url.pathname.startsWith("/admin/api/")) return json({ error: "Not logged in." }, 401);
+      const next = url.pathname + url.search;
+      return new Response(null, { status: 302, headers: { location: url.origin + "/admin/login" + (next !== "/admin/" ? "?next=" + encodeURIComponent(next) : ""), "cache-control": "no-store" } });
     }
 
     if (url.pathname === "/admin/server-auth.js") {
@@ -226,7 +244,7 @@ async function route(request, env, ctx, url) {
       const user = String(body.user || "").trim();
       const next = String(body.password || "");
       if (!(await checkPassword(acc, acc.user, String(body.current || "")))) {
-        await env.AUTH.put(failKey, String(fails + 1), { expirationTtl: FAIL_WINDOW });
+        await env.AUTH.put(failKey, String((+(await env.AUTH.get(failKey)) || 0) + 1), { expirationTtl: FAIL_WINDOW });
         return json({ error: "Your current password is incorrect." }, 403);
       }
       if (!/^[\w.@-]{3,40}$/.test(user)) return json({ error: "The username must be 3 to 40 letters, numbers or . _ @ -" }, 400);
@@ -234,6 +252,7 @@ async function route(request, env, ctx, url) {
       if (next.toLowerCase() === user.toLowerCase()) return json({ error: "The password cannot be the same as the username." }, 400);
       const salt = hex(crypto.getRandomValues(new Uint8Array(16)));
       await env.AUTH.put("admin", JSON.stringify({ user, salt, iterations: ITERATIONS, hash: await pbkdf2(next, salt, ITERATIONS), changed: new Date().toISOString() }));
+      await endAllSessions(env);
       return json({ ok: true, user });
     }
 
