@@ -563,12 +563,18 @@ window.KP = {
       },
       "author": "KoraPulse Administration",
       "date": "2026-11-19",
-      "modified": "2026-11-19T15:39:49",
+      "modified": "2026-11-19T16:33:43",
       "status": "publish",
-      "featured": true
+      "featured": true,
+      "image": "images/afcon-2027-pamoja-logo.jpg",
+      "imageCredit": {
+        "en": "The official TotalEnergies CAF AFCON PAMOJA 2027 logo · CAF",
+        "fr": "Le logo officiel de la TotalEnergies CAF AFCON PAMOJA 2027 · CAF",
+        "ar": "الشعار الرسمي لكأس أمم إفريقيا باموجا 2027 · الكاف"
+      }
     }
   ],
-  "updated": "2026-11-19T15:39:49.000Z",
+  "updated": "2026-11-19T16:33:43.000Z",
   "pages": [
     {
       "slug": "about",
