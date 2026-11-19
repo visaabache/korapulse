@@ -522,7 +522,7 @@ window.KP = {
       "title": "CAF Unveils the Official AFCON 2027 Logo for Kenya, Tanzania and Uganda",
       "excerpt": "Inspired by traditional East African shields, the PAMOJA 2027 emblem places the AFCON trophy at its centre, in the colours of the three host nations. The tournament runs from 19 June to 17 July 2027.",
       "body": [
-        "The Confederation of African Football (CAF) and the three host countries unveiled the official logo of the 2027 Africa Cup of Nations on Wednesday, 19 November. The tournament will be played in Kenya, Tanzania and Uganda under the name TotalEnergies CAF AFCON PAMOJA 2027.",
+        "The Confederation of African Football (CAF) and the three host countries unveiled the official logo of the 2027 Africa Cup of Nations on Thursday, 19 November. The tournament will be played in Kenya, Tanzania and Uganda under the name TotalEnergies CAF AFCON PAMOJA 2027.",
         "## A shield for three nations",
         "The emblem is built on the traditional East African shield, a symbol that appears on the coats of arms of all three host countries. The AFCON trophy sits at its centre, topped by the outline of the African continent and the CAF name.",
         "Its colours (red, black, green, yellow and blue) are taken from the flags of Kenya, Tanzania and Uganda. CAF has also designed a set of shield patterns that express each host's identity, from Kenya's horizontal bands to Tanzania's diagonal lines and Uganda's warm colours and crested crane.",
@@ -536,7 +536,7 @@ window.KP = {
           "title": "La CAF dévoile le logo officiel de la CAN 2027 au Kenya, en Tanzanie et en Ouganda",
           "excerpt": "Inspiré des boucliers traditionnels d'Afrique de l'Est, l'emblème PAMOJA 2027 place le trophée de la CAN en son centre, aux couleurs des trois pays hôtes. Le tournoi aura lieu du 19 juin au 17 juillet 2027.",
           "body": [
-            "La Confédération africaine de football (CAF) et les trois pays hôtes ont dévoilé mercredi 19 novembre le logo officiel de la Coupe d'Afrique des nations 2027. Le tournoi se jouera au Kenya, en Tanzanie et en Ouganda sous le nom de TotalEnergies CAF AFCON PAMOJA 2027.",
+            "La Confédération africaine de football (CAF) et les trois pays hôtes ont dévoilé jeudi 19 novembre le logo officiel de la Coupe d'Afrique des nations 2027. Le tournoi se jouera au Kenya, en Tanzanie et en Ouganda sous le nom de TotalEnergies CAF AFCON PAMOJA 2027.",
             "## Un bouclier pour trois nations",
             "L'emblème s'appuie sur le bouclier traditionnel d'Afrique de l'Est, un symbole présent sur les armoiries des trois pays hôtes. Le trophée de la CAN en occupe le centre, surmonté de la silhouette du continent africain et du nom de la CAF.",
             "Ses couleurs (rouge, noir, vert, jaune et bleu) sont tirées des drapeaux du Kenya, de la Tanzanie et de l'Ouganda. La CAF a aussi conçu une série de motifs de boucliers propres à chaque pays : bandes horizontales pour le Kenya, lignes diagonales pour la Tanzanie, couleurs chaudes et grue couronnée pour l'Ouganda.",
@@ -550,7 +550,7 @@ window.KP = {
           "title": "الكاف يكشف عن الشعار الرسمي لكأس أمم إفريقيا 2027 في كينيا وتنزانيا وأوغندا",
           "excerpt": "مستوحى من الدروع التقليدية لشرق إفريقيا، يضع شعار «باموجا 2027» كأس البطولة في وسطه بألوان البلدان المضيفة الثلاثة. وتقام البطولة من 19 يونيو إلى 17 يوليوز 2027.",
           "body": [
-            "كشف الاتحاد الإفريقي لكرة القدم (كاف) والبلدان المضيفة الثلاثة، يوم الأربعاء 19 نونبر، عن الشعار الرسمي لكأس أمم إفريقيا 2027، التي ستقام في كينيا وتنزانيا وأوغندا تحت اسم «توتال إنرجيز كأس أمم إفريقيا باموجا 2027».",
+            "كشف الاتحاد الإفريقي لكرة القدم (كاف) والبلدان المضيفة الثلاثة، يوم الخميس 19 نونبر، عن الشعار الرسمي لكأس أمم إفريقيا 2027، التي ستقام في كينيا وتنزانيا وأوغندا تحت اسم «توتال إنرجيز كأس أمم إفريقيا باموجا 2027».",
             "## درع لثلاث دول",
             "يرتكز الشعار على الدرع التقليدي لشرق إفريقيا، وهو رمز حاضر في شعارات الدول المضيفة الثلاث. وتتوسطه كأس البطولة، تعلوها خريطة القارة الإفريقية واسم الكاف.",
             "أما ألوانه (الأحمر والأسود والأخضر والأصفر والأزرق) فمستمدة من أعلام كينيا وتنزانيا وأوغندا. كما صمم الكاف مجموعة من نقوش الدروع تعبر عن هوية كل بلد مضيف: خطوط أفقية لكينيا، وخطوط مائلة لتنزانيا، وألوان دافئة وطائر الكركي المتوج لأوغندا.",
