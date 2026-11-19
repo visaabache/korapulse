@@ -510,10 +510,65 @@ window.KP = {
       "date": "2026-11-18",
       "modified": "2026-11-18T23:35:52",
       "status": "publish",
+      "featured": false
+    },
+    {
+      "id": "caf-unveils-afcon-2027-logo-pamoja-kenya-tanzania-uganda",
+      "cat": "africa",
+      "tags": [
+        "AFCON"
+      ],
+      "motif": "trophy",
+      "title": "CAF Unveils the Official AFCON 2027 Logo for Kenya, Tanzania and Uganda",
+      "excerpt": "Inspired by traditional East African shields, the PAMOJA 2027 emblem places the AFCON trophy at its centre, in the colours of the three host nations. The tournament runs from 19 June to 17 July 2027.",
+      "body": [
+        "The Confederation of African Football (CAF) and the three host countries unveiled the official logo of the 2027 Africa Cup of Nations on Wednesday, 19 November. The tournament will be played in Kenya, Tanzania and Uganda under the name TotalEnergies CAF AFCON PAMOJA 2027.",
+        "## A shield for three nations",
+        "The emblem is built on the traditional East African shield, a symbol that appears on the coats of arms of all three host countries. The AFCON trophy sits at its centre, topped by the outline of the African continent and the CAF name.",
+        "Its colours (red, black, green, yellow and blue) are taken from the flags of Kenya, Tanzania and Uganda. CAF has also designed a set of shield patterns that express each host's identity, from Kenya's horizontal bands to Tanzania's diagonal lines and Uganda's warm colours and crested crane.",
+        "## \"Together\"",
+        "PAMOJA means \"together\" in Swahili, the language shared across East Africa. The name reflects the first Africa Cup of Nations to be jointly hosted by three countries.",
+        "## The key dates",
+        "The tournament is scheduled from 19 June to 17 July 2027, with 24 teams. Qualifying is under way, and Morocco are among the teams leading their group as they chase a place in East Africa next summer."
+      ],
+      "tr": {
+        "fr": {
+          "title": "La CAF dévoile le logo officiel de la CAN 2027 au Kenya, en Tanzanie et en Ouganda",
+          "excerpt": "Inspiré des boucliers traditionnels d'Afrique de l'Est, l'emblème PAMOJA 2027 place le trophée de la CAN en son centre, aux couleurs des trois pays hôtes. Le tournoi aura lieu du 19 juin au 17 juillet 2027.",
+          "body": [
+            "La Confédération africaine de football (CAF) et les trois pays hôtes ont dévoilé mercredi 19 novembre le logo officiel de la Coupe d'Afrique des nations 2027. Le tournoi se jouera au Kenya, en Tanzanie et en Ouganda sous le nom de TotalEnergies CAF AFCON PAMOJA 2027.",
+            "## Un bouclier pour trois nations",
+            "L'emblème s'appuie sur le bouclier traditionnel d'Afrique de l'Est, un symbole présent sur les armoiries des trois pays hôtes. Le trophée de la CAN en occupe le centre, surmonté de la silhouette du continent africain et du nom de la CAF.",
+            "Ses couleurs (rouge, noir, vert, jaune et bleu) sont tirées des drapeaux du Kenya, de la Tanzanie et de l'Ouganda. La CAF a aussi conçu une série de motifs de boucliers propres à chaque pays : bandes horizontales pour le Kenya, lignes diagonales pour la Tanzanie, couleurs chaudes et grue couronnée pour l'Ouganda.",
+            "## « Ensemble »",
+            "PAMOJA signifie « ensemble » en swahili, la langue partagée en Afrique de l'Est. Le nom reflète la première Coupe d'Afrique des nations organisée conjointement par trois pays.",
+            "## Les dates clés",
+            "Le tournoi est prévu du 19 juin au 17 juillet 2027, avec 24 équipes. Les éliminatoires sont en cours, et le Maroc fait partie des équipes en tête de leur groupe dans la course à l'Afrique de l'Est l'été prochain."
+          ]
+        },
+        "ar": {
+          "title": "الكاف يكشف عن الشعار الرسمي لكأس أمم إفريقيا 2027 في كينيا وتنزانيا وأوغندا",
+          "excerpt": "مستوحى من الدروع التقليدية لشرق إفريقيا، يضع شعار «باموجا 2027» كأس البطولة في وسطه بألوان البلدان المضيفة الثلاثة. وتقام البطولة من 19 يونيو إلى 17 يوليوز 2027.",
+          "body": [
+            "كشف الاتحاد الإفريقي لكرة القدم (كاف) والبلدان المضيفة الثلاثة، يوم الأربعاء 19 نونبر، عن الشعار الرسمي لكأس أمم إفريقيا 2027، التي ستقام في كينيا وتنزانيا وأوغندا تحت اسم «توتال إنرجيز كأس أمم إفريقيا باموجا 2027».",
+            "## درع لثلاث دول",
+            "يرتكز الشعار على الدرع التقليدي لشرق إفريقيا، وهو رمز حاضر في شعارات الدول المضيفة الثلاث. وتتوسطه كأس البطولة، تعلوها خريطة القارة الإفريقية واسم الكاف.",
+            "أما ألوانه (الأحمر والأسود والأخضر والأصفر والأزرق) فمستمدة من أعلام كينيا وتنزانيا وأوغندا. كما صمم الكاف مجموعة من نقوش الدروع تعبر عن هوية كل بلد مضيف: خطوط أفقية لكينيا، وخطوط مائلة لتنزانيا، وألوان دافئة وطائر الكركي المتوج لأوغندا.",
+            "## «معاً»",
+            "تعني كلمة «باموجا» «معاً» باللغة السواحيلية المشتركة في شرق إفريقيا، ويعكس الاسم أول كأس أمم إفريقيا تنظمها ثلاث دول بشكل مشترك.",
+            "## المواعيد الرئيسية",
+            "من المقرر أن تقام البطولة من 19 يونيو إلى 17 يوليوز 2027 بمشاركة 24 منتخبا. وتتواصل التصفيات حاليا، ويوجد المغرب ضمن المنتخبات المتصدرة لمجموعاتها في سباق التأهل إلى شرق إفريقيا الصيف المقبل."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-19",
+      "modified": "2026-11-19T15:39:49",
+      "status": "publish",
       "featured": true
     }
   ],
-  "updated": "2026-11-18T23:35:52.000Z",
+  "updated": "2026-11-19T15:39:49.000Z",
   "pages": [
     {
       "slug": "about",
