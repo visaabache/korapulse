@@ -572,9 +572,139 @@ window.KP = {
         "fr": "Le logo officiel de la TotalEnergies CAF AFCON PAMOJA 2027 · CAF",
         "ar": "الشعار الرسمي لكأس أمم إفريقيا باموجا 2027 · الكاف"
       }
+    },
+    {
+      "id": "walid-regragui-close-to-qatar-national-team-job",
+      "cat": "news",
+      "tags": [],
+      "image": "images/walid-regragui-qatar.jpg",
+      "imageCredit": {
+        "en": "Photo · MWN Sport",
+        "fr": "Photo · MWN Sport",
+        "ar": "صورة · MWN Sport"
+      },
+      "motif": "pitch",
+      "title": "Walid Regragui Reportedly Close to Taking Charge of Qatar",
+      "excerpt": "French outlet Foot Mercato reports that the former Morocco coach is close to an agreement with the Qatar Football Association. Neither side has confirmed it yet.",
+      "body": [
+        "Walid Regragui could soon be back on the touchline. According to French outlet Foot Mercato, the former Morocco head coach is close to reaching an agreement to take charge of the Qatar national team.",
+        "The report says the Qatar Football Association has pursued Regragui for several months. The Moroccan coach first preferred a return to club football, but Qatar is said to be the only national-team project able to change his plans.",
+        "## Advanced talks, no official announcement",
+        "Transfer journalist Fabrizio Romano also reported on Thursday that Qatar are in advanced talks with Regragui. For now, neither the coach nor the Qatari federation has officially confirmed an appointment, and no date has been given for the signing of a contract.",
+        "Qatar are currently coached by Julen Lopetegui. Several reports say the Spaniard's departure after the November international break is all but decided.",
+        "## A familiar place for Regragui",
+        "Doha is well known to the 51-year-old. He coached Qatari club Al-Duhail and won the Qatar Stars League title with them in 2020.",
+        "It is also the city where he wrote the greatest chapter of his career: at the 2022 World Cup in Qatar, he led the Atlas Lions to the semi-finals, the first African team ever to reach that stage.",
+        "## What's next",
+        "If the deal is completed, Regragui would take over a Qatar side that is building towards its next major tournaments. KoraPulse will update this story as soon as there is official confirmation."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Walid Regragui serait proche de prendre en main le Qatar",
+          "excerpt": "Selon Foot Mercato, l'ancien sélectionneur du Maroc est proche d'un accord avec la Fédération qatarie de football. Rien n'est encore officiel.",
+          "body": [
+            "Walid Regragui pourrait bientôt retrouver un banc. Selon le média français Foot Mercato, l'ancien sélectionneur du Maroc est proche d'un accord pour prendre en main l'équipe nationale du Qatar.",
+            "D'après ce média, la Fédération qatarie de football courtise Regragui depuis plusieurs mois. Le technicien marocain privilégiait d'abord un retour en club, mais le Qatar serait le seul projet de sélection capable de le faire changer d'avis.",
+            "## Des discussions avancées, rien d'officiel",
+            "Le journaliste Fabrizio Romano a lui aussi indiqué jeudi que le Qatar était en discussions avancées avec Regragui. Pour l'instant, ni l'entraîneur ni la fédération qatarie n'ont confirmé officiellement sa nomination, et aucune date de signature n'a été annoncée.",
+            "Le Qatar est actuellement dirigé par Julen Lopetegui. Plusieurs sources affirment que le départ de l'Espagnol après la trêve internationale de novembre est quasiment acté.",
+            "## Un terrain connu pour Regragui",
+            "Doha n'a pas de secret pour le technicien de 51 ans. Il a entraîné le club qatari d'Al-Duhail, avec lequel il a remporté le championnat du Qatar en 2020.",
+            "C'est aussi là qu'il a écrit la plus belle page de sa carrière : lors de la Coupe du monde 2022 au Qatar, il a mené les Lions de l'Atlas jusqu'en demi-finale, une première pour une équipe africaine.",
+            "## La suite",
+            "Si l'accord est finalisé, Regragui prendra en main une sélection qatarie qui prépare ses prochaines grandes compétitions. KoraPulse mettra cet article à jour dès la confirmation officielle."
+          ]
+        },
+        "ar": {
+          "title": "تقارير: وليد الركراكي قريب من تدريب منتخب قطر",
+          "excerpt": "كشف موقع فوت ميركاتو الفرنسي أن المدرب السابق للمنتخب المغربي قريب من الاتفاق مع الاتحاد القطري لكرة القدم، دون أي تأكيد رسمي حتى الآن.",
+          "body": [
+            "قد يعود وليد الركراكي قريبا إلى عالم التدريب، إذ كشف موقع فوت ميركاتو الفرنسي أن المدرب السابق للمنتخب المغربي بات قريبا من التوصل إلى اتفاق لتولي تدريب المنتخب القطري.",
+            "وحسب المصدر ذاته، يسعى الاتحاد القطري لكرة القدم إلى التعاقد مع الركراكي منذ عدة أشهر، علما أن المدرب المغربي كان يفضل في البداية العودة إلى تدريب الأندية، غير أن مشروع قطر يبقى العرض الوحيد على مستوى المنتخبات القادر على تغيير مخططاته.",
+            "## مفاوضات متقدمة دون إعلان رسمي",
+            "وأكد الصحفي فابريزيو رومانو بدوره يوم الخميس أن قطر دخلت في مفاوضات متقدمة مع الركراكي. وإلى حدود الساعة، لم يؤكد المدرب ولا الاتحاد القطري هذا التعيين بشكل رسمي، كما لم يُحدد أي موعد لتوقيع العقد.",
+            "ويشرف الإسباني جولين لوبيتيغي حاليا على تدريب المنتخب القطري، فيما تشير عدة تقارير إلى أن رحيله بعد فترة التوقف الدولي لشهر نونبر أصبح شبه محسوم.",
+            "## أرض يعرفها الركراكي جيدا",
+            "ليست الدوحة غريبة على المدرب البالغ من العمر 51 عاما، فقد سبق له تدريب نادي الدحيل القطري وقاده إلى التتويج بلقب الدوري القطري سنة 2020.",
+            "وفي قطر أيضا كتب أجمل صفحات مسيرته، عندما قاد أسود الأطلس إلى نصف نهائي كأس العالم 2022، كأول منتخب إفريقي يبلغ هذا الدور في تاريخ المسابقة.",
+            "## ماذا بعد؟",
+            "في حال إتمام الاتفاق، سيتولى الركراكي قيادة منتخب قطري يستعد لاستحقاقاته الكبرى المقبلة. وسيُحدّث موقع كورابولس هذا الخبر فور صدور التأكيد الرسمي."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-20",
+      "modified": "2026-11-20T18:30:00",
+      "status": "publish",
+      "featured": false
+    },
+    {
+      "id": "morocco-amputee-football-team-brazil-world-cup-semi-final-captain",
+      "cat": "news",
+      "tags": [],
+      "image": "images/morocco-amputee-football-captain.jpg",
+      "imageCredit": {
+        "en": "Photo · MWN Sport",
+        "fr": "Photo · MWN Sport",
+        "ar": "صورة · MWN Sport"
+      },
+      "motif": "pitch",
+      "title": "\"We Will Bring the Cup to Morocco\": Amputee Lions Face Brazil in a Historic World Cup Semi-Final",
+      "excerpt": "Captain Mohsen Chagagh promised to fight for a place in the final as Morocco meet Brazil today in their first-ever Amputee Football World Cup semi-final in Mexico.",
+      "body": [
+        "Morocco's national amputee football team are one match away from the final of the 2026 Amputee Football World Cup in Mexico. Today, Friday, they face Brazil in the semi-finals, the first in the team's history.",
+        "Before the match, captain Mohsen Chagagh sent a powerful message to Moroccan fans: \"We will bring the Cup to Morocco no matter what, even if we leave the leg we have left here in Mexico. We promise our people that we will fight against Brazil just as we did against Angola to qualify for the final. Support us, we will not let you down.\"",
+        "## A historic run",
+        "Morocco opened the tournament with a 4-1 win over Uruguay, then beat the United States 2-1 to reach the knockout rounds unbeaten.",
+        "In the quarter-finals, the Atlas Lions knocked out former champions Angola 4-1. The match was level 1-1 in normal time before Morocco scored three more goals to seal their place among the last four. At the previous World Cup, in Türkiye in 2022, Morocco finished fifth.",
+        "## Brazil stand in the way",
+        "Brazil reached the semi-finals by beating Spain 2-0. The match is played at San Martín stadium in San Juan de los Lagos, the tournament's main venue. In the other semi-final, Ghana face the defending champions Türkiye.",
+        "The final takes place on Sunday, 22 November.",
+        "## A whole country behind them",
+        "Coached by Othmane Najmi, this team has already given Morocco one of the most inspiring stories of the year. Whatever the result against Brazil, the Amputee Lions have shown the strength, courage and pride of Moroccan football."
+      ],
+      "tr": {
+        "fr": {
+          "title": "« Nous ramènerons la Coupe au Maroc » : les Lions amputés défient le Brésil en demi-finale historique du Mondial",
+          "excerpt": "Le capitaine Mohsen Chagagh promet de tout donner pour une place en finale : le Maroc affronte le Brésil ce vendredi, pour sa première demi-finale de Coupe du monde de football pour amputés, au Mexique.",
+          "body": [
+            "L'équipe nationale marocaine de football pour amputés n'est plus qu'à un match de la finale de la Coupe du monde 2026 au Mexique. Ce vendredi, elle affronte le Brésil en demi-finale, la première de son histoire.",
+            "Avant la rencontre, le capitaine Mohsen Chagagh a adressé un message fort aux supporters marocains : « Nous ramènerons la Coupe au Maroc quoi qu'il arrive, même si nous devons laisser ici, au Mexique, la jambe qu'il nous reste. Nous promettons à notre peuple de nous battre contre le Brésil comme nous l'avons fait contre l'Angola, pour nous qualifier pour la finale. Soutenez-nous, nous ne vous décevrons pas. »",
+            "## Un parcours historique",
+            "Le Maroc a lancé son tournoi par une victoire 4-1 contre l'Uruguay, puis a battu les États-Unis 2-1 pour rejoindre la phase à élimination directe sans défaite.",
+            "En quart de finale, les Lions de l'Atlas ont éliminé l'Angola, ancien champion du monde, sur le score de 4-1. Le score était de 1-1 à la fin du temps réglementaire avant que le Maroc n'inscrive trois buts supplémentaires pour rejoindre le dernier carré. Lors de la précédente Coupe du monde, en Turquie en 2022, le Maroc avait terminé cinquième.",
+            "## Le Brésil sur la route",
+            "Le Brésil s'est qualifié en battant l'Espagne 2-0. La rencontre se joue au stade San Martín de San Juan de los Lagos, principal site du tournoi. Dans l'autre demi-finale, le Ghana affronte la Turquie, tenante du titre.",
+            "La finale aura lieu le dimanche 22 novembre.",
+            "## Tout un pays derrière eux",
+            "Entraînée par Othmane Najmi, cette équipe offre déjà au Maroc l'une des plus belles histoires de l'année. Quel que soit le résultat face au Brésil, les Lions amputés ont montré la force, le courage et la fierté du football marocain."
+          ]
+        },
+        "ar": {
+          "title": "«سنعيد الكأس إلى المغرب»: أسود مبتوري الأطراف يواجهون البرازيل في نصف نهائي تاريخي لكأس العالم",
+          "excerpt": "وعد القائد محسن شغاغ بالقتال من أجل بطاقة النهائي، حيث يواجه المنتخب المغربي نظيره البرازيلي اليوم في أول نصف نهائي في تاريخه بكأس العالم لمبتوري الأطراف بالمكسيك.",
+          "body": [
+            "بات المنتخب الوطني المغربي لكرة القدم لمبتوري الأطراف على بعد مباراة واحدة من نهائي كأس العالم 2026 بالمكسيك، إذ يواجه اليوم الجمعة منتخب البرازيل في نصف النهائي، وهو الأول في تاريخه.",
+            "وقبل المواجهة، وجّه القائد محسن شغاغ رسالة قوية إلى الجماهير المغربية قائلا: «سنعيد الكأس إلى المغرب مهما كلّف الأمر، حتى لو تركنا الرجل التي بقيت لنا هنا في المكسيك. نعد شعبنا بأننا سنقاتل أمام البرازيل كما فعلنا أمام أنغولا من أجل التأهل إلى النهائي. ادعمونا، لن نخذلكم».",
+            "## مسار تاريخي",
+            "افتتح المنتخب المغربي مشواره في البطولة بفوز على الأوروغواي بأربعة أهداف مقابل هدف، ثم تغلب على الولايات المتحدة 2-1 ليبلغ الأدوار الإقصائية دون هزيمة.",
+            "وفي ربع النهائي، أطاح الأسود بمنتخب أنغولا، البطل السابق، بنتيجة 4-1، بعدما انتهى الوقت الأصلي بالتعادل 1-1، قبل أن يضيف المغرب ثلاثة أهداف ليحجز مكانه في المربع الذهبي. وكان المنتخب المغربي قد أنهى النسخة السابقة في تركيا سنة 2022 في المركز الخامس.",
+            "## البرازيل في الطريق",
+            "تأهل المنتخب البرازيلي إلى نصف النهائي بعد فوزه على إسبانيا 2-0. وتقام المباراة على ملعب سان مارتين بمدينة سان خوان دي لوس لاغوس، الملعب الرئيسي للبطولة. وفي نصف النهائي الآخر، يلتقي منتخب غانا مع تركيا حاملة اللقب.",
+            "ويقام النهائي يوم الأحد 22 نونبر.",
+            "## شعب بأكمله خلفهم",
+            "بقيادة المدرب عثمان النجمي، منح هذا المنتخب المغاربة واحدة من أجمل قصص هذه السنة. ومهما كانت نتيجة مباراة البرازيل، فقد أظهر أسود مبتوري الأطراف قوة وشجاعة وفخر كرة القدم المغربية."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-20",
+      "modified": "2026-11-20T18:35:00",
+      "status": "publish",
+      "featured": true
     }
   ],
-  "updated": "2026-11-19T16:33:43.000Z",
+  "updated": "2026-11-20T18:35:00",
   "pages": [
     {
       "slug": "about",
