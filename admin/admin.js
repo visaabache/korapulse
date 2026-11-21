@@ -91,7 +91,8 @@
     star: I('<path d="M10 3l2.2 4.5 4.8.7-3.5 3.4.8 4.9L10 14.2l-4.3 2.3.8-4.9L3 8.2l4.8-.7z"/>'),
     page: I('<path d="M5 2h7l4 4v12H5z"/><path d="M12 2v4h4M8 10h5M8 13h5"/>'),
     mail: I('<rect x="2.5" y="4.5" width="15" height="11" rx="1.5"/><path d="M3 5.5l7 5.5 7-5.5"/>'),
-    pen: I('<path d="M4 16l1-4 8-8 3 3-8 8z"/><path d="M11 6l3 3"/>')
+    pen: I('<path d="M4 16l1-4 8-8 3 3-8 8z"/><path d="M11 6l3 3"/>'),
+    qr: I('<rect x="3" y="3" width="5" height="5"/><rect x="12" y="3" width="5" height="5"/><rect x="3" y="12" width="5" height="5"/><path d="M12 12h2v2h-2zM15 15h2v2h-2zM12 16v1M16 12h1"/>')
   };
 
   // ---------------- auth (convenience lock, see README) ----------------
@@ -164,6 +165,7 @@
     { id: "media", label: "Media", icon: "media", href: "#/media", subs: [["Library", "#/media", "media"]] },
     { id: "pages", label: "Pages", icon: "page", href: "#/pages", subs: [["All Pages", "#/pages", "pages"], ["Add New Page", "#/page/new", "newpage"]] },
     { id: "messages", label: "Messages", icon: "mail", href: "#/messages", badge: () => msgUnread },
+    { id: "qr", label: "QR Codes", icon: "qr", href: "#/qr" },
     { id: "comments", label: "Comments", icon: "comment", href: "#/comments", badge: () => pendingCount(), when: commentsOn },
     { sep: 1 },
     { id: "scores", label: "Live Scores", icon: "ball", href: "#/scores" },
@@ -219,7 +221,7 @@
     const r = route();
     const key = r.parts.join("/");
     if (key !== lastRoute) { work = null; replyTo = null; editCat = null; editUser = null; if (!/^(post|page)\//.test(key) || key.split("/")[0] !== lastRoute.split("/")[0]) editLang = "en"; }
-    const pages = { pages: pagesList, page: pageEditor, messages,  dashboard, posts, post: postEditor, categories, media, comments, scores, table: leagueTable, users, settings, tools };
+    const pages = { pages: pagesList, page: pageEditor, messages, qr: qrPage,  dashboard, posts, post: postEditor, categories, media, comments, scores, table: leagueTable, users, settings, tools };
     const pg = (pages[r.name] || dashboard)(r);
     document.title = `${pg.title} ‹ ${D.site.name} — Admin`;
     app.innerHTML = adminbar() + sidemenu(pg.menu, pg.sub) + `
@@ -1164,6 +1166,111 @@
     $("[data-del]", md.el).onclick = async () => { if (!confirm("Delete this message permanently?")) return; await msgAction(id, "delete"); md.close(); flash = { type: "success", text: "Message deleted." }; render(); };
   }
 
+  // ---------------- QR codes ----------------
+  const SITE_URL = "https://korapulse.space";
+  let qrState = null;
+  function qrPage() {
+    const S = qrState || (qrState = { kind: "home", article: "", page: "", custom: "", lang: "", style: "square", fg: "#0d4f34", bg: "#ffffff", logo: true, frame: true, caption: "Scan to read KoraPulse", size: "1024" });
+    const arts = D.articles.filter((a) => a.status === "publish").sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    const pgs = (D.pages || []).filter((p) => p.status !== "draft");
+    const opt = (v, l, cur) => `<option value="${esc(v)}" ${v === cur ? "selected" : ""}>${esc(l)}</option>`;
+    const html = `
+      ${pageHead("QR Codes")}
+      <p class="description">Make a free QR code for the website, an article, a page or any link. Print it on posters, add it to Instagram posts and stories, or put it on match-day flyers.</p>
+      <form data-form="qr" class="qr-tool">
+        <div class="qr-cols">
+          <section class="postbox"><h2>1. What should the QR code open?</h2><div class="inside">
+            <p><label for="qr-kind"><b>Link to</b></label><br>
+              <select id="qr-kind" name="kind">
+                ${opt("home", "KoraPulse home page", S.kind)}${opt("article", "An article", S.kind)}${opt("page", "A page (About, Contact…)", S.kind)}${opt("matches", "Live scores", S.kind)}${opt("instagram", "Instagram account", S.kind)}${opt("custom", "Another link", S.kind)}
+              </select></p>
+            <p data-show="article"><label for="qr-article"><b>Article</b></label><br><select id="qr-article" name="article" class="qr-wide">${arts.map((a) => opt(a.id, a.title, S.article || (arts[0] && arts[0].id))).join("")}</select></p>
+            <p data-show="page"><label for="qr-page"><b>Page</b></label><br><select id="qr-page" name="page">${pgs.map((p) => opt(p.slug, p.title, S.page)).join("")}</select></p>
+            <p data-show="custom"><label for="qr-custom"><b>Link</b></label><br><input id="qr-custom" name="custom" type="url" class="qr-wide no-tr" placeholder="https://" value="${esc(S.custom)}"></p>
+            <p data-hide="instagram custom"><label for="qr-lang"><b>Language of the page</b></label><br>
+              <select id="qr-lang" name="lang">${opt("", "English", S.lang)}${opt("fr", "Français", S.lang)}${opt("ar", "العربية", S.lang)}</select></p>
+          </div></section>
+
+          <section class="postbox"><h2>2. Style</h2><div class="inside">
+            <p><b>Colours</b></p>
+            <p class="qr-presets">
+              <button type="button" class="button" data-act="qr-preset" data-fg="#0d4f34" data-bg="#ffffff">Green</button>
+              <button type="button" class="button" data-act="qr-preset" data-fg="#111111" data-bg="#ffffff">Black</button>
+              <button type="button" class="button" data-act="qr-preset" data-fg="#0d4f34" data-bg="#fff8e1">Green on cream</button>
+            </p>
+            <p class="qr-colors"><label>Code <input type="color" name="fg" value="${esc(S.fg)}"></label> <label>Background <input type="color" name="bg" value="${esc(S.bg)}"></label></p>
+            <p><label for="qr-style"><b>Shape</b></label><br><select id="qr-style" name="style">${opt("square", "Squares (classic)", S.style)}${opt("dots", "Dots with round corners", S.style)}</select></p>
+            <p><label><input type="checkbox" name="logo" ${S.logo ? "checked" : ""}> KoraPulse logo in the middle</label></p>
+            <p><label><input type="checkbox" name="frame" ${S.frame ? "checked" : ""}> Green frame with the KoraPulse name</label></p>
+            <p data-frame><label for="qr-caption"><b>Text under the code</b></label><br><input id="qr-caption" name="caption" class="qr-wide no-tr" maxlength="40" value="${esc(S.caption)}"></p>
+            <p class="description" data-frame>Ideas: “Scan to read KoraPulse”, “Scannez pour lire”, “امسح للقراءة”.</p>
+          </div></section>
+        </div>
+
+        <section class="postbox qr-out"><h2>3. Download</h2><div class="inside">
+          <div class="qr-preview" id="qr-preview" aria-live="polite"></div>
+          <div class="qr-side">
+            <p><b>Opens:</b><br><a id="qr-url" class="no-tr qr-url" href="#" target="_blank" rel="noopener"></a></p>
+            <div id="qr-warn"></div>
+            <p><label for="qr-size"><b>PNG size</b></label><br><select id="qr-size" name="size">${opt("512", "Small (512 px): web, WhatsApp", S.size)}${opt("1024", "Medium (1024 px): Instagram", S.size)}${opt("2048", "Large (2048 px): printing", S.size)}</select></p>
+            <p class="qr-btns">
+              <button type="button" class="button button-primary" data-act="qr-png">${icons.download.replace('width="20" height="20"', 'width="16" height="16"')} Download PNG</button>
+              <button type="button" class="button" data-act="qr-svg">${icons.download.replace('width="20" height="20"', 'width="16" height="16"')} Download SVG</button>
+              <button type="button" class="button" data-act="qr-copy">${icons.link.replace('width="20" height="20"', 'width="16" height="16"')} Copy link</button>
+            </p>
+            <p class="description">PNG works everywhere (Instagram, WhatsApp, Word). SVG stays sharp at any size, for printers and designers. Always test the code with your phone camera before printing.</p>
+          </div>
+        </div></section>
+      </form>`;
+    const after = () => { const f = $('form[data-form="qr"]'); f.addEventListener("input", qrUpdate); f.addEventListener("change", qrUpdate); qrUpdate(); };
+    return { title: "QR Codes", menu: "qr", html, after };
+  }
+  function qrRead() {
+    const f = $('form[data-form="qr"]');
+    if (!f) return null;
+    const S = qrState;
+    ["kind", "article", "page", "custom", "lang", "style", "fg", "bg", "caption", "size"].forEach((k) => { if (f[k]) S[k] = f[k].value; });
+    S.logo = f.logo.checked; S.frame = f.frame.checked;
+    const lq = S.lang ? "lang=" + S.lang : "";
+    let url = "";
+    if (S.kind === "home") url = SITE_URL + "/" + (lq ? "?" + lq : "");
+    else if (S.kind === "article") url = S.article ? `${SITE_URL}/article.html?id=${encodeURIComponent(S.article)}${lq ? "&" + lq : ""}` : "";
+    else if (S.kind === "page") url = S.page ? `${SITE_URL}/page.html?p=${encodeURIComponent(S.page)}${lq ? "&" + lq : ""}` : "";
+    else if (S.kind === "matches") url = SITE_URL + "/matches.html" + (lq ? "?" + lq : "");
+    else if (S.kind === "instagram") url = (D.site.social && D.site.social.instagram) || "https://www.instagram.com/kora_pulsee/";
+    else { const c = S.custom.trim(); url = !c ? "" : /^[a-z][a-z0-9+.-]*:/i.test(c) ? c : "https://" + c; }
+    return { S, url, f };
+  }
+  let qrLast = null;
+  function qrUpdate() {
+    const st = qrRead();
+    if (!st) return;
+    const { S, url, f } = st;
+    $$("[data-show]", f).forEach((el) => (el.hidden = el.dataset.show !== S.kind));
+    $$("[data-hide]", f).forEach((el) => (el.hidden = el.dataset.hide.split(" ").includes(S.kind)));
+    $$("[data-frame]", f).forEach((el) => (el.hidden = !S.frame));
+    const a = $("#qr-url"), box = $("#qr-preview"), warn = $("#qr-warn");
+    a.textContent = url || "—"; a.href = url || "#";
+    const bad = S.kind === "custom" && url && !/^(https?:\/\/[^\s.]+\.[^\s]+|mailto:\S+|tel:[\d+ ]+)$/i.test(url);
+    const ct = window.KPQR.contrast(S.fg, S.bg);
+    const w = [];
+    if (bad) w.push("This link does not look right. Check it before printing.");
+    if (ct.inverted) w.push("The code is lighter than the background. Many phones cannot scan that: use a dark code on a light background.");
+    else if (ct.ratio < 4) w.push("The colours are too close. Use a darker code or a lighter background so phones can scan it.");
+    warn.innerHTML = w.map((x) => `<div class="notice notice-warning inline"><p>${esc(x)}</p></div>`).join("");
+    if (!url) { box.innerHTML = `<p class="description">Choose what the QR code should open.</p>`; qrLast = null; return; }
+    try {
+      qrLast = window.KPQR.svg({ text: url, fg: S.fg, bg: S.bg, style: S.style, logo: S.logo, frame: S.frame, frameColor: S.fg, caption: S.caption, rtl: /[؀-ۿ]/.test(S.caption) });
+      qrLast.url = url;
+      box.innerHTML = qrLast.svg;
+    } catch (e) { qrLast = null; box.innerHTML = `<div class="notice notice-error inline"><p>This link is too long for a QR code.</p></div>`; }
+  }
+  function qrName() {
+    const S = qrState;
+    const base = S.kind === "article" ? S.article : S.kind === "page" ? S.page : S.kind === "custom" ? "link" : S.kind;
+    return "korapulse-qr-" + String(base).replace(/[^a-z0-9-]/gi, "-").slice(0, 60) + (S.lang ? "-" + S.lang : "");
+  }
+
   function tools() {
     const pend = unpublished();
     const html = `
@@ -1230,6 +1337,22 @@
     "menu-toggle": () => document.body.classList.toggle("menu-open"),
     "admin-lang": (b) => { if (!confirmLeave()) return; dirty = false; ls.set("kp-admin-lang", b.dataset.v); location.reload(); },
     dismiss: (b) => b.closest(".notice").remove(),
+    "qr-preset": (b) => { const f = $('form[data-form="qr"]'); f.fg.value = b.dataset.fg; f.bg.value = b.dataset.bg; qrUpdate(); },
+    "qr-svg": () => { if (qrLast) download(qrName() + ".svg", qrLast.svg, "image/svg+xml"); },
+    "qr-png": async () => {
+      if (!qrLast) return;
+      const width = parseInt(qrState.size, 10) || 1024;
+      try {
+        const blob = await window.KPQR.png(qrLast.svg, qrLast.w, qrLast.h, width);
+        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = qrName() + ".png";
+        document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      } catch (e) { alert("Could not make the PNG. Try the SVG download."); }
+    },
+    "qr-copy": async (b) => {
+      if (!qrLast) return;
+      try { await navigator.clipboard.writeText(qrLast.url); const t = b.lastChild.textContent; b.lastChild.textContent = " Copied!"; setTimeout(() => (b.lastChild.textContent = t), 1500); }
+      catch (e) { prompt("Copy this link:", qrLast.url); }
+    },
     "hide-welcome": () => { ls.set("kp-welcome-hidden", "1"); render(); },
     logout: () => { if (!confirmLeave()) return; dirty = false; if (server) { location.href = "logout"; return; } ls.del("kp-admin-session"); location.hash = ""; renderLogin({ type: "success", text: "You are now logged out." }); },
     "c-status": (b) => {
@@ -1355,6 +1478,7 @@
   }
 
   const FORMS = {
+    qr: () => {},
     ads: async (f) => {
       const slots = { top: f.slot_top.value, sidebar: f.slot_sidebar.value, section: f.slot_section.value, article: f.slot_article.value };
       try {

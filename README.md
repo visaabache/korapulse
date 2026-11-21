@@ -101,6 +101,7 @@ The first time you open it, you create the administrator username and password.
 | **Live Scores** | Edit the matches in the score ticker |
 | **League Table** | Edit wins/draws/losses; played and points are calculated and the table re-sorted |
 | **Users** | The writers credited on articles, with roles |
+| **QR Codes** | Free branded QR codes for the home page, any article or page, live scores, Instagram or any link, in EN/FR/AR. Colours, square or dot style, logo in the middle, optional green frame with a caption. Download as PNG (512/1024/2048 px) or SVG. Made in the browser with `admin/qrcode.js` (qrcode-generator, MIT licence) and `admin/qr-tool.js`; no outside service. |
 | **Settings** | Site name, tagline, social links, top bar links, admin password, and **Publish & Backup** |
 
 Editor formatting: `**bold**`, `*italic*`, `[link](https://…)`, a line starting with `## ` for a heading, `> ` for a quote, and images inserted with **Add Media**.

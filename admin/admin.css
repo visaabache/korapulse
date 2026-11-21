@@ -385,3 +385,21 @@ tr:hover .row-actions, tr:focus-within .row-actions { visibility: visible; }
 .msg-detail p { margin: 0 0 8px; }
 .msg-text { margin-top: 14px; padding: 14px; background: #f6f7f7; border: 1px solid var(--border-soft); white-space: normal; font-size: 14px; line-height: 1.6; }
 .msg-table tr { cursor: default; }
+
+/* QR codes */
+.qr-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.qr-tool .inside p { margin: 0 0 14px; }
+.qr-tool select, .qr-wide { max-width: 100%; }
+.qr-wide { width: 100%; }
+.qr-tool select.qr-wide { width: 100%; }
+.qr-presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.qr-colors label { display: inline-flex; align-items: center; gap: 6px; margin-inline-end: 14px; }
+.qr-colors input[type=color] { width: 44px; height: 32px; padding: 0 2px; border: 1px solid var(--border); border-radius: 4px; background: #fff; cursor: pointer; }
+.qr-out .inside { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.qr-preview { direction: ltr; background: repeating-conic-gradient(#f0f0f1 0% 25%, #fff 0% 50%) 50% / 20px 20px; border: 1px solid var(--border); border-radius: 6px; padding: 16px; display: grid; place-items: center; min-height: 200px; }
+.qr-preview svg { width: 100%; height: auto; max-width: 300px; display: block; }
+.qr-url { word-break: break-all; }
+.qr-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.qr-btns .button { display: inline-flex; align-items: center; gap: 6px; }
+.notice.inline { margin: 0 0 12px; }
+@media (max-width: 900px) { .qr-cols, .qr-out .inside { grid-template-columns: 1fr; } .qr-preview svg { max-width: 260px; } }
