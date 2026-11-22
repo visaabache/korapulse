@@ -20,6 +20,10 @@
     q: p.get("q") || ""
   };
   let data = null, error = false, loading = true, timer = null;
+  // the heading written by the server for this day ("Football results Saturday 21 November 2026"…)
+  const ssrH = main.querySelector(".ssr h1");
+  const first = { date: state.date, h1: ssrH ? ssrH.textContent.trim() : "", title: document.title };
+  const heading = () => (state.date === first.date && first.h1 ? first.h1 : `${t("Live scores")} · ${dayLabel(state.date)}`);
 
   function saveUrl() {
     const q = new URLSearchParams();
@@ -46,7 +50,7 @@
       <div class="container ms">
         <header class="ms-head">
           <nav class="crumbs" aria-label="Breadcrumb"><a href="${L.link("index.html")}">${t("Home")}</a> › ${t("Live scores")}</nav>
-          <h1 class="h-serif">${t("Live scores")}</h1>
+          <h1 class="h-serif" id="ms-h1">${esc(heading())}</h1>
           <p class="ms-sub">${t("Football from around the world")} · <span id="ms-updated">${t("loading…")}</span></p>
         </header>
         <div class="ms-dates" role="group" aria-label="${t("Day")}">
@@ -80,6 +84,8 @@
   function setDate(day) {
     state.date = day;
     document.getElementById("ms-date").value = day;
+    document.getElementById("ms-h1").textContent = heading();
+    document.title = state.date === first.date ? first.title : `${heading()} | ${first.title.split(" | ").pop() || "KoraPulse"}`;
     saveUrl();
     load();
   }

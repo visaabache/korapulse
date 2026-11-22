@@ -10,7 +10,8 @@
 import { handleMatches, scoresConfig } from "./matches.js";
 import { status as apiFootballStatus } from "./apifootball.js";
 import { handleContact, handleMessages } from "./contact.js";
-import { SITE, describe, headTags, bodyHtml, sitemap, robots } from "./seo.js";
+import { SITE, describe, headTags, bodyHtml, sitemap, robots, newsSitemap, rss, moroccoDay, resultsDay } from "./seo.js";
+import { indexNow, INDEXNOW_KEY } from "./indexnow.js";
 import { secure, sameOrigin, securityTxt } from "./security.js";
 import { adsConfig, adsHead, adsTxt } from "./ads.js";
 import { getSession, createSession, endSession, endAllSessions } from "./session.js";
@@ -69,12 +70,23 @@ const imageOf = (data, a) => {
   return u;
 };
 
-async function withPreview(request, env, url) {
+// the day's matches for the server-rendered results page (same data as /api/matches)
+async function matchesFor(url, env, ctx) {
+  try {
+    const day = resultsDay(url) || moroccoDay();
+    const r = await handleMatches(new Request(`${url.origin}/api/matches?date=${day.replace(/-/g, "")}`), env, ctx);
+    return r.ok ? await r.json() : null;
+  } catch (e) { return null; }
+}
+
+async function withPreview(request, env, url, ctx) {
   const res = await env.ASSETS.fetch(request);
   if (!res.ok || !(res.headers.get("content-type") || "").includes("text/html")) return res;
   const data = await siteData(env, url.origin);
   if (!data) return res;
-  const d = describe(data, url);
+  const isMatches = /^\/matches(\.html)?$/.test(url.pathname);
+  const d = describe(data, url, { matches: isMatches ? await matchesFor(url, env, ctx) : null });
+  if (url.hostname === new URL(SITE).hostname) ctx.waitUntil(indexNow(env, data).catch(() => {}));
   const ads = await adsConfig(env);
   const img = d.article ? imageOf(data, d.article) : null;
   const image = img ? (img.startsWith("data:") ? `${SITE}/og/${encodeURIComponent(d.article.id)}` : new URL(img, SITE).href) : `${SITE}/og-image.png`;
@@ -130,11 +142,14 @@ async function route(request, env, ctx, url) {
     if (url.pathname === "/robots.txt") return robots(url);
     if (url.pathname === "/.well-known/security.txt") return securityTxt(SITE);
     if (url.pathname === "/ads.txt") return adsTxt(await adsConfig(env));
+    if (url.pathname === "/news-sitemap.xml") { const data = await siteData(env, url.origin); return data ? newsSitemap(data) : new Response("Not found", { status: 404 }); }
+    if (url.pathname === "/feed.xml" || url.pathname === "/rss.xml") { const data = await siteData(env, url.origin); return data ? rss(data, url) : new Response("Not found", { status: 404 }); }
+    if (url.pathname === `/${INDEXNOW_KEY}.txt`) return new Response(INDEXNOW_KEY, { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=86400" } });
     if (url.pathname === "/sitemap.xml") { const data = await siteData(env, url.origin); return data ? sitemap(data) : new Response("Not found", { status: 404 }); }
     if (url.pathname === "/admin") return Response.redirect(url.origin + "/admin/", 301);
     if (url.pathname.startsWith("/og/")) return previewImage(env, url);
     if (!url.pathname.startsWith("/admin/")) {
-      if (/^\/(index\.html|article(\.html)?|category(\.html)?|matches(\.html)?|page(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url);
+      if (/^\/(index\.html|article(\.html)?|category(\.html)?|matches(\.html)?|page(\.html)?)?$/.test(url.pathname)) return withPreview(request, env, url, ctx);
       return env.ASSETS.fetch(request);
     }
 

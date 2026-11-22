@@ -184,7 +184,8 @@ export async function handleMatches(request, env, ctx) {
 
   // one cached answer per day for everyone: 30 s around today, longer for other days
   const diff = Math.abs(Date.UTC(+date.slice(0, 4), +date.slice(4, 6) - 1, +date.slice(6, 8)) - Date.UTC(+today.slice(0, 4), +today.slice(4, 6) - 1, +today.slice(6, 8))) / 864e5;
-  const ttl = diff <= 1 ? 30 : 900;
+  const past = dayNum(date) < dayNum(today);
+  const ttl = diff <= 1 ? 30 : past && diff > 2 ? 21600 : 900; // finished days change rarely
   const cacheKey = new Request(`${url.origin}/api/matches?date=${date}&p=espn`);
   const cache = caches.default;
   const hit = await cache.match(cacheKey);
