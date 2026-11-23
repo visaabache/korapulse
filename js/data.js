@@ -702,9 +702,76 @@ window.KP = {
       "modified": "2026-11-20T18:35:00",
       "status": "publish",
       "featured": true
+    },
+    {
+      "id": "cas-ruling-morocco-senegal-afcon-2025-final-tuesday",
+      "cat": "africa",
+      "tags": [
+        "AFCON"
+      ],
+      "image": "images/morocco-senegal-afcon-final-cas.jpg",
+      "imageCredit": {
+        "en": "Morocco and Senegal players during the AFCON 2025 final in Rabat · MWN Sport",
+        "fr": "Joueurs du Maroc et du Sénégal lors de la finale de la CAN 2025 à Rabat · MWN Sport",
+        "ar": "لاعبو المغرب والسنغال خلال نهائي كأس أمم إفريقيا 2025 بالرباط · MWN Sport"
+      },
+      "motif": "pitch",
+      "title": "CAS to Rule on Morocco–Senegal AFCON 2025 Final Dispute on Tuesday",
+      "excerpt": "The Court of Arbitration for Sport will announce on Tuesday afternoon whether Morocco keep the AFCON 2025 title or Senegal win their appeal.",
+      "body": [
+        "The long legal battle over the AFCON 2025 title is about to reach its decisive moment. The Court of Arbitration for Sport (CAS) has announced that it will deliver its ruling on the Morocco–Senegal final dispute on Tuesday, 24 November, in the afternoon (GMT).",
+        "In an official statement, CAS said it had notified all the parties involved in Senegal's appeal against the Confederation of African Football (CAF) and the Royal Moroccan Football Federation (FRMF). The court stressed that only announcements published through its official channels should be considered authentic, and that it would not comment further until the decision is released.",
+        "## What happened in the final",
+        "The final was played on 18 January 2026 in Rabat. Late in normal time, the referee awarded a penalty to Morocco, and several Senegal players walked off the pitch in protest. The match was stopped for around a quarter of an hour before play resumed, and Senegal went on to win 1-0 after extra time.",
+        "CAF's first disciplinary decision handed out fines and suspensions but left the result unchanged. The FRMF appealed, and on 17 March 2026 the CAF Appeal Board ruled that Senegal had forfeited the final, recording a 3-0 victory for Morocco and naming the Atlas Lions African champions.",
+        "## Senegal's appeal",
+        "The Senegalese federation rejected the decision and took the case to CAS on 25 March, asking for CAF's ruling to be cancelled and for Senegal to be reinstated as champions. The hearing took place behind closed doors in Lausanne, Switzerland, on 8 October, with Senegal, Morocco and CAF all presenting their arguments.",
+        "## What is at stake",
+        "Tuesday's decision will settle who is officially the champion of Africa. According to reports, it could also affect the prize money, with around $7 million for the winners and $4 million for the runners-up.",
+        "KoraPulse will publish the verdict and the reactions as soon as CAS makes its decision public."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Le TAS rendra mardi sa décision sur la finale de la CAN 2025 entre le Maroc et le Sénégal",
+          "excerpt": "Le Tribunal arbitral du sport annoncera mardi après-midi si le Maroc conserve le titre de la CAN 2025 ou si le Sénégal obtient gain de cause.",
+          "body": [
+            "La longue bataille juridique autour du titre de la CAN 2025 approche de son dénouement. Le Tribunal arbitral du sport (TAS) a annoncé qu'il rendra sa décision sur le litige de la finale Maroc–Sénégal le mardi 24 novembre, dans l'après-midi (GMT).",
+            "Dans un communiqué officiel, le TAS indique avoir informé toutes les parties concernées par l'appel du Sénégal contre la Confédération africaine de football (CAF) et la Fédération royale marocaine de football (FRMF). Le tribunal souligne que seules les annonces publiées sur ses canaux officiels doivent être considérées comme authentiques, et qu'il ne fera aucun autre commentaire avant la publication de la décision.",
+            "## Ce qui s'est passé en finale",
+            "La finale s'est jouée le 18 janvier 2026 à Rabat. En fin de temps réglementaire, l'arbitre a accordé un penalty au Maroc et plusieurs joueurs sénégalais ont quitté la pelouse en signe de protestation. Le match a été interrompu pendant environ un quart d'heure avant de reprendre, et le Sénégal s'est finalement imposé 1-0 après prolongation.",
+            "La première décision disciplinaire de la CAF a infligé des amendes et des suspensions sans modifier le résultat. La FRMF a fait appel et, le 17 mars 2026, le jury d'appel de la CAF a déclaré le Sénégal forfait, a donné le match gagné 3-0 au Maroc et a sacré les Lions de l'Atlas champions d'Afrique.",
+            "## L'appel du Sénégal",
+            "La fédération sénégalaise a contesté cette décision et a saisi le TAS le 25 mars, demandant l'annulation de la décision de la CAF et le rétablissement du Sénégal comme champion. L'audience s'est tenue à huis clos à Lausanne, en Suisse, le 8 octobre, en présence des représentants du Sénégal, du Maroc et de la CAF.",
+            "## Les enjeux",
+            "La décision de mardi désignera officiellement le champion d'Afrique. Selon plusieurs médias, elle pourrait aussi avoir un impact sur les primes, d'environ 7 millions de dollars pour le vainqueur et 4 millions pour le finaliste.",
+            "KoraPulse publiera le verdict et les réactions dès que le TAS rendra sa décision publique."
+          ]
+        },
+        "ar": {
+          "title": "محكمة التحكيم الرياضي تصدر قرارها في نزاع نهائي كأس أمم إفريقيا 2025 بين المغرب والسنغال يوم الثلاثاء",
+          "excerpt": "ستعلن محكمة التحكيم الرياضي بعد ظهر الثلاثاء ما إذا كان المغرب سيحتفظ بلقب كأس أمم إفريقيا 2025 أم أن السنغال ستكسب طعنها.",
+          "body": [
+            "تقترب المعركة القانونية الطويلة حول لقب كأس أمم إفريقيا 2025 من لحظتها الحاسمة، بعدما أعلنت محكمة التحكيم الرياضي (طاس) أنها ستصدر قرارها في نزاع نهائي المغرب والسنغال يوم الثلاثاء 24 نونبر، بعد الظهر بتوقيت غرينتش.",
+            "وأوضحت المحكمة في بلاغ رسمي أنها أبلغت جميع الأطراف المعنية بطعن السنغال ضد الاتحاد الإفريقي لكرة القدم (الكاف) والجامعة الملكية المغربية لكرة القدم، مشددة على أن الإعلانات المنشورة عبر قنواتها الرسمية وحدها تُعتبر موثوقة، وأنها لن تدلي بأي تعليق آخر قبل صدور القرار رسميا.",
+            "## ماذا حدث في النهائي؟",
+            "أقيم النهائي يوم 18 يناير 2026 بالرباط. وفي أواخر الوقت الأصلي، أعلن الحكم عن ضربة جزاء لصالح المغرب، فغادر عدد من لاعبي السنغال أرضية الملعب احتجاجا. وتوقفت المباراة قرابة ربع ساعة قبل أن تُستأنف، لتفوز السنغال في النهاية بهدف دون رد بعد الأشواط الإضافية.",
+            "وفرض القرار التأديبي الأول للكاف غرامات وعقوبات إيقاف دون تغيير النتيجة. فاستأنفت الجامعة الملكية المغربية لكرة القدم، وفي 17 مارس 2026 قضت لجنة الاستئناف بالكاف بخسارة السنغال للنهائي، واعتماد فوز المغرب بثلاثية نظيفة وتتويج أسود الأطلس أبطالا لإفريقيا.",
+            "## طعن السنغال",
+            "رفض الاتحاد السنغالي القرار ولجأ إلى محكمة التحكيم الرياضي يوم 25 مارس، مطالبا بإلغاء قرار الكاف وإعادة اللقب إلى السنغال. وعُقدت الجلسة بشكل مغلق في لوزان السويسرية يوم 8 أكتوبر، حيث قدمت السنغال والمغرب والكاف حججها.",
+            "## ما الذي على المحك؟",
+            "سيحسم قرار الثلاثاء هوية بطل إفريقيا بشكل رسمي، وحسب تقارير إعلامية فقد يؤثر أيضا على الجوائز المالية، التي تبلغ نحو 7 ملايين دولار للبطل و4 ملايين دولار للوصيف.",
+            "وسينشر موقع كورابولس الحكم وردود الفعل فور إعلان المحكمة عن قرارها."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-23",
+      "modified": "2026-11-23T11:45:00",
+      "status": "publish",
+      "featured": true
     }
   ],
-  "updated": "2026-11-20T18:35:00",
+  "updated": "2026-11-23T11:45:00",
   "pages": [
     {
       "slug": "about",
