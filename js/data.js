@@ -719,6 +719,7 @@ window.KP = {
       "title": "CAS to Rule on Morocco–Senegal AFCON 2025 Final Dispute on Tuesday",
       "excerpt": "The Court of Arbitration for Sport will announce on Tuesday afternoon whether Morocco keep the AFCON 2025 title or Senegal win their appeal.",
       "body": [
+        "**Update, 24 November:** CAS has upheld Senegal's appeal and reinstated them as AFCON 2025 champions. [Read the verdict](article.html?id=cas-reinstates-senegal-afcon-2025-champions-morocco).",
         "The long legal battle over the AFCON 2025 title is about to reach its decisive moment. The Court of Arbitration for Sport (CAS) has announced that it will deliver its ruling on the Morocco–Senegal final dispute on Tuesday, 24 November, in the afternoon (GMT).",
         "In an official statement, CAS said it had notified all the parties involved in Senegal's appeal against the Confederation of African Football (CAF) and the Royal Moroccan Football Federation (FRMF). The court stressed that only announcements published through its official channels should be considered authentic, and that it would not comment further until the decision is released.",
         "## What happened in the final",
@@ -735,6 +736,7 @@ window.KP = {
           "title": "Le TAS rendra mardi sa décision sur la finale de la CAN 2025 entre le Maroc et le Sénégal",
           "excerpt": "Le Tribunal arbitral du sport annoncera mardi après-midi si le Maroc conserve le titre de la CAN 2025 ou si le Sénégal obtient gain de cause.",
           "body": [
+            "**Mise à jour, 24 novembre :** le TAS a donné raison au Sénégal, de nouveau champion de la CAN 2025. [Lire le verdict](article.html?id=cas-reinstates-senegal-afcon-2025-champions-morocco&lang=fr).",
             "La longue bataille juridique autour du titre de la CAN 2025 approche de son dénouement. Le Tribunal arbitral du sport (TAS) a annoncé qu'il rendra sa décision sur le litige de la finale Maroc–Sénégal le mardi 24 novembre, dans l'après-midi (GMT).",
             "Dans un communiqué officiel, le TAS indique avoir informé toutes les parties concernées par l'appel du Sénégal contre la Confédération africaine de football (CAF) et la Fédération royale marocaine de football (FRMF). Le tribunal souligne que seules les annonces publiées sur ses canaux officiels doivent être considérées comme authentiques, et qu'il ne fera aucun autre commentaire avant la publication de la décision.",
             "## Ce qui s'est passé en finale",
@@ -751,6 +753,7 @@ window.KP = {
           "title": "محكمة التحكيم الرياضي تصدر قرارها في نزاع نهائي كأس أمم إفريقيا 2025 بين المغرب والسنغال يوم الثلاثاء",
           "excerpt": "ستعلن محكمة التحكيم الرياضي بعد ظهر الثلاثاء ما إذا كان المغرب سيحتفظ بلقب كأس أمم إفريقيا 2025 أم أن السنغال ستكسب طعنها.",
           "body": [
+            "**تحديث، 24 نونبر:** قبلت محكمة التحكيم الرياضي طعن السنغال وأعادت إليها لقب كأس أمم إفريقيا 2025. [اقرأ الحكم](article.html?id=cas-reinstates-senegal-afcon-2025-champions-morocco&lang=ar).",
             "تقترب المعركة القانونية الطويلة حول لقب كأس أمم إفريقيا 2025 من لحظتها الحاسمة، بعدما أعلنت محكمة التحكيم الرياضي (طاس) أنها ستصدر قرارها في نزاع نهائي المغرب والسنغال يوم الثلاثاء 24 نونبر، بعد الظهر بتوقيت غرينتش.",
             "وأوضحت المحكمة في بلاغ رسمي أنها أبلغت جميع الأطراف المعنية بطعن السنغال ضد الاتحاد الإفريقي لكرة القدم (الكاف) والجامعة الملكية المغربية لكرة القدم، مشددة على أن الإعلانات المنشورة عبر قنواتها الرسمية وحدها تُعتبر موثوقة، وأنها لن تدلي بأي تعليق آخر قبل صدور القرار رسميا.",
             "## ماذا حدث في النهائي؟",
@@ -766,12 +769,88 @@ window.KP = {
       },
       "author": "KoraPulse Administration",
       "date": "2026-11-23",
-      "modified": "2026-11-23T11:45:00",
+      "modified": "2026-11-24T17:30:00",
+      "status": "publish",
+      "featured": false
+    },
+    {
+      "id": "cas-reinstates-senegal-afcon-2025-champions-morocco",
+      "cat": "africa",
+      "tags": [
+        "AFCON"
+      ],
+      "image": "images/senegal-afcon-2025-title-cas.jpg",
+      "imageCredit": {
+        "en": "Senegal players celebrate with the AFCON trophy in Rabat, 18 January 2026 · beIN SPORTS",
+        "fr": "Les joueurs sénégalais célèbrent avec le trophée de la CAN à Rabat, le 18 janvier 2026 · beIN SPORTS",
+        "ar": "لاعبو السنغال يحتفلون بكأس أمم إفريقيا بالرباط يوم 18 يناير 2026 · beIN SPORTS"
+      },
+      "motif": "pitch",
+      "title": "CAS Reinstates Senegal as AFCON 2025 Champions, Overturning Morocco's Title",
+      "excerpt": "The Court of Arbitration for Sport has unanimously upheld Senegal's appeal and restored their 1-0 win in the final in Rabat. Morocco lose the title CAF had awarded them in March.",
+      "body": [
+        "Senegal are once again the champions of Africa. On Tuesday, 24 November, the Court of Arbitration for Sport (CAS) upheld the Senegalese Football Federation's appeal and set aside the decision of the CAF Appeal Board that had awarded the AFCON 2025 title to Morocco.",
+        "According to reports, the panel's decision was unanimous. The original result of the final, played on 18 January 2026 in Rabat, is restored: a 1-0 win for Senegal after extra time. Morocco, who had been recognised as champions since March, lose that status.",
+        "## Why CAS ruled for Senegal",
+        "CAS has announced its decision and will publish a full written award setting out its reasons later. According to early reports, the panel found that the referee's decision to resume the match after Senegal's players walked off the pitch was within his authority, and that the forfeit and the 3-0 win recorded by the CAF Appeal Board could not stand.",
+        "## How we got here",
+        "Late in normal time of the final, the referee awarded Morocco a penalty, and several Senegal players left the pitch in protest. Play was stopped for around a quarter of an hour, then resumed, and Senegal won the match 1-0 in extra time.",
+        "CAF's first disciplinary decision handed out fines and suspensions but kept the result. The Royal Moroccan Football Federation (FRMF) appealed, and on 17 March 2026 the CAF Appeal Board declared that Senegal had forfeited the final and recorded a 3-0 win for Morocco. Senegal took the case to CAS on 25 March, and the hearing was held in Lausanne on 8 October.",
+        "## Morocco's position",
+        "Hours before the verdict, Moroccan media reported that the FRMF had written to CAS about an alleged phone call between the president of the Senegalese federation and one of the arbitrators, asking for the notification of the decision to be suspended and reserving its right to appeal. CAS had not commented on this request when it announced its ruling.",
+        "CAS decisions are final in sport, but they can be challenged before the Swiss Federal Supreme Court on limited grounds, mainly procedural. KoraPulse will follow the FRMF's official reaction and any next steps.",
+        "## What changes",
+        "Senegal keep the trophy they lifted in Rabat and the champions' prize money, reported at around $7 million, while Morocco are listed as runners-up. For the Atlas Lions and their fans, it is a painful end to a ten-month legal battle that began on the night of the final.",
+        "Read our preview of the decision: [CAS to rule on the Morocco–Senegal AFCON 2025 final dispute](article.html?id=cas-ruling-morocco-senegal-afcon-2025-final-tuesday)."
+      ],
+      "tr": {
+        "fr": {
+          "title": "Le TAS rend le titre de la CAN 2025 au Sénégal et annule celui du Maroc",
+          "excerpt": "Le Tribunal arbitral du sport a donné raison au Sénégal à l'unanimité et rétabli sa victoire 1-0 en finale à Rabat. Le Maroc perd le titre que la CAF lui avait attribué en mars.",
+          "body": [
+            "Le Sénégal est de nouveau champion d'Afrique. Ce mardi 24 novembre, le Tribunal arbitral du sport (TAS) a accueilli l'appel de la Fédération sénégalaise de football et annulé la décision du jury d'appel de la CAF qui avait attribué le titre de la CAN 2025 au Maroc.",
+            "Selon les médias, la décision de la formation arbitrale a été prise à l'unanimité. Le résultat initial de la finale, jouée le 18 janvier 2026 à Rabat, est rétabli : une victoire 1-0 du Sénégal après prolongation. Le Maroc, reconnu champion depuis mars, perd ce statut.",
+            "## Pourquoi le TAS a donné raison au Sénégal",
+            "Le TAS a annoncé sa décision et publiera plus tard une sentence écrite détaillant ses motifs. Selon les premières informations, la formation a estimé que la décision de l'arbitre de reprendre le match après la sortie des joueurs sénégalais relevait de sa seule autorité, et que le forfait ainsi que la victoire 3-0 prononcés par le jury d'appel de la CAF ne pouvaient être maintenus.",
+            "## Retour sur l'affaire",
+            "En fin de temps réglementaire, l'arbitre a accordé un penalty au Maroc et plusieurs joueurs sénégalais ont quitté la pelouse pour protester. Le jeu a été interrompu pendant environ un quart d'heure avant de reprendre, et le Sénégal s'est imposé 1-0 en prolongation.",
+            "La première décision disciplinaire de la CAF a infligé des amendes et des suspensions sans toucher au résultat. La Fédération royale marocaine de football (FRMF) a fait appel et, le 17 mars 2026, le jury d'appel de la CAF a déclaré le Sénégal forfait et donné le match gagné 3-0 au Maroc. Le Sénégal a saisi le TAS le 25 mars, et l'audience s'est tenue à Lausanne le 8 octobre.",
+            "## La position du Maroc",
+            "Quelques heures avant le verdict, des médias marocains ont rapporté que la FRMF avait écrit au TAS au sujet d'un appel téléphonique présumé entre le président de la fédération sénégalaise et l'un des arbitres, en demandant la suspension de la notification de la décision et en se réservant le droit de faire appel. Le TAS ne s'était pas exprimé sur cette demande au moment d'annoncer sa décision.",
+            "Les décisions du TAS sont définitives dans le sport, mais elles peuvent être contestées devant le Tribunal fédéral suisse pour des motifs limités, principalement de procédure. KoraPulse suivra la réaction officielle de la FRMF et la suite de l'affaire.",
+            "## Ce qui change",
+            "Le Sénégal conserve le trophée soulevé à Rabat et la prime du champion, estimée à environ 7 millions de dollars, tandis que le Maroc redevient finaliste. Pour les Lions de l'Atlas et leurs supporters, c'est une fin douloureuse pour une bataille juridique de dix mois commencée le soir même de la finale.",
+            "Lire notre article avant la décision : [Le TAS rendra mardi sa décision sur la finale de la CAN 2025](article.html?id=cas-ruling-morocco-senegal-afcon-2025-final-tuesday&lang=fr)."
+          ]
+        },
+        "ar": {
+          "title": "محكمة التحكيم الرياضي تعيد لقب كأس أمم إفريقيا 2025 إلى السنغال وتلغي تتويج المغرب",
+          "excerpt": "قبلت محكمة التحكيم الرياضي بالإجماع طعن السنغال وأعادت فوزها بهدف دون رد في نهائي الرباط، ليفقد المغرب اللقب الذي منحه إياه الكاف في مارس.",
+          "body": [
+            "عادت السنغال لتكون بطلة إفريقيا من جديد، بعدما قبلت محكمة التحكيم الرياضي (طاس)، يوم الثلاثاء 24 نونبر، الطعن الذي تقدم به الاتحاد السنغالي لكرة القدم، وألغت قرار لجنة الاستئناف بالكاف الذي منح لقب كأس أمم إفريقيا 2025 للمغرب.",
+            "وحسب التقارير، صدر قرار هيئة التحكيم بالإجماع، لتعود النتيجة الأصلية لنهائي 18 يناير 2026 بالرباط، أي فوز السنغال بهدف دون رد بعد الأشواط الإضافية، فيما يفقد المغرب صفة البطل التي حصل عليها منذ مارس.",
+            "## لماذا حكمت المحكمة لصالح السنغال؟",
+            "أعلنت المحكمة قرارها على أن تنشر لاحقا الحكم المكتوب بتعليلاته الكاملة. ووفق المعطيات الأولى، رأت الهيئة أن قرار الحكم استئناف المباراة بعد مغادرة لاعبي السنغال أرضية الملعب يدخل ضمن صلاحياته، وأن اعتبار السنغال منسحبة واحتساب فوز المغرب 3-0 من طرف لجنة الاستئناف بالكاف لا يمكن الإبقاء عليه.",
+            "## كيف وصلنا إلى هنا؟",
+            "في أواخر الوقت الأصلي للنهائي، أعلن الحكم عن ضربة جزاء للمغرب، فغادر عدد من لاعبي السنغال الملعب احتجاجا. وتوقف اللعب قرابة ربع ساعة قبل أن يُستأنف، لتفوز السنغال بهدف دون رد في الأشواط الإضافية.",
+            "وفرض القرار التأديبي الأول للكاف غرامات وعقوبات إيقاف دون المساس بالنتيجة، فاستأنفت الجامعة الملكية المغربية لكرة القدم، وفي 17 مارس 2026 اعتبرت لجنة الاستئناف بالكاف السنغال منسحبة واحتسبت فوز المغرب 3-0. ولجأت السنغال إلى محكمة التحكيم الرياضي يوم 25 مارس، وعُقدت الجلسة في لوزان يوم 8 أكتوبر.",
+            "## موقف المغرب",
+            "قبل ساعات من صدور الحكم، أفادت وسائل إعلام مغربية بأن الجامعة الملكية المغربية لكرة القدم راسلت المحكمة بشأن اتصال هاتفي مفترض بين رئيس الاتحاد السنغالي وأحد المحكمين، وطلبت تعليق تبليغ القرار مع احتفاظها بحقها في الطعن. ولم تعلق المحكمة على هذا الطلب عند إعلان قرارها.",
+            "وتُعد قرارات محكمة التحكيم الرياضي نهائية في المجال الرياضي، لكن يمكن الطعن فيها أمام المحكمة الفيدرالية السويسرية لأسباب محدودة، تتعلق أساسا بالإجراءات. وسيتابع موقع كورابولس رد الفعل الرسمي للجامعة والخطوات المقبلة.",
+            "## ما الذي يتغير؟",
+            "تحتفظ السنغال بالكأس التي رفعتها في الرباط وبجائزة البطل، التي تقدر بنحو 7 ملايين دولار، فيما يعود المغرب إلى مركز الوصيف. وبالنسبة لأسود الأطلس وجماهيرهم، تشكل هذه النهاية خيبة مؤلمة لمعركة قانونية دامت عشرة أشهر منذ ليلة النهائي.",
+            "اقرأ مقالنا قبل صدور القرار: [محكمة التحكيم الرياضي تصدر قرارها في نزاع نهائي كأس أمم إفريقيا 2025](article.html?id=cas-ruling-morocco-senegal-afcon-2025-final-tuesday&lang=ar)."
+          ]
+        }
+      },
+      "author": "KoraPulse Administration",
+      "date": "2026-11-24",
+      "modified": "2026-11-24T17:30:00",
       "status": "publish",
       "featured": true
     }
   ],
-  "updated": "2026-11-23T11:45:00",
+  "updated": "2026-11-24T17:30:00",
   "pages": [
     {
       "slug": "about",
