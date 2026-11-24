@@ -769,7 +769,7 @@ window.KP = {
       },
       "author": "KoraPulse Administration",
       "date": "2026-11-23",
-      "modified": "2026-11-24T17:30:00",
+      "modified": "2026-11-24T16:00:00",
       "status": "publish",
       "featured": false
     },
@@ -845,12 +845,12 @@ window.KP = {
       },
       "author": "KoraPulse Administration",
       "date": "2026-11-24",
-      "modified": "2026-11-24T17:30:00",
+      "modified": "2026-11-24T16:00:00",
       "status": "publish",
       "featured": true
     }
   ],
-  "updated": "2026-11-24T17:30:00",
+  "updated": "2026-11-24T16:00:00",
   "pages": [
     {
       "slug": "about",
